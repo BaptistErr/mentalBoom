@@ -108,8 +108,8 @@ GameObject:
   - component: {fileID: 8359436378748158834}
   - component: {fileID: -860571567746163549}
   m_Layer: 0
-  m_Name: PushableBox 1
-  m_TagString: Untagged
+  m_Name: PushableBox
+  m_TagString: Jumpable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
