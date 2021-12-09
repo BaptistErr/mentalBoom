@@ -22,6 +22,12 @@ public class BossController : MonoBehaviour
     private Vector3 target;
     private bool paused;
 
+    [SerializeField]
+    private int health;
+
+    [SerializeField]
+    private GameManager manager;
+
     //Initialize variables
     void Start()
     {
@@ -89,6 +95,15 @@ public class BossController : MonoBehaviour
         if (Time.realtimeSinceStartupAsDouble % 10 > 9.9)
         {
             paused = false;
+        }
+    }
+
+    public void GetDamage(int damage)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            manager.Victory();
         }
     }
 }
