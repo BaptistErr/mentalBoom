@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEngine;
 
 [RequireComponent(
@@ -99,6 +100,19 @@ public class CharacterController : MonoBehaviour
     
 #endregion
 
+#region Attack
+
+    [SerializeField] private float _attackRange = 2.0F;
+    /// <summary> The force applied when jumping (in newton). </summary>
+    public float AttackRange
+    {
+        get => _attackRange;
+        set => _attackRange = value;
+    }
+    
+#endregion
+
+
     // component cache
     private Rigidbody _rb;
     private Collider _collider;
@@ -113,10 +127,15 @@ public class CharacterController : MonoBehaviour
     private float _dashTime;
     private float _timeSinceDashEnd = float.PositiveInfinity;
 
+    [SerializeField] private PlayerAttack _attackRecorder;
+
 #region Unity callbacks
 
     private void Awake()
     {
+        _attackRecorder = gameObject.GetComponentInChildren<PlayerAttack>();
+        ResizeAttackZone(_attackRange);
+        
         _rb = GetComponent<Rigidbody>();
         _collider = GetComponent<Collider>();
         
@@ -144,6 +163,11 @@ public class CharacterController : MonoBehaviour
             {
                 StopDash();
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Attack();
         }
     }
     
@@ -178,11 +202,38 @@ public class CharacterController : MonoBehaviour
             _characterOnFloor = true;
         }
     }
-    
-#endregion
 
+    private void OnValidate()
+    {
+        ResizeAttackZone(_attackRange);
+    }
+
+    #endregion
+
+    private void ResizeAttackZone(float size)
+    {
+        if (_attackRecorder == null) return;
+        
+        Transform transform = _attackRecorder.transform;
+        transform.localPosition = Vector3.forward * size / 2.0F;
+        Vector3 scale = transform.localScale;
+        scale.z = size;
+        transform.localScale = scale;
+    }
+    
+    private void Rotate(Vector3 forward)
+    {
+        transform.LookAt(transform.position + new Vector3(forward.x, 0.0F, forward.z));
+    }
+
+    private void Attack()
+    {
+        Debug.Log($"Attacking {_attackRecorder.Enemies.Count()} enemies");
+    }
+    
     private void Move(Vector3 direction, float speed)
     {
+        Rotate(direction);
         Vector3 translation = direction * speed * Time.fixedDeltaTime;
         _rb.MovePosition(_rb.position + translation);
     }
@@ -226,7 +277,7 @@ public class CharacterController : MonoBehaviour
         return Physics.Raycast(
             ray: new Ray(origin: _rb.position, direction),
             maxDistance: Time.fixedDeltaTime * speed + _maxColliderExtent,
-            layerMask: ~_collider.gameObject.layer
+            layerMask: ~(_collider.gameObject.layer | (1<<2))
         );
     }
 }
