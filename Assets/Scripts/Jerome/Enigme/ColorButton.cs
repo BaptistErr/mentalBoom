@@ -5,7 +5,8 @@ using UnityEngine;
 public class ColorButton : MonoBehaviour
 {
     public bool IsOverlapped;
-    public string BoxName = "RedBox";
+    public string BoxName;
+    public GameObject Box;
 
     // Box enter
     private void OnTriggerEnter(Collider other)
@@ -15,6 +16,8 @@ public class ColorButton : MonoBehaviour
         {
             Debug.Log(BoxName);
             IsOverlapped = true;
+            Box = GameObject.Find(BoxName);
+            Box.GetComponent<Rigidbody>().isKinematic = true;
         }
     }
 
@@ -23,5 +26,6 @@ public class ColorButton : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         IsOverlapped = false;
+        Box.GetComponent<Rigidbody>().isKinematic = false;
     }
 }

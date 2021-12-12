@@ -28,8 +28,8 @@ class EnigmaController : MonoBehaviour
                 Scissors = GameObject.Find("Scissors");
                 Scissors.GetComponent<MeshRenderer>().enabled = true;
                 Scissors.GetComponent<Rigidbody>().isKinematic = false;
+                Scissors.GetComponent<SphereCollider>().enabled = true;
 
-                Debug.Log("you won motherfucker");
                 messageWin = true;
             }
         }
