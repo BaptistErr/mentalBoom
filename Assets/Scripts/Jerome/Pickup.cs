@@ -7,6 +7,7 @@ public class Pickup : MonoBehaviour
     public Transform TheHand;
     private GameObject Character;
     public float MaxDistance = 1f;
+    private bool Picking = false;
 
     //Pick
     void OnMouseDown()
@@ -20,15 +21,20 @@ public class Pickup : MonoBehaviour
             GetComponent<Rigidbody>().isKinematic = true;
             this.transform.position = TheHand.position;
             this.transform.parent = GameObject.Find("Hand").transform;
+            Picking = true;
         }
     }
 
     //Throw
     void OnMouseUp()
     {
-        this.transform.parent = null;
-        GetComponent<Rigidbody>().useGravity = true;
-        GetComponent<Rigidbody>().isKinematic = false;
-        GetComponent<SphereCollider>().enabled = true;
+        if (Picking == true)
+        {
+            this.transform.parent = null;
+            GetComponent<Rigidbody>().useGravity = true;
+            GetComponent<Rigidbody>().isKinematic = false;
+            GetComponent<SphereCollider>().enabled = true;
+            Picking = false;
+        }
     }
 }
