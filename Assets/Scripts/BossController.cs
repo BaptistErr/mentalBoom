@@ -28,6 +28,9 @@ public class BossController : MonoBehaviour
     [SerializeField]
     private GameManager manager;
 
+    [SerializeField]
+    private BulletBehaviour bullet;
+
     //Initialize variables
     void Start()
     {
@@ -39,12 +42,23 @@ public class BossController : MonoBehaviour
         lastLocation = 0;
         target = positions[1].position;
         paused = false;
+
+        StartCoroutine(Shoot());
+    }
+
+    IEnumerator Shoot()
+    {
+        while (true)
+        {
+            Instantiate(bullet, transform.position + new Vector3(-5, 0, -5), transform.rotation);
+            yield return new WaitForSeconds(.5f);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        var change = speed * Time.deltaTime;
+        var step = speed * Time.deltaTime;
 
         if (!paused)
         {
@@ -59,7 +73,7 @@ public class BossController : MonoBehaviour
             }
         }
 
-        transform.position = Vector3.MoveTowards(transform.position, target, change);
+        transform.position = Vector3.MoveTowards(transform.position, target, step);
 
         //Checking if boss is arrived to target
         if (Vector3.Distance(target, transform.position) < 1)
@@ -85,7 +99,6 @@ public class BossController : MonoBehaviour
             }
         }
 
-        Debug.Log("Time.realtimeSinceStartupAsDouble : " + Time.realtimeSinceStartupAsDouble);
         if (Time.realtimeSinceStartupAsDouble % 5 > 4.9)
         {
             paused = true;
