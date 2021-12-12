@@ -11,6 +11,7 @@ public class ColorButton : MonoBehaviour
     // Box enter
     private void OnTriggerEnter(Collider other)
     {
+        // TODO it repeats too much
         // Box placed?
         if (other.gameObject.name == BoxName)
         {
@@ -19,13 +20,5 @@ public class ColorButton : MonoBehaviour
             Box = GameObject.Find(BoxName);
             Box.GetComponent<Rigidbody>().isKinematic = true;
         }
-    }
-
-
-    // Box exit
-    private void OnTriggerExit(Collider other)
-    {
-        IsOverlapped = false;
-        Box.GetComponent<Rigidbody>().isKinematic = false;
     }
 }

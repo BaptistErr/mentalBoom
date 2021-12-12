@@ -30,8 +30,10 @@ public class UseScissors : MonoBehaviour
 
     IEnumerator WaitBeforeStuck()
     {
-        //yield on a new YieldInstruction that waits for 5 seconds.
-        yield return new WaitForSeconds(3);
+        // yield on a new YieldInstruction that waits for 5 seconds.
+        yield return new WaitForSeconds(2);
+        // stuck the bridge 
+        Plateform.GetComponent<Rigidbody>().isKinematic = true;
     }
 
 }
