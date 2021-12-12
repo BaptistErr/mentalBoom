@@ -7,14 +7,22 @@ public class BulletBehaviour : MonoBehaviour
     [SerializeField]
     private float force;
 
-    private Vector3 target;
+    private CharacterController target;
+    
+    [SerializeField] private float _damage = 5.0F;
+    /// <summary> Amount of damages dealt by each projectile </summary>
+    public float Damage
+    {
+        get => _damage;
+        set => _damage = value;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        Destroy(gameObject, 2);
-        target = FindObjectOfType<CharacterController>().transform.position;
-        transform.LookAt(target);
+        Destroy(gameObject, 5);
+        target = FindObjectOfType<CharacterController>();
+        transform.LookAt(target.transform.position);
         transform.rotation *= Quaternion.Euler(90, 0, 0);
         GetComponent<Rigidbody>().AddForce(transform.up * force, ForceMode.Impulse);
     }
@@ -27,6 +35,13 @@ public class BulletBehaviour : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Destroy(gameObject);
+        if (other.GetComponent<CharacterController>())
+        {
+            target.GetDamage(Damage);
+        }
+        if (!other.isTrigger)
+        {
+            Destroy(gameObject);
+        }
     }
 }
