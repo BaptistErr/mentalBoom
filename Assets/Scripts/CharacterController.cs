@@ -10,6 +10,7 @@ public class CharacterController : MonoBehaviour
 {
     
 #region Movements
+[Header("Movements")]
 
     [SerializeField] private float _moveSpeed = 5.0F;
     /// <summary> The normal walk speed, without any other effect. </summary>
@@ -19,6 +20,7 @@ public class CharacterController : MonoBehaviour
         set => _moveSpeed = value;
     }
     
+[Header("Dash")]
     [SerializeField] private float _dashMoveSpeed = 15.0F;
     /// <summary> The walk speed when dashing.
     /// The player cannot change its direction when a dash is performed. </summary>
@@ -45,6 +47,7 @@ public class CharacterController : MonoBehaviour
         set => _dashCooldown = value;
     }
     
+[Header("Jump")]
     [SerializeField] private bool _isJumpEnabled = true;
     /// <summary> Is the jump globally enabled or not. </summary>
     public bool IsJumpEnabled
@@ -101,17 +104,41 @@ public class CharacterController : MonoBehaviour
 #endregion
 
 #region Attack
+[Header("Attack")]
 
     [SerializeField] private float _attackRange = 2.0F;
-    /// <summary> The force applied when jumping (in newton). </summary>
+    /// <summary> The distance the player can attack enemies. </summary>
     public float AttackRange
     {
         get => _attackRange;
         set => _attackRange = value;
     }
     
-#endregion
+    [SerializeField] private float _attackCooldown = 0.33F;
+    /// <summary> The time to wait before another attack is possible. </summary>
+    public float AttackCooldown
+    {
+        get => _attackCooldown;
+        set => _attackCooldown = value;
+    }
 
+    [SerializeField] private float _attackLoadDuration = 2.0F;
+    /// <summary> The time to press the key so an attach is full loaded. </summary>
+    public float AttackLoadDuration
+    {
+        get => _attackLoadDuration;
+        set => _attackLoadDuration = value;
+    }
+    
+    [SerializeField] private AnimationCurve _attackDamageByLoad = new AnimationCurve();
+    /// <summary> The damage dealt by the percentage of weapon load. </summary>
+    public AnimationCurve AttackDamageByLoad
+    {
+        get => _attackDamageByLoad;
+        set => _attackDamageByLoad = value;
+    }
+    
+#endregion
 
     // component cache
     private Rigidbody _rb;
@@ -126,8 +153,11 @@ public class CharacterController : MonoBehaviour
     private Vector3 _dashDir;
     private float _dashTime;
     private float _timeSinceDashEnd = float.PositiveInfinity;
-
+    
+    // attack
     [SerializeField] private PlayerAttack _attackRecorder;
+    private float _timeSinceAttack = float.PositiveInfinity;
+    private float _attackLoadTime = 0.0F;
 
 #region Unity callbacks
 
@@ -165,9 +195,20 @@ public class CharacterController : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.E))
+        _timeSinceAttack += Time.deltaTime;
+        if (Input.GetKey(KeyCode.E) && _timeSinceAttack > _attackCooldown)
         {
-            Attack();
+            _attackLoadTime += Time.deltaTime;
+        }
+
+        if (Input.GetKeyUp(KeyCode.E) && _timeSinceAttack > _attackCooldown)
+        {
+            float weaponLoadPct = Math.Min(1.0F, _attackLoadTime / _attackLoadDuration);
+            
+            _timeSinceAttack = 0.0F;
+            _attackLoadTime = 0.0F;
+            
+            Attack(_attackDamageByLoad.Evaluate(weaponLoadPct));
         }
     }
     
@@ -226,9 +267,9 @@ public class CharacterController : MonoBehaviour
         transform.LookAt(transform.position + new Vector3(forward.x, 0.0F, forward.z));
     }
 
-    private void Attack()
+    private void Attack(float damage)
     {
-        Debug.Log($"Attacking {_attackRecorder.Enemies.Count()} enemies");
+        Debug.Log($"Attacking {_attackRecorder.Enemies.Count()} enemies (-{damage:F0} HP)");
     }
     
     private void Move(Vector3 direction, float speed)
