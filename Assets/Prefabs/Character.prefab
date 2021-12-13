@@ -1,5 +1,63 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &765312133
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 765312134}
+  - component: {fileID: 765312135}
+  - component: {fileID: 765312136}
+  m_Layer: 2
+  m_Name: Attack Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &765312134
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 765312133}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1.5}
+  m_LocalScale: {x: 1, y: 2, z: 3}
+  m_Children: []
+  m_Father: {fileID: 7254288913525998914}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &765312135
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 765312133}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &765312136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 765312133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd958f5bdebec914695ceae1ecbb901d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnemyLayer: 11
 --- !u!1 &1426524151212570141
 GameObject:
   m_ObjectHideFlags: 0
@@ -43,6 +101,7 @@ GameObject:
   - component: {fileID: 7254288913525998912}
   - component: {fileID: 7254288913525998913}
   - component: {fileID: 7254288913525998918}
+  - component: {fileID: 1456213304}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -62,6 +121,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2863175903450829624}
+  - {fileID: 765312134}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -92,7 +152,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 2f4c2d9e51288e24697eeaa672a5e6a5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -144,3 +204,61 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &1456213304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7254288913525998916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4f2d62426a164141a60eeba28703dc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manager: {fileID: 0}
+  _health: 0
+  _moveSpeed: 8
+  _dashMoveSpeed: 20
+  _dashDuration: 0.2
+  _dashCooldown: 0.5
+  _isJumpEnabled: 1
+  _jumpForce: 50
+  _forwardDirection: {x: -0.70710677, y: 0, z: 0.70710677}
+  _attackRange: 3
+  _attackCooldown: 0.33
+  _attackLoadDuration: 2
+  _attackDamageByLoad:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.006606102
+      value: 3.0163584
+      inSlope: 0.046745345
+      outSlope: 0.046745345
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.42557493
+    - serializedVersion: 3
+      time: 0.83211744
+      value: 4.970673
+      inSlope: 3.461523
+      outSlope: 3.461523
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.17237759
+      outWeight: 0.69886017
+    - serializedVersion: 3
+      time: 1.0066061
+      value: 5.507399
+      inSlope: 1.5270019
+      outSlope: 1.5270019
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.944753
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _attackRecorder: {fileID: 765312136}
