@@ -22,7 +22,7 @@ public class CameraController : MonoBehaviour
     }
     
     
-
+    /*
     private void LateUpdate()
     {
         this.transform.position = CameraMode switch
@@ -30,5 +30,5 @@ public class CameraController : MonoBehaviour
             CameraMode.FollowPlayer => Character.transform.position + Offset,
             
         };
-    }
+    }*/
 }

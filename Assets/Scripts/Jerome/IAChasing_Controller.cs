@@ -7,15 +7,26 @@ public class IAChasing_Controller : MonoBehaviour
 {
 
     private NavMeshAgent agent = null;
-    private Vector3 target;
+    private CharacterController target;
+    private Vector3 aim;
     private GameObject IAChasing;
     private float stoppingDistance;
+    private bool Cooldown = true;
+
+    [SerializeField] private float _damage = 10.0F;
+    /// <summary> Amount of damages dealt by each projectile </summary>
+    public float Damage
+    {
+        get => _damage;
+        set => _damage = value;
+    }
 
 
     // Start is called before the first frame update
     void Start()
     {
         GetReferences();
+        target = FindObjectOfType<CharacterController>();
         IAChasing = GameObject.Find("AIChasing");
         stoppingDistance = IAChasing.GetComponent<NavMeshAgent>().stoppingDistance;
     }
@@ -29,10 +40,10 @@ public class IAChasing_Controller : MonoBehaviour
     // Move to player
     private void MoveToTarget()
     {
-        target = FindObjectOfType<CharacterController>().transform.position;
-        agent.SetDestination(target);
+        aim = FindObjectOfType<CharacterController>().transform.position;
+        agent.SetDestination(aim);
 
-        float distanceToTarget = Vector3.Distance(transform.position, target);
+        float distanceToTarget = Vector3.Distance(transform.position, aim);
 
         
         if (distanceToTarget <= stoppingDistance)
@@ -44,7 +55,7 @@ public class IAChasing_Controller : MonoBehaviour
     // Rotate toward player
     private void RotateToTarget()
     {
-        transform.LookAt(target);
+        transform.LookAt(aim);
     }
 
     // GetReferences
@@ -56,15 +67,27 @@ public class IAChasing_Controller : MonoBehaviour
     // Detecting player
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.name == "Character")
+        if (other.GetComponent<CharacterController>() && Cooldown == true)
         {
             Attack();
+            Cooldown = false;
+            StartCoroutine(WaitBeforeHit());
         }
     }
 
+    // TODO ca fait pas les degat marqué au dessus soit 10
     // Attack the player
     private void Attack()
     {
-        Debug.Log("COUCOU");
+        target.GetDamage(Damage);
+        Debug.Log(target.Health);
+    }
+
+    // Cooldown before each hit
+    IEnumerator WaitBeforeHit()
+    {
+        // yield on a new YieldInstruction that waits for 5 seconds.
+        yield return new WaitForSeconds(1);
+        Cooldown = true;
     }
 }
