@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private Canvas victoryMenu;
+
     [SerializeField] private bool _isInputEnabled;
     /// <summary> Used to disable inputs when the character dies </summary>
     public bool IsInputEnabled
@@ -35,6 +38,11 @@ public class GameManager : MonoBehaviour
 
     public void Victory()
     {
-        
+        victoryMenu.gameObject.SetActive(true);
+    }
+
+    public void Replay()
+    {
+        SceneManager.LoadScene("ProtoMain");
     }
 }
