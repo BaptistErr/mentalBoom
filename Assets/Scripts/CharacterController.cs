@@ -39,16 +39,6 @@ public class CharacterController : MonoBehaviour
         set => _dashMoveSpeed = value;
     }
 
-    public void GetDamage(float damage)
-    {
-        Health -= damage;
-        if (Health <= 0)
-        {
-            transform.rotation *= Quaternion.Euler(90, 0, 0);
-            manager.IsInputEnabled = false;
-        }
-    }
-
     [SerializeField] private float _dashDuration = 0.5F;
     /// <summary> The duration of a dash.
     /// When the character hits an obstacle, the dash immediately stops. </summary>
@@ -235,7 +225,7 @@ public class CharacterController : MonoBehaviour
     
     private void FixedUpdate()
     {
-        if (manager.IsInputEnabled)
+        if (!manager.gameEnded)
         {
             if (_dashing)
             {
@@ -293,7 +283,10 @@ public class CharacterController : MonoBehaviour
 
     private void Attack(float damage)
     {
-        Debug.Log($"Attacking {_attackRecorder.Enemies.Count()} enemies (-{damage:F0} HP)");
+        foreach (GameObject enemy in _attackRecorder.Enemies)
+        {
+            enemy.GetComponent<BossController>().GetDamage(100);
+        }
     }
     
     private void Move(Vector3 direction, float speed)
@@ -344,5 +337,18 @@ public class CharacterController : MonoBehaviour
             maxDistance: Time.fixedDeltaTime * speed + _maxColliderExtent,
             layerMask: ~(_collider.gameObject.layer | (1<<2))
         );
+    }
+
+    public void GetDamage(float damage)
+    {
+        if (Health <= 0)
+        {
+            transform.rotation = Quaternion.Euler(90, 0, 0);
+            manager.gameEnded = true;
+        }
+        else
+        {
+            Health -= damage;
+        }
     }
 }

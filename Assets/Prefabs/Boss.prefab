@@ -114,6 +114,6 @@ MonoBehaviour:
   posC: {fileID: 0}
   posPause: {fileID: 0}
   speed: 30
-  health: 0
+  health: 200
   manager: {fileID: 0}
   bullet: {fileID: -938947152734309196, guid: c63105ee93d4ce84aa8ba44c1a565140, type: 3}

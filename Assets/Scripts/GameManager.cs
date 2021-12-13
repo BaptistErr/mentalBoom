@@ -1,21 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private bool _isInputEnabled;
-    /// <summary> Used to disable inputs when the character dies </summary>
-    public bool IsInputEnabled
-    {
-        get => _isInputEnabled;
-        set => _isInputEnabled = value;
-    }
+    [SerializeField] private Canvas victoryMenu;
+
+    public bool gameEnded;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        IsInputEnabled = true;
+        gameEnded = false;
     }
 
     // Update is called once per frame
@@ -26,6 +23,12 @@ public class GameManager : MonoBehaviour
 
     public void Victory()
     {
-        
+        gameEnded = true;
+        victoryMenu.gameObject.SetActive(true);
+    }
+
+    public void Replay()
+    {
+        SceneManager.LoadScene("ProtoMain");
     }
 }
