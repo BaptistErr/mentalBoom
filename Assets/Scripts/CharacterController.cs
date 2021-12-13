@@ -8,7 +8,16 @@ using UnityEngine;
 ]
 public class CharacterController : MonoBehaviour
 {
-    
+    [SerializeField] private GameManager manager;
+
+    [SerializeField] private float _health;
+    /// <summary> Base health of player </summary>
+    public float Health
+    {
+        get => _health;
+        set => _health = value;
+    }
+
 #region Movements
 [Header("Movements")]
 
@@ -29,7 +38,17 @@ public class CharacterController : MonoBehaviour
         get => _dashMoveSpeed;
         set => _dashMoveSpeed = value;
     }
-    
+
+    public void GetDamage(float damage)
+    {
+        Health -= damage;
+        if (Health <= 0)
+        {
+            transform.rotation *= Quaternion.Euler(90, 0, 0);
+            manager.IsInputEnabled = false;
+        }
+    }
+
     [SerializeField] private float _dashDuration = 0.5F;
     /// <summary> The duration of a dash.
     /// When the character hits an obstacle, the dash immediately stops. </summary>
@@ -172,6 +191,8 @@ public class CharacterController : MonoBehaviour
         // get the max extent of the collider on the XZ plane for dash wall avoidance calculations
         Vector3 extents = _collider.bounds.extents;
         _maxColliderExtent = Math.Max(extents.x, extents.z);
+
+        Health = 100;
     }
     
     private void Update()
@@ -214,25 +235,28 @@ public class CharacterController : MonoBehaviour
     
     private void FixedUpdate()
     {
-        if (_dashing)
+        if (manager.IsInputEnabled)
         {
-            if (IsObstacleOnFrame(direction: _dashDir, speed: _dashMoveSpeed))
-            { // if any object has been hit, stop dashing
-                StopDash();
+            if (_dashing)
+            {
+                if (IsObstacleOnFrame(direction: _dashDir, speed: _dashMoveSpeed))
+                { // if any object has been hit, stop dashing
+                    StopDash();
+                }
+                else
+                {
+                    Move(direction: _dashDir, speed: _dashMoveSpeed);
+                }
             }
             else
             {
-                Move(direction: _dashDir, speed: _dashMoveSpeed);
+                if (_isJumpEnabled && Input.GetButtonDown("Jump"))
+                {
+                    Jump(_jumpForce);
+                }
+
+                Move(direction: GetMoveDirection(), speed: _moveSpeed);
             }
-        }
-        else
-        {
-            if (_isJumpEnabled && Input.GetButtonDown("Jump"))
-            {
-                Jump(_jumpForce);
-            }
-            
-            Move(direction: GetMoveDirection(), speed: _moveSpeed);
         }
     }
     
