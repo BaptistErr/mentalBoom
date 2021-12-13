@@ -7,27 +7,12 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private Canvas victoryMenu;
 
-    [SerializeField] private bool _isInputEnabled;
-    /// <summary> Used to disable inputs when the character dies </summary>
-    public bool IsInputEnabled
-    {
-        get => _isInputEnabled;
-        set => _isInputEnabled = value;
-    }
-
-    [SerializeField] private bool _characterIsAlive;
-    /// <summary> True when character is still alive </summary>
-    public bool CharacterIsAlive
-    {
-        get => _characterIsAlive;
-        set => _characterIsAlive = value;
-    }
+    public bool gameEnded;
 
     // Start is called before the first frame update
     void Awake()
     {
-        CharacterIsAlive = true;
-        IsInputEnabled = true;
+        gameEnded = false;
     }
 
     // Update is called once per frame
@@ -38,6 +23,7 @@ public class GameManager : MonoBehaviour
 
     public void Victory()
     {
+        gameEnded = true;
         victoryMenu.gameObject.SetActive(true);
     }
 

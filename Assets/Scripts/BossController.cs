@@ -48,7 +48,7 @@ public class BossController : MonoBehaviour
 
     IEnumerator Shoot()
     {
-        while (manager.CharacterIsAlive && health > 0)
+        while (!manager.gameEnded && health > 0)
         {
             Instantiate(bullet, transform.position + new Vector3(-5, 0, -5), transform.rotation);
             yield return new WaitForSeconds(.5f);

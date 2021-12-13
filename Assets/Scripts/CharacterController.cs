@@ -225,7 +225,7 @@ public class CharacterController : MonoBehaviour
     
     private void FixedUpdate()
     {
-        if (manager.IsInputEnabled)
+        if (!manager.gameEnded)
         {
             if (_dashing)
             {
@@ -344,8 +344,7 @@ public class CharacterController : MonoBehaviour
         if (Health <= 0)
         {
             transform.rotation = Quaternion.Euler(90, 0, 0);
-            manager.IsInputEnabled = false;
-            manager.CharacterIsAlive = false;
+            manager.gameEnded = true;
         }
         else
         {
