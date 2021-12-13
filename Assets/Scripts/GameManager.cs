@@ -12,9 +12,18 @@ public class GameManager : MonoBehaviour
         set => _isInputEnabled = value;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private bool _characterIsAlive;
+    /// <summary> True when character is still alive </summary>
+    public bool CharacterIsAlive
     {
+        get => _characterIsAlive;
+        set => _characterIsAlive = value;
+    }
+
+    // Start is called before the first frame update
+    void Awake()
+    {
+        CharacterIsAlive = true;
         IsInputEnabled = true;
     }
 
