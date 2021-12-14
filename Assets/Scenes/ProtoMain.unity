@@ -259,6 +259,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f2d62426a164141a60eeba28703dc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &179565119 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1790994998740721963, guid: c233153e011f51942b5ebd97429b10a6, type: 3}
+  m_PrefabInstance: {fileID: 1790994998630681385}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &293356333
 GameObject:
   m_ObjectHideFlags: 0
@@ -400,6 +405,14 @@ PrefabInstance:
       propertyPath: Character
       value: 
       objectReference: {fileID: 164577039}
+    - target: {fileID: 4245711921713300839, guid: ca6dfc96796000449ace837442f9eba6, type: 3}
+      propertyPath: _weights.Array.data[0].Transform
+      value: 
+      objectReference: {fileID: 1457467159}
+    - target: {fileID: 4245711921713300839, guid: ca6dfc96796000449ace837442f9eba6, type: 3}
+      propertyPath: _weights.Array.data[1].Transform
+      value: 
+      objectReference: {fileID: 179565119}
     - target: {fileID: 4245711921713300840, guid: ca6dfc96796000449ace837442f9eba6, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -443,10 +456,6 @@ PrefabInstance:
     - target: {fileID: 4245711921713300840, guid: ca6dfc96796000449ace837442f9eba6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4245711921713300841, guid: ca6dfc96796000449ace837442f9eba6, type: 3}
-      propertyPath: near clip plane
-      value: -50
       objectReference: {fileID: 0}
     - target: {fileID: 4245711921713300843, guid: ca6dfc96796000449ace837442f9eba6, type: 3}
       propertyPath: m_Name
@@ -1022,6 +1031,11 @@ Transform:
   m_Father: {fileID: 1951739850}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1457467159 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7254288913525998914, guid: c48a5d9f37400994b9280b754cb37ed5, type: 3}
+  m_PrefabInstance: {fileID: 1861988888}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1661294393
 GameObject:
   m_ObjectHideFlags: 0
