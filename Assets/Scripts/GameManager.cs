@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private Canvas victoryMenu;
+    [SerializeField] private Canvas endGameMenu;
 
     public bool gameEnded;
 
@@ -21,14 +22,19 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public void Victory()
+    public void GameEnded(bool victory)
     {
         gameEnded = true;
-        victoryMenu.gameObject.SetActive(true);
+        if (victory)
+        {
+            endGameMenu.GetComponentInChildren<Text>().text = "VICTORY !";
+        }
+        endGameMenu.gameObject.SetActive(true);
     }
 
     public void Replay()
     {
         SceneManager.LoadScene("ProtoMain");
+        gameEnded = false;
     }
 }

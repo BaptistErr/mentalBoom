@@ -50,7 +50,10 @@ public class BossController : MonoBehaviour
     {
         while (!manager.gameEnded && health > 0)
         {
-            Instantiate(bullet, transform.position + new Vector3(-5, 0, -5), transform.rotation);
+            if (!paused)
+            {
+                Instantiate(bullet, transform.position + new Vector3(-5, 0, -5), transform.rotation);
+            }
             yield return new WaitForSeconds(.5f);
         }
     }
@@ -99,13 +102,13 @@ public class BossController : MonoBehaviour
             }
         }
 
-        if (Time.realtimeSinceStartupAsDouble % 5 > 4.9)
+        if (Time.realtimeSinceStartupAsDouble % 5 > 4.9 && ((lastLocation == 1 && toC) || lastLocation == 2) && !paused)
         {
             paused = true;
             target = posPause.position;
         }
         
-        if (Time.realtimeSinceStartupAsDouble % 10 > 9.9)
+        if (Time.realtimeSinceStartupAsDouble % 10 > 9.9 && paused)
         {
             paused = false;
         }
@@ -117,7 +120,7 @@ public class BossController : MonoBehaviour
         if (health <= 0)
         {
             transform.rotation = Quaternion.Euler(90, 0, 0);
-            manager.Victory();
+            manager.GameEnded(true);
         }
     }
 }

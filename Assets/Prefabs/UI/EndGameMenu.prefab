@@ -78,7 +78,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'VICTORY !
+  m_Text: 'DEFEAT !
 
 '
 --- !u!1 &3801907727216321541
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 8830264515345261772}
   - component: {fileID: 1587397002242242972}
   m_Layer: 5
-  m_Name: VictoryMenu
+  m_Name: EndGameMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
