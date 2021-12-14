@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1790994998740721961}
   - component: {fileID: 1790994998740722390}
   - component: {fileID: 429074943}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Boss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,11 +109,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 134f64ec528cc494f8df20be4875ca3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  posA: {fileID: 0}
-  posB: {fileID: 0}
-  posC: {fileID: 0}
+  positions:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   posPause: {fileID: 0}
+  posLaser: {fileID: 0}
   speed: 30
   health: 200
   manager: {fileID: 0}
   bullet: {fileID: -938947152734309196, guid: c63105ee93d4ce84aa8ba44c1a565140, type: 3}
+  laser: {fileID: 6716068264935899223, guid: 157a672d127a6df41804849cd012375d, type: 3}
