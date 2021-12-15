@@ -6,35 +6,42 @@ public class Pickup : MonoBehaviour
 {
     public Transform TheHand;
     private GameObject Character;
-    public float MaxDistance = 1f;
-    private bool Picking = false;
+    public float maxDistance = 1f;
+    private bool picking;
 
-    //Pick
-    void OnMouseDown()
+    private void Start()
     {
-        Character = GameObject.Find("Character");
-        float distance = Vector3.Distance(this.transform.position, Character.transform.position);
-        if(distance < MaxDistance)
-        {
-            GetComponent<SphereCollider>().enabled = false;
-            GetComponent<Rigidbody>().useGravity = false;
-            GetComponent<Rigidbody>().isKinematic = true;
-            this.transform.position = TheHand.position;
-            this.transform.parent = GameObject.Find("Hand").transform;
-            Picking = true;
-        }
+        picking = false;
     }
 
-    //Throw
-    void OnMouseUp()
+    private void Update()
     {
-        if (Picking == true)
+        if (Input.GetKeyDown(KeyCode.Mouse1))
         {
-            this.transform.parent = null;
-            GetComponent<Rigidbody>().useGravity = true;
-            GetComponent<Rigidbody>().isKinematic = false;
-            GetComponent<SphereCollider>().enabled = true;
-            Picking = false;
+            if (!picking && TheHand.childCount.Equals(0))
+            {
+                Character = GameObject.Find("Character");
+                float distance = Vector3.Distance(this.transform.position, Character.transform.position);
+                if (distance < maxDistance)
+                {
+                    GetComponent<SphereCollider>().enabled = false;
+                    GetComponent<Rigidbody>().useGravity = false;
+                    GetComponent<Rigidbody>().isKinematic = true;
+                    transform.position = TheHand.position;
+                    transform.parent = GameObject.Find("Hand").transform;
+                    picking = true;
+                    Debug.Log("get");
+                }
+            }
+            else
+            {
+                transform.parent = null;
+                GetComponent<SphereCollider>().enabled = true;
+                GetComponent<Rigidbody>().useGravity = true;
+                GetComponent<Rigidbody>().isKinematic = false;
+                picking = false;
+                Debug.Log("throw");
+            }
         }
     }
 }
