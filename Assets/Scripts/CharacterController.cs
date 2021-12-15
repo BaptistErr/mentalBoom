@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 
@@ -9,6 +10,8 @@ using UnityEngine;
 public class CharacterController : MonoBehaviour
 {
     [SerializeField] private GameManager manager;
+
+    private bool hit;
 
     [SerializeField] private float _health;
     /// <summary> Base health of player </summary>
@@ -183,6 +186,7 @@ public class CharacterController : MonoBehaviour
         _maxColliderExtent = Math.Max(extents.x, extents.z);
 
         Health = 100;
+        hit = false;
     }
     
     private void Update()
@@ -346,9 +350,16 @@ public class CharacterController : MonoBehaviour
             transform.rotation = Quaternion.Euler(90, 0, 0);
             manager.GameEnded(false);
         }
-        else
+        else if (!hit)
         {
             Health -= damage;
+            hit = true;
+            StartCoroutine(WaitDamage());
         }
+    }
+
+    IEnumerator WaitDamage()
+    {
+        yield return new WaitForSeconds(.5f);
     }
 }
