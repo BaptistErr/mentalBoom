@@ -18,13 +18,14 @@ public class Pickup : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Mouse1))
         {
+            // PickUp
             if (!picking && TheHand.childCount.Equals(0))
             {
                 Character = GameObject.Find("Character");
                 float distance = Vector3.Distance(this.transform.position, Character.transform.position);
                 if (distance < maxDistance)
                 {
-                    GetComponent<SphereCollider>().enabled = false;
+                    GetComponent<MeshCollider>().enabled = false;
                     GetComponent<Rigidbody>().useGravity = false;
                     GetComponent<Rigidbody>().isKinematic = true;
                     transform.position = TheHand.position;
@@ -33,10 +34,11 @@ public class Pickup : MonoBehaviour
                     Debug.Log("get");
                 }
             }
+            // Throw
             else
             {
                 transform.parent = null;
-                GetComponent<SphereCollider>().enabled = true;
+                GetComponent<MeshCollider>().enabled = true;
                 GetComponent<Rigidbody>().useGravity = true;
                 GetComponent<Rigidbody>().isKinematic = false;
                 picking = false;
