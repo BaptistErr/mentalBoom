@@ -211,12 +211,12 @@ public class CharacterController : MonoBehaviour
         }
 
         _timeSinceAttack += Time.deltaTime;
-        if (Input.GetKey(KeyCode.E) && _timeSinceAttack > _attackCooldown)
+        if (Input.GetKey(KeyCode.Mouse0) && _timeSinceAttack > _attackCooldown)
         {
             _attackLoadTime += Time.deltaTime;
         }
 
-        if (Input.GetKeyUp(KeyCode.E) && _timeSinceAttack > _attackCooldown)
+        if (Input.GetKeyUp(KeyCode.Mouse0) && _timeSinceAttack > _attackCooldown)
         {
             float weaponLoadPct = Math.Min(1.0F, _attackLoadTime / _attackLoadDuration);
             
