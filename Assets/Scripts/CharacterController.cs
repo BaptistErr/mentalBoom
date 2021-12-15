@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 
@@ -9,6 +10,8 @@ using UnityEngine;
 public class CharacterController : MonoBehaviour
 {
     [SerializeField] private GameManager manager;
+
+    private bool hit;
 
     [SerializeField] private float _health;
     /// <summary> Base health of player </summary>
@@ -37,16 +40,6 @@ public class CharacterController : MonoBehaviour
     {
         get => _dashMoveSpeed;
         set => _dashMoveSpeed = value;
-    }
-
-    public void GetDamage(float damage)
-    {
-        Health -= damage;
-        if (Health <= 0)
-        {
-            transform.rotation *= Quaternion.Euler(90, 0, 0);
-            manager.IsInputEnabled = false;
-        }
     }
 
     [SerializeField] private float _dashDuration = 0.5F;
@@ -193,6 +186,7 @@ public class CharacterController : MonoBehaviour
         _maxColliderExtent = Math.Max(extents.x, extents.z);
 
         Health = 100;
+        hit = false;
     }
     
     private void Update()
@@ -217,12 +211,12 @@ public class CharacterController : MonoBehaviour
         }
 
         _timeSinceAttack += Time.deltaTime;
-        if (Input.GetKey(KeyCode.E) && _timeSinceAttack > _attackCooldown)
+        if (Input.GetKey(KeyCode.Mouse0) && _timeSinceAttack > _attackCooldown)
         {
             _attackLoadTime += Time.deltaTime;
         }
 
-        if (Input.GetKeyUp(KeyCode.E) && _timeSinceAttack > _attackCooldown)
+        if (Input.GetKeyUp(KeyCode.Mouse0) && _timeSinceAttack > _attackCooldown)
         {
             float weaponLoadPct = Math.Min(1.0F, _attackLoadTime / _attackLoadDuration);
             
@@ -235,7 +229,7 @@ public class CharacterController : MonoBehaviour
     
     private void FixedUpdate()
     {
-        if (manager.IsInputEnabled)
+        if (!manager.gameEnded)
         {
             if (_dashing)
             {
@@ -293,7 +287,10 @@ public class CharacterController : MonoBehaviour
 
     private void Attack(float damage)
     {
-        Debug.Log($"Attacking {_attackRecorder.Enemies.Count()} enemies (-{damage:F0} HP)");
+        foreach (GameObject enemy in _attackRecorder.Enemies)
+        {
+            enemy.GetComponent<BossController>().GetDamage(100);
+        }
     }
     
     private void Move(Vector3 direction, float speed)
@@ -344,5 +341,25 @@ public class CharacterController : MonoBehaviour
             maxDistance: Time.fixedDeltaTime * speed + _maxColliderExtent,
             layerMask: ~(_collider.gameObject.layer | (1<<2))
         );
+    }
+
+    public void GetDamage(float damage)
+    {
+        if (Health <= 0)
+        {
+            transform.rotation = Quaternion.Euler(90, 0, 0);
+            manager.GameEnded(false);
+        }
+        else if (!hit)
+        {
+            Health -= damage;
+            hit = true;
+            StartCoroutine(WaitDamage());
+        }
+    }
+
+    IEnumerator WaitDamage()
+    {
+        yield return new WaitForSeconds(.5f);
     }
 }

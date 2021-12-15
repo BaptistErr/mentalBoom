@@ -29,6 +29,7 @@ public class CameraController : MonoBehaviour
     public Vector3 Offset;
 
     public Vector3 BackwardAxis = -(Quaternion.Euler(30.0F, -45.0F, 0.0F) * Vector3.forward);
+    
 
     [SerializeField] private CameraMode _cameraMode = CameraMode.FollowPlayer;
     public CameraMode CameraMode
@@ -49,8 +50,10 @@ public class CameraController : MonoBehaviour
         set => _weights = value;
     }
 
-    public float MinSize;
-    public float MaxSize;
+    public float MinSize = 10.0F;
+    public float MaxSize = 14.0F;
+    
+    public float FollowPlayerSize = 10.0F;
 
 
     private Action _translationMethod;
@@ -58,7 +61,7 @@ public class CameraController : MonoBehaviour
     
     private void Awake()
     {
-        CameraMode = CameraMode.Weighed;
+        CameraMode = _cameraMode;
         _camera = Camera.main;
     }
     
@@ -67,7 +70,11 @@ public class CameraController : MonoBehaviour
         _translationMethod();
     }
 
-    private void FollowPlayerPosition() => transform.position = Character.transform.position + Offset;
+    private void FollowPlayerPosition()
+    {
+        transform.position = Character.transform.position + Offset;
+        _camera.orthographicSize = FollowPlayerSize;
+    }
 
     private void WeightedPosition()
     {
