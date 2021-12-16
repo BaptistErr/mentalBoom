@@ -230,7 +230,7 @@ public class CharacterController : MonoBehaviour
         {
             if (_dashing)
             {
-                if (Move(direction: _dashDir, speed: _dashMoveSpeed))
+                if (Move(direction: _dashDir, speed: _dashMoveSpeed, considerMovables: true))
                 { // if any object has been hit, stop dashing
                     StopDash();
                 }
@@ -242,7 +242,7 @@ public class CharacterController : MonoBehaviour
                     Jump(_jumpForce);
                 }
 
-                Move(direction: GetMoveDirection(), speed: _moveSpeed);
+                Move(direction: GetMoveDirection(), speed: _moveSpeed, considerMovables: false);
             }
         }
     }
@@ -287,14 +287,18 @@ public class CharacterController : MonoBehaviour
         }
     }
     
-    private bool Move(Vector3 direction, float speed)
+    private bool Move(Vector3 direction, float speed, bool considerMovables)
     {
         Rotate(direction);
         float distanceToTravel = speed * Time.fixedDeltaTime;
         
         Vector3 translation = direction * distanceToTravel;
-        bool doHit = _rb.SweepTest(direction, out RaycastHit hit, distanceToTravel);
-        if (doHit) translation = direction * hit.distance;
+        bool doHit = _rb.SweepTest(direction, out RaycastHit hit, distanceToTravel, QueryTriggerInteraction.Ignore);
+        if (doHit)
+        {
+            if (!considerMovables) doHit = (hit.rigidbody == null);
+            if (doHit) translation = direction * hit.distance;
+        }
         _rb.MovePosition(_rb.position + translation);
 
         return doHit;
