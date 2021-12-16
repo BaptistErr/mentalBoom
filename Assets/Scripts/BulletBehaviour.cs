@@ -39,9 +39,5 @@ public class BulletBehaviour : MonoBehaviour
         {
             target.GetDamage(Damage);
         }
-        if (!other.isTrigger)
-        {
-            Destroy(gameObject);
-        }
     }
 }

@@ -6,7 +6,7 @@ public class Pickup : MonoBehaviour
 {
     public Transform TheHand;
     private GameObject Character;
-    public float maxDistance = 1f;
+    public float maxDistance;
     private bool picking;
 
     private void Start()
@@ -22,7 +22,7 @@ public class Pickup : MonoBehaviour
             if (!picking && TheHand.childCount.Equals(0))
             {
                 Character = GameObject.Find("Character");
-                float distance = Vector3.Distance(this.transform.position, Character.transform.position);
+                float distance = Vector3.Distance(transform.position, Character.transform.position);
                 if (distance < maxDistance)
                 {
                     GetComponent<MeshCollider>().enabled = false;

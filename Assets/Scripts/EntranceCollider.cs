@@ -21,6 +21,9 @@ public class EntranceCollider : MonoBehaviour
     [SerializeField]
     private BossController boss;
 
+    [SerializeField]
+    private BoxCollider blockEntrance;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,5 +43,7 @@ public class EntranceCollider : MonoBehaviour
         bossSpawned.posLaser = posLaser;
         bossSpawned.posSpawn = posSpawnEnemies;
         bossSpawned.positions = positions;
+        blockEntrance.isTrigger = false;
+        Destroy(gameObject);
     }
 }
