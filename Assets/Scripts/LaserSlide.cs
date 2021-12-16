@@ -40,7 +40,8 @@ public class LaserSlide : MonoBehaviour
             GetComponent<LineRenderer>().SetPosition(1, GetComponent<LineRenderer>().GetPosition(1) + new Vector3(0, 0, .05f));
             if (GetComponent<LineRenderer>().GetPosition(1).z >= 25)
             {
-                GetComponentInParent<BossController>().ChangePhase();
+                GetComponentInParent<BossController>().ChoosePattern();
+                GetComponentInParent<BossController>().isLasering = false;
                 Destroy(gameObject);
             }
         }

@@ -361,5 +361,6 @@ public class CharacterController : MonoBehaviour
     IEnumerator WaitDamage()
     {
         yield return new WaitForSeconds(.5f);
+        hit = false;
     }
 }
