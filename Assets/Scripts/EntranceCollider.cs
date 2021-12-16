@@ -40,7 +40,7 @@ public class EntranceCollider : MonoBehaviour
     {
         if (!other.isTrigger)
         {
-            BossController bossSpawned = Instantiate(boss, posSpawnBoss, true);
+            BossController bossSpawned = Instantiate(boss, posSpawnBoss.position, posSpawnBoss.rotation);
             bossSpawned.posPause = posPause;
             bossSpawned.posLaser = posLaser;
             bossSpawned.posSpawn = posSpawnEnemies;
