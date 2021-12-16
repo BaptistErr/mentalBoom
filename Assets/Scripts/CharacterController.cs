@@ -169,7 +169,7 @@ public class CharacterController : MonoBehaviour
 
     private void Awake()
     {
-        _attackRecorder = gameObject.GetComponentInChildren<PlayerAttack>();
+        _attackRecorder = GameObject.Find("Attack Collider").gameObject.GetComponent<PlayerAttack>();
         ResizeAttackZone(_attackRange);
         
         _rb = GetComponent<Rigidbody>();
@@ -216,7 +216,7 @@ public class CharacterController : MonoBehaviour
             _timeSinceAttack = 0.0F;
             _attackLoadTime = 0.0F;
             
-            Attack(_attackDamageByLoad.Evaluate(weaponLoadPct));
+            Attack((int)_attackDamageByLoad.Evaluate(weaponLoadPct));
         }
     }
     
@@ -274,12 +274,12 @@ public class CharacterController : MonoBehaviour
         transform.LookAt(transform.position + new Vector3(forward.x, 0.0F, forward.z));
     }
 
-    private void Attack(float damage)
+    private void Attack(int damage)
     {
         foreach (GameObject enemy in _attackRecorder.Enemies)
         {
-            enemy.GetComponent<BossController>()?.GetDamage(100);
-            enemy.GetComponent<IAChasing_Controller>()?.GetDamage(25);
+            Debug.Log("attacking " + enemy + " with " + damage + " hp");
+            enemy.GetComponent<IEnemy>().GetDamage(damage);
         }
     }
     

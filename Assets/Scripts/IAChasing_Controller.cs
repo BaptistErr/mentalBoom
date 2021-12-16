@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class IAChasing_Controller : MonoBehaviour
+public class IAChasing_Controller : MonoBehaviour, IEnemy
 {
 
     private NavMeshAgent agent = null;
