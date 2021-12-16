@@ -136,9 +136,14 @@ public class BossController : MonoBehaviour
         health -= damage;
         if (health <= 0)
         {
-            transform.rotation = Quaternion.Euler(90, 0, 0);
-            manager.GameEnded(true);
+            Die();
         }
+    }
+
+    public void Die()
+    {
+        transform.rotation = Quaternion.Euler(90, 0, 0);
+        manager.GameEnded(true);
     }
 
     public void ChangePhase()
