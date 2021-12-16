@@ -10,6 +10,8 @@ public class LaserSlide : MonoBehaviour
     private float distanceTo1;
     private float distDiff;
     private float lengthLaser;
+    [SerializeField]
+    private float speed;
 
     private CharacterController character;
 
@@ -23,9 +25,10 @@ public class LaserSlide : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        var step = speed * Time.deltaTime;
         if (toBack)
         {
-            GetComponent<LineRenderer>().SetPosition(1, GetComponent<LineRenderer>().GetPosition(1) - new Vector3(0, 0, .05f));
+            GetComponent<LineRenderer>().SetPosition(1, GetComponent<LineRenderer>().GetPosition(1) - new Vector3(0, 0, .05f * step));
             if (GetComponent<LineRenderer>().GetPosition(1).z <= -25)
             {
                 toBack = false;
@@ -33,14 +36,15 @@ public class LaserSlide : MonoBehaviour
         }
         else if (GetComponent<LineRenderer>().GetPosition(1).x <= 66.5)
         {
-            GetComponent<LineRenderer>().SetPosition(1, GetComponent<LineRenderer>().GetPosition(1) + new Vector3(0.05f, 0, 0));
+            GetComponent<LineRenderer>().SetPosition(1, GetComponent<LineRenderer>().GetPosition(1) + new Vector3(0.05f * step, 0, 0));
         }
         else
         {
-            GetComponent<LineRenderer>().SetPosition(1, GetComponent<LineRenderer>().GetPosition(1) + new Vector3(0, 0, .05f));
+            GetComponent<LineRenderer>().SetPosition(1, GetComponent<LineRenderer>().GetPosition(1) + new Vector3(0, 0, .05f * step));
             if (GetComponent<LineRenderer>().GetPosition(1).z >= 25)
             {
-                GetComponentInParent<BossController>().ChangePhase();
+                GetComponentInParent<BossController>().ChoosePattern();
+                GetComponentInParent<BossController>().isLasering = false;
                 Destroy(gameObject);
             }
         }

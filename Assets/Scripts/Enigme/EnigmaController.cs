@@ -24,7 +24,6 @@ class EnigmaController : MonoBehaviour
         {
             if (activatedButtons == buttons.Length)
             {
-
                 Scissors = GameObject.Find("Scissors");
                 Scissors.GetComponent<MeshRenderer>().enabled = true;
                 Scissors.GetComponent<Rigidbody>().isKinematic = false;

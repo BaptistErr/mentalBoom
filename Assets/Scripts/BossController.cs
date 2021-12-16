@@ -18,6 +18,9 @@ public class BossController : MonoBehaviour
     private bool toC;
     private Vector3 target;
     private bool paused;
+    private int pausesCounter;
+
+    public bool isLasering;
 
     [SerializeField]
     private int health;
@@ -31,11 +34,12 @@ public class BossController : MonoBehaviour
     [SerializeField]
     private GameObject laser;
 
-    private int actualPhase;
-
     private Coroutine shoot;
 
-    private bool isLasering;
+    private int pattern;
+    private int lastPattern;
+
+    private bool phaseChanged;
 
     //Initialize variables
     void Start()
@@ -45,7 +49,10 @@ public class BossController : MonoBehaviour
         lastLocation = 0;
         target = positions[1].position;
         paused = false;
-        actualPhase = 0;
+        pattern = 0;
+        lastPattern = pattern;
+        phaseChanged = false;
+        pausesCounter = 0;
         isLasering = false;
 
         shoot = StartCoroutine(Shoot());
@@ -63,72 +70,63 @@ public class BossController : MonoBehaviour
         }
     }
 
+    IEnumerator Pause()
+    {
+        paused = true;
+        target = posPause.position;
+        yield return new WaitForSeconds(5);
+        paused = false;
+        pausesCounter++;
+    }
+
     // Update is called once per frame
     void Update()
     {
-        if (actualPhase == 0)
+        if (pattern == 0 && !paused)
         {
-            if (!paused && health > 0)
+            Movement();
+            if (health <= 100 && !phaseChanged)
             {
-                //Checking direction
-                if (toC)
-                {
-                    target = positions[lastLocation + 1].position;
-                }
-                else
-                {
-                    target = positions[lastLocation - 1].position;
-                }
-            }
-
-            //Checking if boss is arrived to target
-            if (Vector3.Distance(target, transform.position) < 1)
-            {
-                //Checking direction
-                if (toC)
-                {
-                    lastLocation++;
-                }
-                else
-                {
-                    lastLocation--;
-                }
-
-                //Checking if target is terminus
-                if (lastLocation == 0)
-                {
-                    toC = true;
-                }
-                else if (lastLocation == 2)
-                {
-                    toC = false;
-                }
-            }
-
-            if (Time.realtimeSinceStartupAsDouble % 5 > 4.9 && ((lastLocation == 1 && toC) || lastLocation == 2) && !paused)
-            {
-                paused = true;
-                target = posPause.position;
-            }
-
-            if (Time.realtimeSinceStartupAsDouble % 10 > 9.9 && paused)
-            {
+                StopCoroutine(shoot);
+                ChoosePattern();
+                phaseChanged = true;
                 paused = false;
-                ChangePhase();
+            }
+            if (pausesCounter == 2 && phaseChanged)
+            {
+                pausesCounter = 0;
+                paused = false;
+                StopCoroutine(shoot);
+                ChoosePattern();
             }
         }
-        else
+        else if (Vector3.Distance(target, transform.position) < 1 && !isLasering && pattern == 1)
         {
-            target = posLaser.position;
-            if (Vector3.Distance(target, transform.position) < 1 && !isLasering)
-            {
-                Instantiate(laser, transform.position, transform.rotation, transform);
-                isLasering = true;
-            }
+            pausesCounter = 0;
+            Instantiate(laser, transform.position, transform.rotation, transform);
+            isLasering = true;
         }
         var step = speed * Time.deltaTime;
 
         transform.position = Vector3.MoveTowards(transform.position, target, step);
+    }
+
+    public void ChoosePattern()
+    {
+        while (lastPattern == pattern)
+        {
+            pattern = Random.Range(0, 2);
+        }
+        lastPattern = pattern;
+
+        if (pattern == 0)
+        {
+            shoot = StartCoroutine(Shoot());
+        }
+        else if (pattern == 1)
+        {
+            target = posLaser.position;
+        }
     }
 
     public void GetDamage(int damage)
@@ -141,17 +139,47 @@ public class BossController : MonoBehaviour
         }
     }
 
-    public void ChangePhase()
+    private void Movement()
     {
-        if (actualPhase == 0)
+        if (!paused && health > 0)
         {
-            actualPhase++;
-            StopCoroutine(shoot);
+            //Checking direction
+            if (toC)
+            {
+                target = positions[lastLocation + 1].position;
+            }
+            else
+            {
+                target = positions[lastLocation - 1].position;
+            }
         }
-        else
+
+        //Checking if boss is arrived to target
+        if (Vector3.Distance(target, transform.position) < 1)
         {
-            actualPhase--;
-            shoot = StartCoroutine(Shoot());
+            //Checking direction
+            if (toC)
+            {
+                lastLocation++;
+            }
+            else
+            {
+                lastLocation--;
+            }
+
+            //Checking if target is terminus
+            if (lastLocation == 0)
+            {
+                toC = true;
+            }
+            else if (lastLocation == 2)
+            {
+                toC = false;
+                if (Random.Range(0, 2) == 0)
+                {
+                    StartCoroutine(Pause());
+                }
+            }
         }
     }
 }

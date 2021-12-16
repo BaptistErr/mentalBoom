@@ -282,7 +282,8 @@ public class CharacterController : MonoBehaviour
     {
         foreach (GameObject enemy in _attackRecorder.Enemies)
         {
-            enemy.GetComponent<BossController>().GetDamage(100);
+            enemy.GetComponent<BossController>()?.GetDamage(100);
+            enemy.GetComponent<IAChasing_Controller>()?.GetDamage(25);
         }
     }
     
@@ -360,5 +361,6 @@ public class CharacterController : MonoBehaviour
     IEnumerator WaitDamage()
     {
         yield return new WaitForSeconds(.5f);
+        hit = false;
     }
 }
