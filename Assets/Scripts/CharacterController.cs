@@ -181,8 +181,7 @@ public class CharacterController : MonoBehaviour
         // get the max extent of the collider on the XZ plane for dash wall avoidance calculations
         Vector3 extents = _collider.bounds.extents;
         _maxColliderExtent = Math.Max(extents.x, extents.z);
-        // baptiste on hardcode pas la vie grrr
-        if (_health == -1.0F) _health = 100.0F;
+
         hit = false;
     }
     
@@ -349,16 +348,16 @@ public class CharacterController : MonoBehaviour
 
     public void GetDamage(float damage)
     {
-        if (_health <= 0)
+        if (!hit)
+        {
+            Health -= damage;
+            hit = true;
+            StartCoroutine(WaitDamage());
+        }
+        if (Health <= 0)
         {
             transform.rotation = Quaternion.Euler(90, 0, 0);
             manager.GameEnded(false);
-        }
-        else if (!hit)
-        {
-            _health -= damage;
-            hit = true;
-            StartCoroutine(WaitDamage());
         }
     }
 

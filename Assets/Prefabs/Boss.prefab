@@ -115,8 +115,13 @@ MonoBehaviour:
   - {fileID: 0}
   posPause: {fileID: 0}
   posLaser: {fileID: 0}
+  posSpawn: {fileID: 0}
   speed: 30
+  paused: 0
+  isLasering: 0
+  isSpawning: 0
   health: 200
   manager: {fileID: 0}
-  bullet: {fileID: -938947152734309196, guid: c63105ee93d4ce84aa8ba44c1a565140, type: 3}
+  bullet: {fileID: 3409152830036012499, guid: c63105ee93d4ce84aa8ba44c1a565140, type: 3}
   laser: {fileID: 6716068264935899223, guid: 157a672d127a6df41804849cd012375d, type: 3}
+  enemy: {fileID: 7254288913525998916, guid: 00e4c5afd5a0d7b4994f82144c631a1e, type: 3}
