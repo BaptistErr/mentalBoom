@@ -608,10 +608,6 @@ PrefabInstance:
       propertyPath: Character
       value: 
       objectReference: {fileID: 1456213304}
-    - target: {fileID: 4245711921713300839, guid: ca6dfc96796000449ace837442f9eba6, type: 3}
-      propertyPath: FollowPlayerSize
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 4245711921713300840, guid: ca6dfc96796000449ace837442f9eba6, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -673,22 +669,6 @@ PrefabInstance:
       propertyPath: manager
       value: 
       objectReference: {fileID: 67501840}
-    - target: {fileID: 1456213304, guid: c48a5d9f37400994b9280b754cb37ed5, type: 3}
-      propertyPath: _dashForce
-      value: 1000
-      objectReference: {fileID: 0}
-    - target: {fileID: 1456213304, guid: c48a5d9f37400994b9280b754cb37ed5, type: 3}
-      propertyPath: _moveForce
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 1456213304, guid: c48a5d9f37400994b9280b754cb37ed5, type: 3}
-      propertyPath: _breakSpeedCoef
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 7254288913525998913, guid: c48a5d9f37400994b9280b754cb37ed5, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 7254288913525998914, guid: c48a5d9f37400994b9280b754cb37ed5, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -699,7 +679,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7254288913525998914, guid: c48a5d9f37400994b9280b754cb37ed5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 1.68
       objectReference: {fileID: 0}
     - target: {fileID: 7254288913525998914, guid: c48a5d9f37400994b9280b754cb37ed5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -736,10 +716,6 @@ PrefabInstance:
     - target: {fileID: 7254288913525998916, guid: c48a5d9f37400994b9280b754cb37ed5, type: 3}
       propertyPath: m_Name
       value: Character
-      objectReference: {fileID: 0}
-    - target: {fileID: 7254288913525998918, guid: c48a5d9f37400994b9280b754cb37ed5, type: 3}
-      propertyPath: m_Drag
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c48a5d9f37400994b9280b754cb37ed5, type: 3}

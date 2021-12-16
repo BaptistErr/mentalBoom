@@ -332,7 +332,7 @@ public class CharacterController : MonoBehaviour
         return (ForwardDirection*vertical + RightDirection*horizontal).normalized;
     }
     
-    private bool IsObstacleOnFrame(Vector3 direction, float speed)
+    /*private bool IsObstacleOnFrame(Vector3 direction, float speed)
     {
         if(_dashing) Debug.DrawRay(_rb.position, direction, Color.yellow, 1.0F);
         return Physics.Raycast(
@@ -340,7 +340,7 @@ public class CharacterController : MonoBehaviour
             maxDistance: Time.fixedDeltaTime * speed + _maxColliderExtent,
             layerMask: ~(_collider.gameObject.layer | (1<<2))
         );
-    }
+    }*/
 
     public void GetDamage(float damage)
     {

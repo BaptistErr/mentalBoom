@@ -11,14 +11,12 @@ GameObject:
   - component: {fileID: 8987802455618385275}
   - component: {fileID: 5410174604742982366}
   - component: {fileID: 7849838379236298260}
-  - component: {fileID: 1383704317459336268}
-  - component: {fileID: -4751658242062237954}
   m_Layer: 0
   m_Name: Case
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &8987802455618385275
 Transform:
@@ -27,9 +25,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8642625501442355137}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 38.407234, y: 0.56701934, z: -13.3021}
-  m_LocalScale: {x: 5.8342524, y: 5.8342524, z: 5.8342524}
+  m_LocalScale: {x: 5.834253, y: 5.8342524, z: 5.8342524}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -61,8 +59,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 438821429388015977, guid: 0e6f992036228bd4f8a53bdce41396b7, type: 3}
-  - {fileID: 4365561382922643212, guid: 0e6f992036228bd4f8a53bdce41396b7, type: 3}
+  - {fileID: 2100000, guid: 40db819dece4c8146b38ac114e4455b3, type: 2}
+  - {fileID: 2100000, guid: 6d4c772d521d3b447a597c702621075d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -84,33 +82,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &1383704317459336268
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8642625501442355137}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 5423218694421573008, guid: 0e6f992036228bd4f8a53bdce41396b7, type: 3}
---- !u!54 &-4751658242062237954
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8642625501442355137}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0

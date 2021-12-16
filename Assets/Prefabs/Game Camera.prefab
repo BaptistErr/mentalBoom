@@ -107,4 +107,4 @@ MonoBehaviour:
     Value: 1
   MinSize: 10
   MaxSize: 14
-  FollowPlayerSize: 10
+  FollowPlayerSize: 8
