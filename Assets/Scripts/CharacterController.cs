@@ -13,13 +13,10 @@ public class CharacterController : MonoBehaviour
 
     private bool hit;
 
-    [SerializeField] private float _health;
+    [SerializeField] private float _health = -1.0F;
+
     /// <summary> Base health of player </summary>
-    public float Health
-    {
-        get => _health;
-        set => _health = value;
-    }
+    public float Health => _health;
 
 #region Movements
 [Header("Movements")]
@@ -184,8 +181,8 @@ public class CharacterController : MonoBehaviour
         // get the max extent of the collider on the XZ plane for dash wall avoidance calculations
         Vector3 extents = _collider.bounds.extents;
         _maxColliderExtent = Math.Max(extents.x, extents.z);
-
-        Health = 100;
+        // baptiste on hardcode pas la vie grrr
+        if (_health == -1.0F) _health = 100.0F;
         hit = false;
     }
     
@@ -233,13 +230,9 @@ public class CharacterController : MonoBehaviour
         {
             if (_dashing)
             {
-                if (IsObstacleOnFrame(direction: _dashDir, speed: _dashMoveSpeed))
+                if (Move(direction: _dashDir, speed: _dashMoveSpeed, considerMovables: true))
                 { // if any object has been hit, stop dashing
                     StopDash();
-                }
-                else
-                {
-                    Move(direction: _dashDir, speed: _dashMoveSpeed);
                 }
             }
             else
@@ -249,7 +242,7 @@ public class CharacterController : MonoBehaviour
                     Jump(_jumpForce);
                 }
 
-                Move(direction: GetMoveDirection(), speed: _moveSpeed);
+                Move(direction: GetMoveDirection(), speed: _moveSpeed, considerMovables: false);
             }
         }
     }
@@ -294,11 +287,21 @@ public class CharacterController : MonoBehaviour
         }
     }
     
-    private void Move(Vector3 direction, float speed)
+    private bool Move(Vector3 direction, float speed, bool considerMovables)
     {
         Rotate(direction);
-        Vector3 translation = direction * speed * Time.fixedDeltaTime;
+        float distanceToTravel = speed * Time.fixedDeltaTime;
+        
+        Vector3 translation = direction * distanceToTravel;
+        bool doHit = _rb.SweepTest(direction, out RaycastHit hit, distanceToTravel, QueryTriggerInteraction.Ignore);
+        if (doHit)
+        {
+            if (!considerMovables) doHit = (hit.rigidbody == null);
+            if (doHit) translation = direction * hit.distance;
+        }
         _rb.MovePosition(_rb.position + translation);
+
+        return doHit;
     }
     
     private void StartDash()
@@ -334,7 +337,7 @@ public class CharacterController : MonoBehaviour
         return (ForwardDirection*vertical + RightDirection*horizontal).normalized;
     }
     
-    private bool IsObstacleOnFrame(Vector3 direction, float speed)
+    /*private bool IsObstacleOnFrame(Vector3 direction, float speed)
     {
         if(_dashing) Debug.DrawRay(_rb.position, direction, Color.yellow, 1.0F);
         return Physics.Raycast(
@@ -342,18 +345,18 @@ public class CharacterController : MonoBehaviour
             maxDistance: Time.fixedDeltaTime * speed + _maxColliderExtent,
             layerMask: ~(_collider.gameObject.layer | (1<<2))
         );
-    }
+    }*/
 
     public void GetDamage(float damage)
     {
-        if (Health <= 0)
+        if (_health <= 0)
         {
             transform.rotation = Quaternion.Euler(90, 0, 0);
             manager.GameEnded(false);
         }
         else if (!hit)
         {
-            Health -= damage;
+            _health -= damage;
             hit = true;
             StartCoroutine(WaitDamage());
         }
