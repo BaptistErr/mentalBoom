@@ -16,7 +16,7 @@ public class Pickup : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.Mouse1))
+        if (Input.GetKeyDown(KeyCode.Mouse1))
         {
             // PickUp
             if (!picking && TheHand.childCount.Equals(0))
