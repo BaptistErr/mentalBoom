@@ -30,7 +30,7 @@ public class IAChasing_Controller : MonoBehaviour
         target = FindObjectOfType<CharacterController>();
         IAChasing = GameObject.Find("AIChasing");
         stoppingDistance = IAChasing.GetComponent<NavMeshAgent>().stoppingDistance;
-        IA_health = 60;
+        IA_health = 50;
     }
 
     // Update

@@ -290,7 +290,7 @@ public class CharacterController : MonoBehaviour
         foreach (GameObject enemy in _attackRecorder.Enemies)
         {
             enemy.GetComponent<BossController>()?.GetDamage(100);
-            enemy.GetComponent<IAChasing_Controller>()?.GetDamage(20);
+            enemy.GetComponent<IAChasing_Controller>()?.GetDamage(25);
         }
     }
     
