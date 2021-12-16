@@ -38,12 +38,15 @@ public class EntranceCollider : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        BossController bossSpawned = Instantiate(boss, posSpawnBoss, true);
-        bossSpawned.posPause = posPause;
-        bossSpawned.posLaser = posLaser;
-        bossSpawned.posSpawn = posSpawnEnemies;
-        bossSpawned.positions = positions;
-        blockEntrance.isTrigger = false;
-        Destroy(gameObject);
+        if (!other.isTrigger)
+        {
+            BossController bossSpawned = Instantiate(boss, posSpawnBoss, true);
+            bossSpawned.posPause = posPause;
+            bossSpawned.posLaser = posLaser;
+            bossSpawned.posSpawn = posSpawnEnemies;
+            bossSpawned.positions = positions;
+            blockEntrance.isTrigger = false;
+            Destroy(gameObject);
+        }
     }
 }
