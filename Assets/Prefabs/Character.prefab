@@ -227,13 +227,13 @@ MonoBehaviour:
   _forwardDirection: {x: -0.70710677, y: 0, z: 0.70710677}
   _attackRange: 3
   _attackCooldown: 0.33
-  _attackLoadDuration: 2
+  _attackLoadDuration: 1
   _attackDamageByLoad:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0.006606102
-      value: 3.0163584
+      time: 0.03371614
+      value: 14.967714
       inSlope: 0.046745345
       outSlope: 0.046745345
       tangentMode: 0
@@ -241,8 +241,8 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0.42557493
     - serializedVersion: 3
-      time: 0.83211744
-      value: 4.970673
+      time: 0.81076944
+      value: 29.464552
       inSlope: 3.461523
       outSlope: 3.461523
       tangentMode: 0
@@ -250,8 +250,8 @@ MonoBehaviour:
       inWeight: 0.17237759
       outWeight: 0.69886017
     - serializedVersion: 3
-      time: 1.0066061
-      value: 5.507399
+      time: 0.9852581
+      value: 30.001276
       inSlope: 1.5270019
       outSlope: 1.5270019
       tangentMode: 0

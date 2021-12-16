@@ -14,12 +14,13 @@ GameObject:
   - component: {fileID: -3731892422567886681}
   - component: {fileID: 1642659736991368830}
   - component: {fileID: 1852522324}
+  - component: {fileID: 732154065599801203}
   m_Layer: 0
   m_Name: Scissors
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &2227197256270855622
 Transform:
@@ -116,6 +117,20 @@ Rigidbody:
   m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!114 &1852522324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1559169843093038972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc3a65085371e33469b8a8c9cc6b6dd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TheHand: {fileID: 0}
+  maxDistance: 2
+--- !u!114 &732154065599801203
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

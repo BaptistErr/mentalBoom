@@ -49,13 +49,11 @@ public class PlayerAttack : MonoBehaviour
                 _enemies.Remove(go);
             }
         }
-        Debug.Log(_enemies.Count);
     }
     
     private void OnTriggerEnter(Collider other)
     {
         GameObject go = other.gameObject;
-        Debug.Log("enter " + go);
         if (go.layer == EnemyLayer)
         {
             _enemies.Add(go);
@@ -65,7 +63,6 @@ public class PlayerAttack : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         GameObject go = other.gameObject;
-        Debug.Log("exit " + go);
         if (go.layer == EnemyLayer)
         {
             _enemies.Remove(go);

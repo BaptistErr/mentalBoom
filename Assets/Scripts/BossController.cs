@@ -53,7 +53,6 @@ public class BossController : MonoBehaviour, IEnemy
         manager = FindObjectOfType<GameManager>();
         toC = true;
         lastLocation = 0;
-        Debug.Log("manager.positions.Length : " + positions.Length);
         target = positions[2].position;
         paused = false;
         pattern = 0;
@@ -141,7 +140,6 @@ public class BossController : MonoBehaviour, IEnemy
             pattern = Random.Range(0, 3);
         }
         lastPattern = pattern;
-        Debug.Log("pattern : " + pattern);
 
         if (pattern == 0)
         {

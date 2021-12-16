@@ -215,7 +215,7 @@ public class CharacterController : MonoBehaviour
             
             _timeSinceAttack = 0.0F;
             _attackLoadTime = 0.0F;
-            
+
             Attack((int)_attackDamageByLoad.Evaluate(weaponLoadPct));
         }
     }
