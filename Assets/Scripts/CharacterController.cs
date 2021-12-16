@@ -218,7 +218,7 @@ public class CharacterController : MonoBehaviour
             
             _timeSinceAttack = 0.0F;
             _attackLoadTime = 0.0F;
-
+            
             Attack((int)_attackDamageByLoad.Evaluate(weaponLoadPct));
         }
     }
@@ -229,9 +229,11 @@ public class CharacterController : MonoBehaviour
         {
             if (_dashing)
             {
+                Debug.Log("DASH");
                 if (Move(direction: _dashDir, speed: _dashMoveSpeed, considerMovables: true))
                 { // if any object has been hit, stop dashing
                     StopDash();
+                    Debug.Log("STOP DASH");
                 }
             }
             else
@@ -277,12 +279,11 @@ public class CharacterController : MonoBehaviour
         transform.LookAt(transform.position + new Vector3(forward.x, 0.0F, forward.z));
     }
 
-    private void Attack(float damage)
+    private void Attack(int damage)
     {
         foreach (GameObject enemy in _attackRecorder.Enemies)
         {
-            enemy.GetComponent<BossController>()?.GetDamage(100);
-            enemy.GetComponent<IAChasing_Controller>()?.GetDamage(25);
+            enemy.GetComponent<IEnemy>().GetDamage(damage);
         }
     }
     
@@ -295,7 +296,14 @@ public class CharacterController : MonoBehaviour
         bool doHit = _rb.SweepTest(direction, out RaycastHit hit, distanceToTravel, QueryTriggerInteraction.Ignore);
         if (doHit)
         {
-            if (!considerMovables) doHit = (hit.rigidbody == null);
+            if (!considerMovables)
+            {
+                doHit = (hit.rigidbody == null);
+            }
+            else
+            {
+                doHit = IsObstacleOnFrame(direction, speed * 1.2F);
+            }
             if (doHit) translation = direction * hit.distance;
         }
         _rb.MovePosition(_rb.position + translation);
@@ -336,7 +344,7 @@ public class CharacterController : MonoBehaviour
         return (ForwardDirection*vertical + RightDirection*horizontal).normalized;
     }
     
-    /*private bool IsObstacleOnFrame(Vector3 direction, float speed)
+    private bool IsObstacleOnFrame(Vector3 direction, float speed)
     {
         if(_dashing) Debug.DrawRay(_rb.position, direction, Color.yellow, 1.0F);
         return Physics.Raycast(
@@ -344,7 +352,7 @@ public class CharacterController : MonoBehaviour
             maxDistance: Time.fixedDeltaTime * speed + _maxColliderExtent,
             layerMask: ~(_collider.gameObject.layer | (1<<2))
         );
-    }*/
+    }
 
     public void GetDamage(float damage)
     {
