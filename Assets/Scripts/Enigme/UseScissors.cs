@@ -22,7 +22,6 @@ public class UseScissors : MonoBehaviour
             Scissors = GameObject.Find("Scissors");
             Scissors.GetComponent<MeshRenderer>().enabled = false;
             Scissors.GetComponent<MeshCollider>().enabled = false;
-            Debug.Log("You used SCISSORS");
 
             StartCoroutine(WaitBeforeStuck());
         }

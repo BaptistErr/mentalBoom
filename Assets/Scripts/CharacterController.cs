@@ -185,7 +185,6 @@ public class CharacterController : MonoBehaviour
         Vector3 extents = _collider.bounds.extents;
         _maxColliderExtent = Math.Max(extents.x, extents.z);
 
-        Health = 100;
         hit = false;
     }
     
@@ -345,16 +344,16 @@ public class CharacterController : MonoBehaviour
 
     public void GetDamage(float damage)
     {
-        if (Health <= 0)
-        {
-            transform.rotation = Quaternion.Euler(90, 0, 0);
-            manager.GameEnded(false);
-        }
-        else if (!hit)
+        if (!hit)
         {
             Health -= damage;
             hit = true;
             StartCoroutine(WaitDamage());
+        }
+        if (Health <= 0)
+        {
+            transform.rotation = Quaternion.Euler(90, 0, 0);
+            manager.GameEnded(false);
         }
     }
 

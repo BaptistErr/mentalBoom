@@ -15,7 +15,6 @@ public class ColorButton : MonoBehaviour
         // Box placed?
         if (other.gameObject.name == BoxName)
         {
-            Debug.Log(BoxName);
             IsOverlapped = true;
             Box = GameObject.Find(BoxName);
             Box.GetComponent<Rigidbody>().isKinematic = true;

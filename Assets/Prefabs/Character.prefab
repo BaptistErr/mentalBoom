@@ -217,7 +217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   manager: {fileID: 0}
-  _health: 0
+  _health: 100
   _moveSpeed: 8
   _dashMoveSpeed: 20
   _dashDuration: 0.2
