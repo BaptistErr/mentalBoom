@@ -289,7 +289,12 @@ public class CharacterController : MonoBehaviour
         float distanceToTravel = speed * Time.fixedDeltaTime;
         
         Vector3 translation = direction * distanceToTravel;
+
+        Vector3 size = _attackRecorder.Collider.size;
+        _attackRecorder.Collider.size = Vector3.zero;
         bool doHit = _rb.SweepTest(direction, out RaycastHit hit, distanceToTravel, QueryTriggerInteraction.Ignore);
+        _attackRecorder.Collider.size = size;
+        
         if (doHit)
         {
             if (!considerMovables) doHit = (hit.rigidbody == null);

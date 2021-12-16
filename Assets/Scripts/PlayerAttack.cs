@@ -23,19 +23,19 @@ public class PlayerAttack : MonoBehaviour
         _enemies = new HashSet<GameObject>();
         Collider = GetComponent<BoxCollider>();
 
-        var transform1 = transform;
+        /*var transform1 = transform;
         _localPos = transform1.localPosition;
         _localRot = transform1.localRotation;
         _parent = transform1.parent;
-        transform1.parent = null;
+        transform1.parent = null;*/
     }
 
     private void LateUpdate()
     {
-        transform.parent = _parent;
+        /*transform.parent = _parent;
         transform.localRotation = _localRot;
         transform.localPosition = _localPos;
-        transform.parent = null;
+        transform.parent = null;*/
 
         CleanUp();
     }
@@ -68,14 +68,4 @@ public class PlayerAttack : MonoBehaviour
             _enemies.Remove(go);
         }
     }
-
-    /*private void OnTriggerExit(Collider other)
-    {
-        GameObject go = other.gameObject;
-        Debug.Log("exit " + go);
-        if (go.layer == EnemyLayer)
-        {
-            _enemies.Remove(go);
-        }
-    }*/
 }
