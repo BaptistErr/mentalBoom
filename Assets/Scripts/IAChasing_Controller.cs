@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class IAChasing_Controller : MonoBehaviour
+public class IAChasing_Controller : MonoBehaviour, IEnemy
 {
 
     private NavMeshAgent agent = null;
@@ -86,7 +86,7 @@ public class IAChasing_Controller : MonoBehaviour
     private void Attack()
     {
         target.GetDamage(Damage);
-        Debug.Log(target.Health);
+        Debug.Log(target.health);
     }
 
     // Cooldown before each hit

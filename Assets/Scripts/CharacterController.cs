@@ -13,10 +13,7 @@ public class CharacterController : MonoBehaviour
 
     private bool hit;
 
-    [SerializeField] private float _health = -1.0F;
-
-    /// <summary> Base health of player </summary>
-    public float Health => _health;
+    public float health;
 
 #region Movements
 [Header("Movements")]
@@ -172,7 +169,7 @@ public class CharacterController : MonoBehaviour
 
     private void Awake()
     {
-        _attackRecorder = gameObject.GetComponentInChildren<PlayerAttack>();
+        _attackRecorder = GameObject.Find("Attack Collider").gameObject.GetComponent<PlayerAttack>();
         ResizeAttackZone(_attackRange);
         
         _rb = GetComponent<Rigidbody>();
@@ -219,7 +216,7 @@ public class CharacterController : MonoBehaviour
             _timeSinceAttack = 0.0F;
             _attackLoadTime = 0.0F;
             
-            Attack(_attackDamageByLoad.Evaluate(weaponLoadPct));
+            Attack((int)_attackDamageByLoad.Evaluate(weaponLoadPct));
         }
     }
     
@@ -277,12 +274,12 @@ public class CharacterController : MonoBehaviour
         transform.LookAt(transform.position + new Vector3(forward.x, 0.0F, forward.z));
     }
 
-    private void Attack(float damage)
+    private void Attack(int damage)
     {
         foreach (GameObject enemy in _attackRecorder.Enemies)
         {
-            enemy.GetComponent<BossController>()?.GetDamage(100);
-            enemy.GetComponent<IAChasing_Controller>()?.GetDamage(25);
+            Debug.Log("attacking " + enemy + " with " + damage + " hp");
+            enemy.GetComponent<IEnemy>().GetDamage(damage);
         }
     }
     
@@ -350,11 +347,11 @@ public class CharacterController : MonoBehaviour
     {
         if (!hit)
         {
-            Health -= damage;
+            health -= damage;
             hit = true;
             StartCoroutine(WaitDamage());
         }
-        if (Health <= 0)
+        if (health <= 0)
         {
             transform.rotation = Quaternion.Euler(90, 0, 0);
             manager.GameEnded(false);
