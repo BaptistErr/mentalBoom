@@ -7,6 +7,7 @@ class EnigmaController : MonoBehaviour
     public ColorButton[] buttons;
     public int activatedButtons = 0;
     private bool messageWin = false;
+    [SerializeField]
     private GameObject Scissors;
 
     void Update()
@@ -24,7 +25,6 @@ class EnigmaController : MonoBehaviour
         {
             if (activatedButtons == buttons.Length)
             {
-                Scissors = GameObject.Find("Scissors");
                 Scissors.GetComponent<MeshRenderer>().enabled = true;
                 Scissors.GetComponent<Rigidbody>().isKinematic = false;
                 Scissors.GetComponent<MeshCollider>().enabled = true;

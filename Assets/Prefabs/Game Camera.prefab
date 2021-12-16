@@ -99,7 +99,7 @@ MonoBehaviour:
   Character: {fileID: 0}
   Offset: {x: 6.35, y: 5.79, z: -6.35}
   BackwardAxis: {x: 0.61237246, y: 0.49999997, z: -0.6123724}
-  _cameraMode: 1
+  _cameraMode: 0
   _weights:
   - Transform: {fileID: 0}
     Value: 2

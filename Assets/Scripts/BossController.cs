@@ -4,35 +4,39 @@ using UnityEngine;
 
 public class BossController : MonoBehaviour
 {
+
     //Positions where the boss will go
-    [SerializeField]
-    private Transform[] positions = new Transform[0];
-    [SerializeField]
-    private Transform posPause;
-    [SerializeField]
-    private Transform posLaser;
+    public Transform posPause;
+    public Transform posLaser;
+    public Transform posSpawn;
+
+    public Transform[] positions = new Transform[0];
 
     private int lastLocation;
     [SerializeField]
     private float speed;
     private bool toC;
     private Vector3 target;
-    private bool paused;
+    public bool paused;
     private int pausesCounter;
 
     public bool isLasering;
 
+    public bool isSpawning;
+
     [SerializeField]
     private int health;
 
-    [SerializeField]
     private GameManager manager;
 
     [SerializeField]
-    private BulletBehaviour bullet;
+    private GameObject bullet;
 
     [SerializeField]
     private GameObject laser;
+
+    [SerializeField]
+    private GameObject enemy;
 
     private Coroutine shoot;
 
@@ -41,19 +45,23 @@ public class BossController : MonoBehaviour
 
     private bool phaseChanged;
 
+    private int enemiesCounter;
+
     //Initialize variables
     void Start()
     {
-        transform.position = positions[0].position;
+        manager = FindObjectOfType<GameManager>();
         toC = true;
         lastLocation = 0;
-        target = positions[1].position;
+        Debug.Log("manager.positions.Length : " + positions.Length);
+        target = positions[2].position;
         paused = false;
         pattern = 0;
         lastPattern = pattern;
         phaseChanged = false;
         pausesCounter = 0;
         isLasering = false;
+        isSpawning = false;
 
         shoot = StartCoroutine(Shoot());
     }
@@ -77,6 +85,16 @@ public class BossController : MonoBehaviour
         yield return new WaitForSeconds(5);
         paused = false;
         pausesCounter++;
+    }
+
+    IEnumerator SpawnEnemies()
+    {
+        for (int i = 0; i < enemiesCounter; i++)
+        {
+            Instantiate(enemy, posSpawn);
+            yield return new WaitForSeconds(1);
+        }
+        ChoosePattern();
     }
 
     // Update is called once per frame
@@ -106,6 +124,11 @@ public class BossController : MonoBehaviour
             Instantiate(laser, transform.position, transform.rotation, transform);
             isLasering = true;
         }
+        else if (Vector3.Distance(target, transform.position) < 1 && !isSpawning && pattern == 2)
+        {
+            StartCoroutine(SpawnEnemies());
+            isSpawning = true;
+        }
         var step = speed * Time.deltaTime;
 
         transform.position = Vector3.MoveTowards(transform.position, target, step);
@@ -115,9 +138,10 @@ public class BossController : MonoBehaviour
     {
         while (lastPattern == pattern)
         {
-            pattern = Random.Range(0, 2);
+            pattern = Random.Range(0, 3);
         }
         lastPattern = pattern;
+        Debug.Log("pattern : " + pattern);
 
         if (pattern == 0)
         {
@@ -126,6 +150,11 @@ public class BossController : MonoBehaviour
         else if (pattern == 1)
         {
             target = posLaser.position;
+        }
+        else if (pattern == 2)
+        {
+            target = posLaser.position;
+            enemiesCounter = Random.Range(2, 7);
         }
     }
 

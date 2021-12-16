@@ -86,7 +86,7 @@ public class IAChasing_Controller : MonoBehaviour
     private void Attack()
     {
         target.GetDamage(Damage);
-        Debug.Log(target.Health);
+        Debug.Log(target.health);
     }
 
     // Cooldown before each hit

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4945862930038513184
+--- !u!1 &6121071152400792599
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,61 +8,61 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4945862930038513190}
-  - component: {fileID: 4945862930038513185}
-  - component: {fileID: 5896265168970785722}
+  - component: {fileID: 6121071152400792593}
+  - component: {fileID: 6121071152400792592}
+  - component: {fileID: 6121071152400792594}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: Entrance
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4945862930038513190
+--- !u!4 &6121071152400792593
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4945862930038513184}
+  m_GameObject: {fileID: 6121071152400792599}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14.606993, y: 3.914338, z: 4.339204}
+  m_LocalPosition: {x: 30.26, y: 1.5, z: -3.58}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4945862930038513185
+--- !u!65 &6121071152400792592
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6121071152400792599}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2, z: 5}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6121071152400792594
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4945862930038513184}
+  m_GameObject: {fileID: 6121071152400792599}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c73cdf094d1e3b4c86c35cd5b807008, type: 3}
+  m_Script: {fileID: 11500000, guid: d46d80e20b9e14d42b8ef19b71df3a3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  endGameMenu: {fileID: 0}
   posPause: {fileID: 0}
   posLaser: {fileID: 0}
-  posSpawn: {fileID: 0}
+  posSpawnEnemies: {fileID: 0}
   positions:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  gameEnded: 0
---- !u!114 &5896265168970785722
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4945862930038513184}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3dff66c533f2e1c44b4ef21c6687ef89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pauseMenuUI: {fileID: 0}
+  posSpawnBoss: {fileID: 0}
+  boss: {fileID: 429074943, guid: c233153e011f51942b5ebd97429b10a6, type: 3}
