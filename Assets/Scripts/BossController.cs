@@ -82,10 +82,9 @@ public class BossController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (pattern == 0)
+        if (pattern == 0 && !paused)
         {
             Movement();
-
             if (health <= 100 && !phaseChanged)
             {
                 StopCoroutine(shoot);
@@ -103,6 +102,7 @@ public class BossController : MonoBehaviour
         }
         else if (Vector3.Distance(target, transform.position) < 1 && !isLasering && pattern == 1)
         {
+            pausesCounter = 0;
             Instantiate(laser, transform.position, transform.rotation, transform);
             isLasering = true;
         }
