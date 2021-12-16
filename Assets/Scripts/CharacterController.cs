@@ -13,10 +13,7 @@ public class CharacterController : MonoBehaviour
 
     private bool hit;
 
-    [SerializeField] private float _health = -1.0F;
-
-    /// <summary> Base health of player </summary>
-    public float Health => _health;
+    public float health;
 
 #region Movements
 [Header("Movements")]
@@ -350,11 +347,11 @@ public class CharacterController : MonoBehaviour
     {
         if (!hit)
         {
-            Health -= damage;
+            health -= damage;
             hit = true;
             StartCoroutine(WaitDamage());
         }
-        if (Health <= 0)
+        if (health <= 0)
         {
             transform.rotation = Quaternion.Euler(90, 0, 0);
             manager.GameEnded(false);
