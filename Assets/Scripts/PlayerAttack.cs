@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider))]
@@ -8,7 +9,7 @@ public class PlayerAttack : MonoBehaviour
 {
     public int EnemyLayer = 11;
     
-    private List<GameObject> _enemies;
+    private HashSet<GameObject> _enemies;
     public IEnumerable<GameObject> Enemies => _enemies;
 
     public BoxCollider Collider { get; private set; }
@@ -19,7 +20,7 @@ public class PlayerAttack : MonoBehaviour
     
     private void Awake()
     {
-        _enemies = new List<GameObject>(capacity: 8);
+        _enemies = new HashSet<GameObject>();
         Collider = GetComponent<BoxCollider>();
 
         var transform1 = transform;
@@ -35,22 +36,49 @@ public class PlayerAttack : MonoBehaviour
         transform.localRotation = _localRot;
         transform.localPosition = _localPos;
         transform.parent = null;
+
+        CleanUp();
     }
 
+    private void CleanUp()
+    {
+        foreach (GameObject go in _enemies.ToList())
+        {
+            if (go == null)
+            {
+                _enemies.Remove(go);
+            }
+        }
+        Debug.Log(_enemies.Count);
+    }
+    
     private void OnTriggerEnter(Collider other)
     {
         GameObject go = other.gameObject;
+        Debug.Log("enter " + go);
         if (go.layer == EnemyLayer)
         {
             _enemies.Add(go);
         }
     }
+
     private void OnTriggerExit(Collider other)
     {
         GameObject go = other.gameObject;
+        Debug.Log("exit " + go);
         if (go.layer == EnemyLayer)
         {
             _enemies.Remove(go);
         }
     }
+
+    /*private void OnTriggerExit(Collider other)
+    {
+        GameObject go = other.gameObject;
+        Debug.Log("exit " + go);
+        if (go.layer == EnemyLayer)
+        {
+            _enemies.Remove(go);
+        }
+    }*/
 }
