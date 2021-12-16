@@ -12,6 +12,8 @@ public class IAChasing_Controller : MonoBehaviour
     private GameObject IAChasing;
     private float stoppingDistance;
     private bool Cooldown = true;
+    [SerializeField]
+    private int health;
 
     [SerializeField] private float _damage = 10.0F;
     /// <summary> Amount of damages dealt by each projectile </summary>
@@ -29,6 +31,7 @@ public class IAChasing_Controller : MonoBehaviour
         target = FindObjectOfType<CharacterController>();
         IAChasing = GameObject.Find("AIChasing");
         stoppingDistance = IAChasing.GetComponent<NavMeshAgent>().stoppingDistance;
+        health = 50;
     }
 
     // Update
@@ -90,4 +93,13 @@ public class IAChasing_Controller : MonoBehaviour
         yield return new WaitForSeconds(1);
         Cooldown = true;
     }
+
+    /*public void GetDamage(int damage)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            transform.rotation = Quaternion.Euler(90, 0, 0);
+        }
+    }*/
 }
