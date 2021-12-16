@@ -13,7 +13,10 @@ public class CharacterController : MonoBehaviour
 
     private bool hit;
 
-    public float health;
+    [SerializeField] private float _health = -1.0F;
+
+    /// <summary> Base health of player </summary>
+    public float Health => _health;
 
 #region Movements
 [Header("Movements")]
@@ -169,7 +172,7 @@ public class CharacterController : MonoBehaviour
 
     private void Awake()
     {
-        _attackRecorder = GameObject.Find("Attack Collider").gameObject.GetComponent<PlayerAttack>();
+        _attackRecorder = gameObject.GetComponentInChildren<PlayerAttack>();
         ResizeAttackZone(_attackRange);
         
         _rb = GetComponent<Rigidbody>();
@@ -216,7 +219,7 @@ public class CharacterController : MonoBehaviour
             _timeSinceAttack = 0.0F;
             _attackLoadTime = 0.0F;
             
-            Attack((int)_attackDamageByLoad.Evaluate(weaponLoadPct));
+            Attack(_attackDamageByLoad.Evaluate(weaponLoadPct));
         }
     }
     
@@ -274,12 +277,12 @@ public class CharacterController : MonoBehaviour
         transform.LookAt(transform.position + new Vector3(forward.x, 0.0F, forward.z));
     }
 
-    private void Attack(int damage)
+    private void Attack(float damage)
     {
         foreach (GameObject enemy in _attackRecorder.Enemies)
         {
-            Debug.Log("attacking " + enemy + " with " + damage + " hp");
-            enemy.GetComponent<IEnemy>().GetDamage(damage);
+            enemy.GetComponent<BossController>()?.GetDamage(100);
+            enemy.GetComponent<IAChasing_Controller>()?.GetDamage(25);
         }
     }
     
@@ -289,12 +292,7 @@ public class CharacterController : MonoBehaviour
         float distanceToTravel = speed * Time.fixedDeltaTime;
         
         Vector3 translation = direction * distanceToTravel;
-
-        Vector3 size = _attackRecorder.Collider.size;
-        _attackRecorder.Collider.size = Vector3.zero;
         bool doHit = _rb.SweepTest(direction, out RaycastHit hit, distanceToTravel, QueryTriggerInteraction.Ignore);
-        _attackRecorder.Collider.size = size;
-        
         if (doHit)
         {
             if (!considerMovables) doHit = (hit.rigidbody == null);
@@ -352,11 +350,11 @@ public class CharacterController : MonoBehaviour
     {
         if (!hit)
         {
-            health -= damage;
+            _health -= damage;
             hit = true;
             StartCoroutine(WaitDamage());
         }
-        if (health <= 0)
+        if (Health <= 0)
         {
             transform.rotation = Quaternion.Euler(90, 0, 0);
             manager.GameEnded(false);
