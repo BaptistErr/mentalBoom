@@ -87,6 +87,8 @@ public class CameraController : MonoBehaviour
             float totWeight = 0.0F;
             foreach (Weight weight in Weights)
             {
+                if (weight == null || weight.Transform == null) continue; 
+                
                 Vector3 pos = weight.Transform.position;
                 
                 min = Vector3.Min(min, pos);
@@ -97,6 +99,8 @@ public class CameraController : MonoBehaviour
             }
 
             average /= totWeight;
+
+            if (totWeight == 0) return;
 
             transform.position = new Vector3(average.x, 0.0F, average.z);
 

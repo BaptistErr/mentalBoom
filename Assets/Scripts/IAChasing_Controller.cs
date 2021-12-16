@@ -11,10 +11,9 @@ public class IAChasing_Controller : MonoBehaviour
     private Vector3 aim;
     private GameObject IAChasing;
     private float stoppingDistance;
-    private bool Cooldown = true;
     [SerializeField]
-    private int health;
-
+    private int IA_health;
+    private Coroutine coroutine;
     [SerializeField] private float _damage = 10.0F;
     /// <summary> Amount of damages dealt by each projectile </summary>
     public float Damage
@@ -31,7 +30,7 @@ public class IAChasing_Controller : MonoBehaviour
         target = FindObjectOfType<CharacterController>();
         IAChasing = GameObject.Find("AIChasing");
         stoppingDistance = IAChasing.GetComponent<NavMeshAgent>().stoppingDistance;
-        health = 50;
+        IA_health = 50;
     }
 
     // Update
@@ -67,18 +66,22 @@ public class IAChasing_Controller : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
     }
 
-    // Detecting player
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<CharacterController>() && Cooldown == true)
+        if (other.GetComponent<CharacterController>())
         {
-            Attack();
-            Cooldown = false;
-            StartCoroutine(WaitBeforeHit());
+            coroutine = StartCoroutine(WaitBeforeHit());
         }
     }
 
-    // TODO ca fait pas les degat marqué au dessus soit 10
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.GetComponent<CharacterController>())
+        {
+            StopCoroutine(coroutine);
+        }
+    }
+
     // Attack the player
     private void Attack()
     {
@@ -89,17 +92,28 @@ public class IAChasing_Controller : MonoBehaviour
     // Cooldown before each hit
     IEnumerator WaitBeforeHit()
     {
-        // yield on a new YieldInstruction that waits for 5 seconds.
-        yield return new WaitForSeconds(1);
-        Cooldown = true;
+        while (true)
+        {
+            yield return new WaitForSeconds(1);
+            Attack();
+        }
     }
 
-    /*public void GetDamage(int damage)
+    public void GetDamage(int damage)
     {
-        health -= damage;
-        if (health <= 0)
+        if (IA_health <= 0)
         {
-            transform.rotation = Quaternion.Euler(90, 0, 0);
+            Die();
         }
-    }*/
+        else
+        {
+            IA_health -= damage;
+        }
+    }
+
+    public void Die()
+    {
+        Debug.Log("I'm dead");
+        Destroy(gameObject);
+    }
 }

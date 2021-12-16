@@ -11,14 +11,12 @@ GameObject:
   - component: {fileID: 3257090755347897968}
   - component: {fileID: 1917505794228048341}
   - component: {fileID: 4429481641649874207}
-  - component: {fileID: 7107095350545087727}
-  - component: {fileID: -4316014240851733704}
   m_Layer: 0
   m_Name: Mouse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &3257090755347897968
 Transform:
@@ -27,9 +25,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2772056166992708810}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 38.974815, y: 0.52673984, z: -11.295948}
-  m_LocalScale: {x: 4.4341745, y: 4.4341745, z: 4.4341745}
+  m_LocalScale: {x: 4.434175, y: 4.4341745, z: 4.434175}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -61,8 +59,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -300049728437424702, guid: e3b71f8ae83817d4494a33755fed8204, type: 3}
-  - {fileID: -6664171278366260049, guid: e3b71f8ae83817d4494a33755fed8204, type: 3}
+  - {fileID: 2100000, guid: ef7dafae953f3664cb21563f25f3e02a, type: 2}
+  - {fileID: 2100000, guid: 6d4c772d521d3b447a597c702621075d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -84,33 +82,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &7107095350545087727
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2772056166992708810}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -1489782571334735030, guid: e3b71f8ae83817d4494a33755fed8204, type: 3}
---- !u!54 &-4316014240851733704
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2772056166992708810}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
