@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3080587257614962454}
   - component: {fileID: 2121101275649212595}
   - component: {fileID: 4218567827879359609}
-  - component: {fileID: 3885144567934537341}
+  - component: {fileID: 1632711056868659514}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -83,7 +83,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3885144567934537341
+--- !u!65 &1632711056868659514
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,8 +94,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.010000001, y: 0.010000001, z: 0.010000001}
-  m_Center: {x: -2.3283067e-10, y: 0, z: 0}
+  m_Size: {x: 0.02, y: 0.02, z: 0.02}
+  m_Center: {x: -4.656613e-10, y: 0, z: 0}
 --- !u!1 &7132786750216256206
 GameObject:
   m_ObjectHideFlags: 0
@@ -201,7 +201,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4449983968947807613}
   - component: {fileID: -9024415820069786429}
-  - component: {fileID: 8359436378748158834}
   - component: {fileID: -860571567746163549}
   m_Layer: 0
   m_Name: PushableBox
@@ -267,19 +266,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8359436378748158834
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8125671069239901021}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &-860571567746163549
 Rigidbody:
   m_ObjectHideFlags: 0

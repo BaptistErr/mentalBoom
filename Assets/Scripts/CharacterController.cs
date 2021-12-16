@@ -350,7 +350,7 @@ public class CharacterController : MonoBehaviour
     {
         if (!hit)
         {
-            Health -= damage;
+            _health -= damage;
             hit = true;
             StartCoroutine(WaitDamage());
         }
