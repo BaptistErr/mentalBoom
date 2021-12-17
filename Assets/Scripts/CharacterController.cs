@@ -286,7 +286,6 @@ public class CharacterController : MonoBehaviour
             enemy.GetComponent<IEnemy>().GetDamage(damage);
         }
     }
-    
     private bool Move(Vector3 direction, float speed, bool considerMovables)
     {
         Rotate(direction);
@@ -352,6 +351,11 @@ public class CharacterController : MonoBehaviour
             maxDistance: Time.fixedDeltaTime * speed + _maxColliderExtent,
             layerMask: ~(_collider.gameObject.layer | (1<<2))
         );
+    }
+
+    public void Heal(float heal)
+    {
+
     }
 
     public void GetDamage(float damage)
