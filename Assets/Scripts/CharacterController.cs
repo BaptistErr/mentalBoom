@@ -166,7 +166,7 @@ public class CharacterController : MonoBehaviour
     private float _timeSinceDashEnd = float.PositiveInfinity;
     
     // attack
-    [SerializeField] private PlayerAttack _attackRecorder;
+    //[SerializeField] private PlayerAttack _attackRecorder;
     private float _timeSinceAttack = float.PositiveInfinity;
     private float _attackLoadTime = 0.0F;
 
@@ -175,7 +175,7 @@ public class CharacterController : MonoBehaviour
     private void Awake()
     {
         //_attackRecorder = gameObject.GetComponentInChildren<PlayerAttack>();
-        ResizeAttackZone(_attackRange);
+        //ResizeAttackZone(_attackRange);
         
         _rb = GetComponent<Rigidbody>();
         _collider = GetComponent<Collider>();
@@ -260,12 +260,12 @@ public class CharacterController : MonoBehaviour
 
     private void OnValidate()
     {
-        ResizeAttackZone(_attackRange);
+        //ResizeAttackZone(_attackRange);
     }
 
     #endregion
 
-    private void ResizeAttackZone(float size)
+    /*private void ResizeAttackZone(float size)
     {
         if (_attackRecorder == null) return;
         
@@ -274,7 +274,7 @@ public class CharacterController : MonoBehaviour
         Vector3 scale = transform.localScale;
         scale.z = size;
         transform.localScale = scale;
-    }
+    }*/
     
     private void Rotate(Vector3 forward)
     {

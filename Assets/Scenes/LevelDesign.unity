@@ -601,6 +601,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5213930887431713975, guid: 73fc988c21dd97a4494446f501fe8a71, type: 3}
   m_PrefabInstance: {fileID: 1874340579}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &212788249 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8125671069239901021, guid: bdbdfc892f942204c9c9d3f7a9eb3111, type: 3}
+  m_PrefabInstance: {fileID: 1555126885}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &221501135
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2836,6 +2841,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1583744985}
     m_Modifications:
     - target: {fileID: -2863049677745675011, guid: 2a9047d299729314fa4c05aecdd32f6b, type: 3}
+      propertyPath: Box
+      value: 
+      objectReference: {fileID: 212788249}
+    - target: {fileID: -2863049677745675011, guid: 2a9047d299729314fa4c05aecdd32f6b, type: 3}
       propertyPath: BoxName
       value: BlueBox
       objectReference: {fileID: 0}
@@ -2903,7 +2912,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: BlueSlab
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6309495952250680746, guid: 2a9047d299729314fa4c05aecdd32f6b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 2a9047d299729314fa4c05aecdd32f6b, type: 3}
 --- !u!4 &727597508 stripped
 Transform:
@@ -3937,6 +3947,24 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8290932538711169797, guid: 8dc16f15dbf1bdc4fa622d36fa057d56, type: 3}
   m_PrefabInstance: {fileID: 780981713}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &986160309 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8125671069239901021, guid: bdbdfc892f942204c9c9d3f7a9eb3111, type: 3}
+  m_PrefabInstance: {fileID: 1518721608}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &986160310
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 986160309}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 2, z: 2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &993789971
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4009,6 +4037,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1583744985}
     m_Modifications:
+    - target: {fileID: -2863049677745675011, guid: 2a9047d299729314fa4c05aecdd32f6b, type: 3}
+      propertyPath: Box
+      value: 
+      objectReference: {fileID: 986160309}
     - target: {fileID: 6309495952250680740, guid: 2a9047d299729314fa4c05aecdd32f6b, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -4073,7 +4105,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: RedSlab
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6309495952250680746, guid: 2a9047d299729314fa4c05aecdd32f6b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 2a9047d299729314fa4c05aecdd32f6b, type: 3}
 --- !u!4 &997226484 stripped
 Transform:
@@ -5576,6 +5609,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4022967358490919146, guid: 3cc860158602d56448107975857abbed, type: 3}
   m_PrefabInstance: {fileID: 2051520399}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1282883995 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8125671069239901021, guid: bdbdfc892f942204c9c9d3f7a9eb3111, type: 3}
+  m_PrefabInstance: {fileID: 1590907438}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1293244878 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3337928041233478756, guid: b33a514052f122241adf14972d691577, type: 3}
@@ -5593,6 +5631,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1583744985}
     m_Modifications:
+    - target: {fileID: -2863049677745675011, guid: 2a9047d299729314fa4c05aecdd32f6b, type: 3}
+      propertyPath: Box
+      value: 
+      objectReference: {fileID: 1282883995}
     - target: {fileID: -2863049677745675011, guid: 2a9047d299729314fa4c05aecdd32f6b, type: 3}
       propertyPath: BoxName
       value: YellowBox
@@ -5661,7 +5703,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: YellowSlab
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6309495952250680746, guid: 2a9047d299729314fa4c05aecdd32f6b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 2a9047d299729314fa4c05aecdd32f6b, type: 3}
 --- !u!4 &1303758902 stripped
 Transform:
@@ -5981,6 +6024,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1583744985}
     m_Modifications:
     - target: {fileID: -2863049677745675011, guid: 2a9047d299729314fa4c05aecdd32f6b, type: 3}
+      propertyPath: Box
+      value: 
+      objectReference: {fileID: 1918415741}
+    - target: {fileID: -2863049677745675011, guid: 2a9047d299729314fa4c05aecdd32f6b, type: 3}
       propertyPath: BoxName
       value: GreenBox
       objectReference: {fileID: 0}
@@ -6044,7 +6091,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: GreenSlab
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6309495952250680746, guid: 2a9047d299729314fa4c05aecdd32f6b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 2a9047d299729314fa4c05aecdd32f6b, type: 3}
 --- !u!4 &1359502751 stripped
 Transform:
@@ -6957,7 +7005,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: RedBox
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1632711056868659514, guid: bdbdfc892f942204c9c9d3f7a9eb3111, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: bdbdfc892f942204c9c9d3f7a9eb3111, type: 3}
 --- !u!4 &1518721609 stripped
 Transform:
@@ -9732,6 +9781,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 2863175903450829624, guid: c48a5d9f37400994b9280b754cb37ed5, type: 3}
   m_PrefabInstance: {fileID: 2088998026}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1918415741 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8125671069239901021, guid: bdbdfc892f942204c9c9d3f7a9eb3111, type: 3}
+  m_PrefabInstance: {fileID: 361621264}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1922206516
 PrefabInstance:
