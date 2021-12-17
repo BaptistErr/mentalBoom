@@ -113,7 +113,9 @@ public class CharacterController : MonoBehaviour
 #endregion
 
 #region Attack
-[Header("Attack")]
+
+[Header("Attack")] 
+    public Transform AttackZone;
 
     [SerializeField] private float _attackRange = 2.0F;
     /// <summary> The distance the player can attack enemies. </summary>
@@ -164,7 +166,7 @@ public class CharacterController : MonoBehaviour
     private float _timeSinceDashEnd = float.PositiveInfinity;
     
     // attack
-    [SerializeField] private PlayerAttack _attackRecorder;
+    //[SerializeField] private PlayerAttack _attackRecorder;
     private float _timeSinceAttack = float.PositiveInfinity;
     private float _attackLoadTime = 0.0F;
 
@@ -172,8 +174,8 @@ public class CharacterController : MonoBehaviour
 
     private void Awake()
     {
-        _attackRecorder = gameObject.GetComponentInChildren<PlayerAttack>();
-        ResizeAttackZone(_attackRange);
+        //_attackRecorder = gameObject.GetComponentInChildren<PlayerAttack>();
+        //ResizeAttackZone(_attackRange);
         
         _rb = GetComponent<Rigidbody>();
         _collider = GetComponent<Collider>();
@@ -256,12 +258,12 @@ public class CharacterController : MonoBehaviour
 
     private void OnValidate()
     {
-        ResizeAttackZone(_attackRange);
+        //ResizeAttackZone(_attackRange);
     }
 
     #endregion
 
-    private void ResizeAttackZone(float size)
+    /*private void ResizeAttackZone(float size)
     {
         if (_attackRecorder == null) return;
         
@@ -270,7 +272,7 @@ public class CharacterController : MonoBehaviour
         Vector3 scale = transform.localScale;
         scale.z = size;
         transform.localScale = scale;
-    }
+    }*/
     
     private void Rotate(Vector3 forward)
     {
@@ -279,9 +281,10 @@ public class CharacterController : MonoBehaviour
 
     private void Attack(int damage)
     {
-        foreach (GameObject enemy in _attackRecorder.Enemies)
+        Collider[] colliders = Physics.OverlapBox(AttackZone.transform.position, AttackZone.transform.lossyScale / 2.0F, AttackZone.transform.rotation, 1<<11);
+        foreach (Collider enemy in colliders)
         {
-            enemy.GetComponent<IEnemy>().GetDamage(damage);
+            enemy.gameObject.GetComponent<IEnemy>().GetDamage(damage);
         }
     }
     private bool Move(Vector3 direction, float speed, bool considerMovables)
