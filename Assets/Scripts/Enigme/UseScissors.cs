@@ -5,12 +5,13 @@ using UnityEngine;
 public class UseScissors : MonoBehaviour
 {
     private GameObject Plateform;
+    [SerializeField]
     private GameObject Scissors;
     private GameObject WallToRemove;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name == "Scissors")
+        if (other.gameObject == Scissors)
         {
             Plateform = GameObject.Find("Plateform");
             Plateform.GetComponent<Rigidbody>().isKinematic = false;
@@ -19,9 +20,8 @@ public class UseScissors : MonoBehaviour
             WallToRemove.GetComponent<MeshRenderer>().enabled = false;
             WallToRemove.GetComponent<BoxCollider>().enabled = false;
 
-            Scissors = GameObject.Find("Scissors");
+            Scissors.GetComponent<BoxCollider>().enabled = false;
             Scissors.GetComponent<MeshRenderer>().enabled = false;
-            Scissors.GetComponent<MeshCollider>().enabled = false;
 
             StartCoroutine(WaitBeforeStuck());
         }
@@ -32,6 +32,7 @@ public class UseScissors : MonoBehaviour
         // yield on a new YieldInstruction that waits for 5 seconds.
         yield return new WaitForSeconds(2);
         // stuck the bridge 
+        Debug.Log("Block");
         Plateform.GetComponent<Rigidbody>().isKinematic = true;
     }
 

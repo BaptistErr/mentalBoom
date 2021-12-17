@@ -5,14 +5,10 @@ using UnityEngine;
 public class Pickup : MonoBehaviour
 {
     public Transform TheHand;
+    [SerializeField]
     private GameObject Character;
-    public float maxDistance = 1f;
-    private bool picking;
-
-    private void Start()
-    {
-        picking = false;
-    }
+    public float maxDistance = 2f;
+    private bool picking = false;
 
     private void Update()
     {
@@ -21,11 +17,11 @@ public class Pickup : MonoBehaviour
             // PickUp
             if (!picking && TheHand.childCount.Equals(0))
             {
-                Character = GameObject.Find("Character");
-                float distance = Vector3.Distance(this.transform.position, Character.transform.position);
+                float distance = Vector3.Distance(transform.position, Character.transform.position);
                 if (distance < maxDistance)
                 {
-                    GetComponent<MeshCollider>().enabled = false;
+                    Debug.Log("Clique");
+                    GetComponent<BoxCollider>().enabled = false;
                     GetComponent<Rigidbody>().useGravity = false;
                     GetComponent<Rigidbody>().isKinematic = true;
                     transform.position = TheHand.position;
@@ -38,7 +34,7 @@ public class Pickup : MonoBehaviour
             else
             {
                 transform.parent = null;
-                GetComponent<MeshCollider>().enabled = true;
+                GetComponent<BoxCollider>().enabled = true;
                 GetComponent<Rigidbody>().useGravity = true;
                 GetComponent<Rigidbody>().isKinematic = false;
                 picking = false;
