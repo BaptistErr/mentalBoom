@@ -20,7 +20,6 @@ class EnigmaController : MonoBehaviour
                 if (button.IsOverlapped)
                 {
                     activatedButtons++;
-                    Debug.Log(activatedButtons);
                 }
             }
         }

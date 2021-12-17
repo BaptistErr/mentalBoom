@@ -10,7 +10,7 @@ using UnityEngine;
 public class CharacterController : MonoBehaviour
 {
     [SerializeField] private GameManager manager;
-    public static CharacterController Instance;
+
     private bool hit;
 
     [SerializeField] private float _health = -1.0F;
@@ -18,9 +18,7 @@ public class CharacterController : MonoBehaviour
     /// <summary> Base health of player </summary>
     public float Health => _health;
 
-    public float MaxHealth;
-
-    #region Movements
+#region Movements
 [Header("Movements")]
 
     [SerializeField] private float _moveSpeed = 5.0F;
@@ -115,7 +113,9 @@ public class CharacterController : MonoBehaviour
 #endregion
 
 #region Attack
-[Header("Attack")]
+
+[Header("Attack")] 
+    public Transform AttackZone;
 
     [SerializeField] private float _attackRange = 2.0F;
     /// <summary> The distance the player can attack enemies. </summary>
@@ -166,7 +166,7 @@ public class CharacterController : MonoBehaviour
     private float _timeSinceDashEnd = float.PositiveInfinity;
     
     // attack
-    [SerializeField] private PlayerAttack _attackRecorder;
+    //[SerializeField] private PlayerAttack _attackRecorder;
     private float _timeSinceAttack = float.PositiveInfinity;
     private float _attackLoadTime = 0.0F;
 
@@ -174,10 +174,8 @@ public class CharacterController : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
-
-        _attackRecorder = gameObject.GetComponentInChildren<PlayerAttack>();
-        ResizeAttackZone(_attackRange);
+        //_attackRecorder = gameObject.GetComponentInChildren<PlayerAttack>();
+        //ResizeAttackZone(_attackRange);
         
         _rb = GetComponent<Rigidbody>();
         _collider = GetComponent<Collider>();
@@ -187,8 +185,6 @@ public class CharacterController : MonoBehaviour
         _maxColliderExtent = Math.Max(extents.x, extents.z);
 
         hit = false;
-
-        MaxHealth = Health;
     }
     
     private void Update()
@@ -225,7 +221,7 @@ public class CharacterController : MonoBehaviour
             _timeSinceAttack = 0.0F;
             _attackLoadTime = 0.0F;
             
-            Attack(_attackDamageByLoad.Evaluate(weaponLoadPct));
+            Attack((int)_attackDamageByLoad.Evaluate(weaponLoadPct));
         }
     }
     
@@ -262,12 +258,12 @@ public class CharacterController : MonoBehaviour
 
     private void OnValidate()
     {
-        ResizeAttackZone(_attackRange);
+        //ResizeAttackZone(_attackRange);
     }
 
     #endregion
 
-    private void ResizeAttackZone(float size)
+    /*private void ResizeAttackZone(float size)
     {
         if (_attackRecorder == null) return;
         
@@ -276,19 +272,19 @@ public class CharacterController : MonoBehaviour
         Vector3 scale = transform.localScale;
         scale.z = size;
         transform.localScale = scale;
-    }
+    }*/
     
     private void Rotate(Vector3 forward)
     {
         transform.LookAt(transform.position + new Vector3(forward.x, 0.0F, forward.z));
     }
 
-    private void Attack(float damage)
+    private void Attack(int damage)
     {
-        foreach (GameObject enemy in _attackRecorder.Enemies)
+        Collider[] colliders = Physics.OverlapBox(AttackZone.transform.position, AttackZone.transform.lossyScale / 2.0F, AttackZone.transform.rotation, 1<<11);
+        foreach (Collider enemy in colliders)
         {
-            enemy.GetComponent<BossController>()?.GetDamage(100);
-            enemy.GetComponent<IAChasing_Controller>()?.GetDamage(25);
+            enemy.gameObject.GetComponent<IEnemy>().GetDamage(damage);
         }
     }
     private bool Move(Vector3 direction, float speed, bool considerMovables)
@@ -300,7 +296,14 @@ public class CharacterController : MonoBehaviour
         bool doHit = _rb.SweepTest(direction, out RaycastHit hit, distanceToTravel, QueryTriggerInteraction.Ignore);
         if (doHit)
         {
-            if (!considerMovables) doHit = (hit.rigidbody == null);
+            if (!considerMovables)
+            {
+                doHit = (hit.rigidbody == null);
+            }
+            else
+            {
+                doHit = IsObstacleOnFrame(direction, speed * 1.2F);
+            }
             if (doHit) translation = direction * hit.distance;
         }
         _rb.MovePosition(_rb.position + translation);
@@ -316,6 +319,7 @@ public class CharacterController : MonoBehaviour
             _dashDir = dir;
             _dashing = true;
             _dashTime = 0.0F;
+            GetDamage(0);
         }
     }
     private void StopDash()
@@ -341,7 +345,7 @@ public class CharacterController : MonoBehaviour
         return (ForwardDirection*vertical + RightDirection*horizontal).normalized;
     }
     
-    /*private bool IsObstacleOnFrame(Vector3 direction, float speed)
+    private bool IsObstacleOnFrame(Vector3 direction, float speed)
     {
         if(_dashing) Debug.DrawRay(_rb.position, direction, Color.yellow, 1.0F);
         return Physics.Raycast(
@@ -349,11 +353,11 @@ public class CharacterController : MonoBehaviour
             maxDistance: Time.fixedDeltaTime * speed + _maxColliderExtent,
             layerMask: ~(_collider.gameObject.layer | (1<<2))
         );
-    }*/
+    }
 
     public void Heal(float heal)
     {
-        _health += heal;
+
     }
 
     public void GetDamage(float damage)

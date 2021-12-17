@@ -28,20 +28,20 @@ public class LaserSlide : MonoBehaviour
         var step = speed * Time.deltaTime;
         if (toBack)
         {
-            GetComponent<LineRenderer>().SetPosition(1, GetComponent<LineRenderer>().GetPosition(1) - new Vector3(0, 0, .05f * step));
-            if (GetComponent<LineRenderer>().GetPosition(1).z <= -25)
+            GetComponent<LineRenderer>().SetPosition(1, GetComponent<LineRenderer>().GetPosition(1) + new Vector3(step, 0, 0));
+            if (GetComponent<LineRenderer>().GetPosition(1).x >= -25)
             {
                 toBack = false;
             }
         }
-        else if (GetComponent<LineRenderer>().GetPosition(1).x <= 66.5)
+        else if (GetComponent<LineRenderer>().GetPosition(1).z <= 59)
         {
-            GetComponent<LineRenderer>().SetPosition(1, GetComponent<LineRenderer>().GetPosition(1) + new Vector3(0.05f * step, 0, 0));
+            GetComponent<LineRenderer>().SetPosition(1, GetComponent<LineRenderer>().GetPosition(1) + new Vector3(0, 0, step));
         }
         else
         {
-            GetComponent<LineRenderer>().SetPosition(1, GetComponent<LineRenderer>().GetPosition(1) + new Vector3(0, 0, .05f * step));
-            if (GetComponent<LineRenderer>().GetPosition(1).z >= 25)
+            GetComponent<LineRenderer>().SetPosition(1, GetComponent<LineRenderer>().GetPosition(1) - new Vector3(step, 0, 0));
+            if (GetComponent<LineRenderer>().GetPosition(1).x <= -79)
             {
                 GetComponentInParent<BossController>().ChoosePattern();
                 GetComponentInParent<BossController>().isLasering = false;

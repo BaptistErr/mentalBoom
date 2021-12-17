@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider))]
@@ -8,7 +9,7 @@ public class PlayerAttack : MonoBehaviour
 {
     public int EnemyLayer = 11;
     
-    private List<GameObject> _enemies;
+    private HashSet<GameObject> _enemies;
     public IEnumerable<GameObject> Enemies => _enemies;
 
     public BoxCollider Collider { get; private set; }
@@ -19,24 +20,37 @@ public class PlayerAttack : MonoBehaviour
     
     private void Awake()
     {
-        _enemies = new List<GameObject>(capacity: 8);
+        _enemies = new HashSet<GameObject>();
         Collider = GetComponent<BoxCollider>();
 
-        var transform1 = transform;
+        /*var transform1 = transform;
         _localPos = transform1.localPosition;
         _localRot = transform1.localRotation;
         _parent = transform1.parent;
-        transform1.parent = null;
+        transform1.parent = null;*/
     }
 
     private void LateUpdate()
     {
-        transform.parent = _parent;
+        /*transform.parent = _parent;
         transform.localRotation = _localRot;
         transform.localPosition = _localPos;
-        transform.parent = null;
+        transform.parent = null;*/
+
+        CleanUp();
     }
 
+    private void CleanUp()
+    {
+        foreach (GameObject go in _enemies.ToList())
+        {
+            if (go == null)
+            {
+                _enemies.Remove(go);
+            }
+        }
+    }
+    
     private void OnTriggerEnter(Collider other)
     {
         GameObject go = other.gameObject;
@@ -45,6 +59,7 @@ public class PlayerAttack : MonoBehaviour
             _enemies.Add(go);
         }
     }
+
     private void OnTriggerExit(Collider other)
     {
         GameObject go = other.gameObject;

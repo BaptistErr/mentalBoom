@@ -45,13 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   endGameMenu: {fileID: 0}
-  posPause: {fileID: 0}
-  posLaser: {fileID: 0}
-  posSpawn: {fileID: 0}
-  positions:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   gameEnded: 0
 --- !u!114 &5896265168970785722
 MonoBehaviour:

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class IAChasing_Controller : MonoBehaviour
+public class IAChasing_Controller : MonoBehaviour, IEnemy
 {
 
     private NavMeshAgent agent = null;
@@ -28,9 +28,8 @@ public class IAChasing_Controller : MonoBehaviour
     {
         GetReferences();
         target = FindObjectOfType<CharacterController>();
-        IAChasing = GameObject.Find("AIChasing");
+        IAChasing = GameObject.Find("AIChasing(Clone)");
         stoppingDistance = IAChasing.GetComponent<NavMeshAgent>().stoppingDistance;
-        IA_health = 50;
     }
 
     // Update

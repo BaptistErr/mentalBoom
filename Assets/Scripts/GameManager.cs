@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
 
     public void GameEnded(bool victory)
     {
+        Time.timeScale = 0f;
         gameEnded = true;
         if (victory)
         {
@@ -34,7 +35,8 @@ public class GameManager : MonoBehaviour
 
     public void Replay()
     {
-        SceneManager.LoadScene("ProtoMain");
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("LevelDesign");
         gameEnded = false;
     }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossController : MonoBehaviour
+public class BossController : MonoBehaviour, IEnemy
 {
 
     //Positions where the boss will go
@@ -53,7 +53,6 @@ public class BossController : MonoBehaviour
         manager = FindObjectOfType<GameManager>();
         toC = true;
         lastLocation = 0;
-        Debug.Log("manager.positions.Length : " + positions.Length);
         target = positions[2].position;
         paused = false;
         pattern = 0;
@@ -94,6 +93,7 @@ public class BossController : MonoBehaviour
             Instantiate(enemy, posSpawn);
             yield return new WaitForSeconds(1);
         }
+        isSpawning = false;
         ChoosePattern();
     }
 
