@@ -5,18 +5,15 @@ using UnityEngine;
 public class ColorButton : MonoBehaviour
 {
     public bool IsOverlapped;
-    public string BoxName;
     public GameObject Box;
 
     // Box enter
     private void OnTriggerEnter(Collider other)
     {
-        // TODO it repeats too much
         // Box placed?
-        if (other.gameObject.name == BoxName)
+        if (other.gameObject == Box)
         {
             IsOverlapped = true;
-            Box = GameObject.Find(BoxName);
             Box.GetComponent<Rigidbody>().isKinematic = true;
         }
     }
