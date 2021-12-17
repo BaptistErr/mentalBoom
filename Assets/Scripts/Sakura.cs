@@ -14,10 +14,12 @@ public class Sakura : MonoBehaviour
     {
         if (other.gameObject == character)
         {
+            Debug.Log("c le joueur");
             if (Input.GetKeyDown(KeyCode.Mouse1) && NbHeal > 0)
             {
                 Debug.Log("HEAL");
                 NbHeal--;
+                CharacterController.Instance.Heal(CharacterController.Instance.MaxHealth);
             }
         }
     }

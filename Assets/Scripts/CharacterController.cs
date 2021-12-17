@@ -10,7 +10,7 @@ using UnityEngine;
 public class CharacterController : MonoBehaviour
 {
     [SerializeField] private GameManager manager;
-
+    public static CharacterController Instance;
     private bool hit;
 
     [SerializeField] private float _health = -1.0F;
@@ -18,7 +18,9 @@ public class CharacterController : MonoBehaviour
     /// <summary> Base health of player </summary>
     public float Health => _health;
 
-#region Movements
+    public float MaxHealth;
+
+    #region Movements
 [Header("Movements")]
 
     [SerializeField] private float _moveSpeed = 5.0F;
@@ -172,6 +174,8 @@ public class CharacterController : MonoBehaviour
 
     private void Awake()
     {
+        Instance = this;
+
         _attackRecorder = gameObject.GetComponentInChildren<PlayerAttack>();
         ResizeAttackZone(_attackRange);
         
@@ -183,6 +187,8 @@ public class CharacterController : MonoBehaviour
         _maxColliderExtent = Math.Max(extents.x, extents.z);
 
         hit = false;
+
+        MaxHealth = Health;
     }
     
     private void Update()
@@ -347,7 +353,7 @@ public class CharacterController : MonoBehaviour
 
     public void Heal(float heal)
     {
-
+        _health += heal;
     }
 
     public void GetDamage(float damage)
