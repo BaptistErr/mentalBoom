@@ -285,7 +285,6 @@ public class CharacterController : MonoBehaviour
             enemy.GetComponent<IAChasing_Controller>()?.GetDamage(25);
         }
     }
-    
     private bool Move(Vector3 direction, float speed, bool considerMovables)
     {
         Rotate(direction);
@@ -345,6 +344,11 @@ public class CharacterController : MonoBehaviour
             layerMask: ~(_collider.gameObject.layer | (1<<2))
         );
     }*/
+
+    public void Heal(float heal)
+    {
+
+    }
 
     public void GetDamage(float damage)
     {
