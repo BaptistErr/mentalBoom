@@ -12,11 +12,13 @@ public class CharacterController : MonoBehaviour
     [SerializeField] private GameManager manager;
 
     private bool hit;
+    public static CharacterController Instance;
 
     [SerializeField] private float _health = -1.0F;
 
     /// <summary> Base health of player </summary>
     public float Health => _health;
+    public float MaxHealth;
 
 #region Movements
 [Header("Movements")]
@@ -176,7 +178,9 @@ public class CharacterController : MonoBehaviour
     {
         //_attackRecorder = gameObject.GetComponentInChildren<PlayerAttack>();
         //ResizeAttackZone(_attackRange);
-        
+
+        Instance = this;
+
         _rb = GetComponent<Rigidbody>();
         _collider = GetComponent<Collider>();
         

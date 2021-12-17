@@ -12,10 +12,9 @@ public class Sakura : MonoBehaviour
     // Update is called once per frame
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject == character)
+        if (other.GetComponent<CharacterController>())
         {
-            Debug.Log("c le joueur");
-            if (Input.GetKeyDown(KeyCode.Mouse1) && NbHeal > 0)
+            if (Input.GetKeyDown(KeyCode.A) && NbHeal > 0 && CharacterController.Instance.Health != CharacterController.Instance.MaxHealth)
             {
                 Debug.Log("HEAL");
                 NbHeal--;
