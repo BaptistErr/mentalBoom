@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 86065699568621982}
   - component: {fileID: 7443159283019001001}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Detection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 5478506527989193512}
   - component: {fileID: 2387314603904379755}
   - component: {fileID: 2603339520313346359}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Front
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154,7 +154,7 @@ GameObject:
   - component: {fileID: 7254288913525998918}
   - component: {fileID: 7967779165434742240}
   - component: {fileID: 4699366937520220980}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: AIChasing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -290,3 +290,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3247e1a5538e75459ba87e2bca0d475, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IA_health: 0
+  _damage: 10

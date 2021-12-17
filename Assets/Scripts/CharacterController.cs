@@ -113,7 +113,9 @@ public class CharacterController : MonoBehaviour
 #endregion
 
 #region Attack
-[Header("Attack")]
+
+[Header("Attack")] 
+    public Transform AttackZone;
 
     [SerializeField] private float _attackRange = 2.0F;
     /// <summary> The distance the player can attack enemies. </summary>
@@ -172,7 +174,7 @@ public class CharacterController : MonoBehaviour
 
     private void Awake()
     {
-        _attackRecorder = gameObject.GetComponentInChildren<PlayerAttack>();
+        //_attackRecorder = gameObject.GetComponentInChildren<PlayerAttack>();
         ResizeAttackZone(_attackRange);
         
         _rb = GetComponent<Rigidbody>();
@@ -281,9 +283,10 @@ public class CharacterController : MonoBehaviour
 
     private void Attack(int damage)
     {
-        foreach (GameObject enemy in _attackRecorder.Enemies)
+        Collider[] colliders = Physics.OverlapBox(AttackZone.transform.position, AttackZone.transform.lossyScale / 2.0F, AttackZone.transform.rotation, 1<<11);
+        foreach (Collider enemy in colliders)
         {
-            enemy.GetComponent<IEnemy>().GetDamage(damage);
+            enemy.gameObject.GetComponent<IEnemy>().GetDamage(damage);
         }
     }
     
