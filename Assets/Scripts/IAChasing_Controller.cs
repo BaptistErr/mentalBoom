@@ -28,9 +28,8 @@ public class IAChasing_Controller : MonoBehaviour, IEnemy
     {
         GetReferences();
         target = FindObjectOfType<CharacterController>();
-        IAChasing = GameObject.Find("AIChasing");
+        IAChasing = GameObject.Find("AIChasing(Clone)");
         stoppingDistance = IAChasing.GetComponent<NavMeshAgent>().stoppingDistance;
-        IA_health = 50;
     }
 
     // Update

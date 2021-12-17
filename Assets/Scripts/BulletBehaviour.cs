@@ -8,8 +8,8 @@ public class BulletBehaviour : MonoBehaviour
     private float force;
 
     private CharacterController target;
-    
-    [SerializeField] private float _damage = 5.0F;
+
+    [SerializeField] private float _damage;
     /// <summary> Amount of damages dealt by each projectile </summary>
     public float Damage
     {

@@ -93,6 +93,7 @@ public class BossController : MonoBehaviour, IEnemy
             Instantiate(enemy, posSpawn);
             yield return new WaitForSeconds(1);
         }
+        isSpawning = false;
         ChoosePattern();
     }
 
@@ -140,6 +141,7 @@ public class BossController : MonoBehaviour, IEnemy
             pattern = Random.Range(0, 3);
         }
         lastPattern = pattern;
+        Debug.Log("pattern : " + pattern);
 
         if (pattern == 0)
         {

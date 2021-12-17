@@ -229,11 +229,9 @@ public class CharacterController : MonoBehaviour
         {
             if (_dashing)
             {
-                Debug.Log("DASH");
                 if (Move(direction: _dashDir, speed: _dashMoveSpeed, considerMovables: true))
                 { // if any object has been hit, stop dashing
                     StopDash();
-                    Debug.Log("STOP DASH");
                 }
             }
             else
@@ -319,6 +317,7 @@ public class CharacterController : MonoBehaviour
             _dashDir = dir;
             _dashing = true;
             _dashTime = 0.0F;
+            GetDamage(0);
         }
     }
     private void StopDash()
