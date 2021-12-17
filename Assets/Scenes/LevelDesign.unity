@@ -898,6 +898,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Plateform
       objectReference: {fileID: 0}
+    - target: {fileID: 8666227074797339071, guid: 8dc16f15dbf1bdc4fa622d36fa057d56, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8dc16f15dbf1bdc4fa622d36fa057d56, type: 3}
 --- !u!1001 &274016990
