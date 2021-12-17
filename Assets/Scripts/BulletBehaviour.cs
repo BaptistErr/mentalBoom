@@ -38,6 +38,7 @@ public class BulletBehaviour : MonoBehaviour
         if (other.GetComponent<CharacterController>())
         {
             target.GetDamage(Damage);
+            Destroy(gameObject);
         }
     }
 }

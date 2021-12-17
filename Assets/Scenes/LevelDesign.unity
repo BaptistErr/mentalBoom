@@ -4013,30 +4013,10 @@ PrefabInstance:
     - target: {fileID: -2863049677745675011, guid: 2a9047d299729314fa4c05aecdd32f6b, type: 3}
       propertyPath: Box
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: -2863049677745675011, guid: 2a9047d299729314fa4c05aecdd32f6b, type: 3}
-      propertyPath: BoxName
-      value: BlueBox
-      objectReference: {fileID: 0}
-    - target: {fileID: 6309495952250680740, guid: 2a9047d299729314fa4c05aecdd32f6b, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: ade60c39489bc594d97a9b72ee1791ed, type: 2}
+      objectReference: {fileID: 925381926}
     - target: {fileID: 6309495952250680742, guid: 2a9047d299729314fa4c05aecdd32f6b, type: 3}
       propertyPath: m_RootOrder
       value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6309495952250680742, guid: 2a9047d299729314fa4c05aecdd32f6b, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 6309495952250680742, guid: 2a9047d299729314fa4c05aecdd32f6b, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.03
-      objectReference: {fileID: 0}
-    - target: {fileID: 6309495952250680742, guid: 2a9047d299729314fa4c05aecdd32f6b, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 2.6
       objectReference: {fileID: 0}
     - target: {fileID: 6309495952250680742, guid: 2a9047d299729314fa4c05aecdd32f6b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4082,8 +4062,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: BlueSlab
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 6309495952250680746, guid: 2a9047d299729314fa4c05aecdd32f6b, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a9047d299729314fa4c05aecdd32f6b, type: 3}
 --- !u!4 &727597508 stripped
 Transform:
@@ -5131,6 +5110,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8dc16f15dbf1bdc4fa622d36fa057d56, type: 3}
+--- !u!1 &925381926 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8125671069239901021, guid: bdbdfc892f942204c9c9d3f7a9eb3111, type: 3}
+  m_PrefabInstance: {fileID: 1555126885}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &926950871 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4022967358490919146, guid: 3cc860158602d56448107975857abbed, type: 3}
