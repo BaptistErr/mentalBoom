@@ -100,19 +100,17 @@ public class IAChasing_Controller : MonoBehaviour, IEnemy
 
     public void GetDamage(int damage)
     {
+        IA_health -= damage;
+
         if (IA_health <= 0)
         {
             Die();
-        }
-        else
-        {
-            IA_health -= damage;
         }
     }
 
     public void Die()
     {
-        Debug.Log("I'm dead");
+        // Debug.Log("I'm dead");
         Destroy(gameObject);
     }
 }
