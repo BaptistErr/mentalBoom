@@ -13013,6 +13013,10 @@ PrefabInstance:
       propertyPath: manager
       value: 
       objectReference: {fileID: 2024314773}
+    - target: {fileID: 1456213304, guid: c48a5d9f37400994b9280b754cb37ed5, type: 3}
+      propertyPath: _controlMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7254288913525998914, guid: c48a5d9f37400994b9280b754cb37ed5, type: 3}
       propertyPath: m_RootOrder
       value: 2

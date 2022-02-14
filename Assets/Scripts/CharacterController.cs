@@ -341,12 +341,23 @@ public class CharacterController : MonoBehaviour
         }
     }
 
+    public enum ControlMode
+    {
+        Camera,
+        World
+    }
+
+    public ControlMode _controlMode = ControlMode.Camera;
     private Vector3 GetMoveDirection()
     {
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
-        return (ForwardDirection*vertical + RightDirection*horizontal).normalized;
+        return _controlMode switch
+        {
+            ControlMode.Camera => (ForwardDirection*vertical + RightDirection*horizontal).normalized,
+            ControlMode.World => (Vector3.forward*vertical+Vector3.right*horizontal).normalized
+        };
     }
     
     private bool IsObstacleOnFrame(Vector3 direction, float speed)
