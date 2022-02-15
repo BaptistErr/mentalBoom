@@ -17,15 +17,8 @@ public class Sakura : MonoBehaviour
 
     private void Start()
     {
-        //Create a new cube primitive to set the color on
-        GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-
-        //Get the Renderer component from the new cube
-        var sphereRenderer = sphere.GetComponent<Renderer>();
-
-        //Call SetColor using the shader property name "_Color" and setting the color to red
-        BasicColor = new Color(176f/255f, 94f/255f, 141f/255f);
-        ActivateColor = new Color(133f/255f, 95f/255f, 176f/255f);
+        BasicColor = new Color(176f/255f, 94f/255f, 141f/255f);     // Pink
+        ActivateColor = new Color(133f/255f, 95f/255f, 176f/255f);  // Purple
 
         isInTrigger = false;
     }
