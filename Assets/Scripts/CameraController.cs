@@ -63,6 +63,7 @@ public class CameraController : MonoBehaviour
     {
         CameraMode = _cameraMode;
         _camera = Camera.main;
+        _camera.targetTexture = RenderTexture.active;
     }
     
     private void LateUpdate()
