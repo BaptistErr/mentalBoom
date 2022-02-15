@@ -26,9 +26,9 @@ public class BossController : MonoBehaviour, IEnemy
     public bool isSpawning;
 
     [SerializeField]
-    private int maxHealth;
+    private float maxHealth;
 
-    private int health;
+    private float health;
 
     private GameManager manager;
 
@@ -42,7 +42,7 @@ public class BossController : MonoBehaviour, IEnemy
     private GameObject enemy;
 
     [SerializeField]
-    private Slider healthBar;
+    private Image healthBar;
 
     private Coroutine shoot;
 
@@ -68,6 +68,7 @@ public class BossController : MonoBehaviour, IEnemy
         isLasering = false;
         isSpawning = false;
         health = maxHealth;
+        Debug.Log("health : " + health);
 
         shoot = StartCoroutine(Shoot());
     }
@@ -110,14 +111,14 @@ public class BossController : MonoBehaviour, IEnemy
         if (pattern == 0 && !paused)
         {
             Movement();
-            if (health <= 100 && !phaseChanged)
+            if (health <= 100 && !phaseChanged && manager.enigmaFinished)
             {
                 StopCoroutine(shoot);
                 ChoosePattern();
                 phaseChanged = true;
                 paused = false;
             }
-            if (pausesCounter == 2 && phaseChanged)
+            if (pausesCounter == 2 && phaseChanged && manager.enigmaFinished)
             {
                 pausesCounter = 0;
                 paused = false;
@@ -168,7 +169,11 @@ public class BossController : MonoBehaviour, IEnemy
     public void GetDamage(int damage)
     {
         health -= damage;
-        healthBar.value = health / maxHealth;
+        Debug.Log("healthBar : " + healthBar);
+        Debug.Log("healthBar.value : " + healthBar.fillAmount);
+        Debug.Log("health : " + health);
+        Debug.Log("maxHealth : " + maxHealth);
+        healthBar.fillAmount = health / maxHealth;
         if (health <= 0)
         {
             transform.rotation = Quaternion.Euler(90, 0, 0);

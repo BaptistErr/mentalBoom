@@ -70,10 +70,11 @@ MonoBehaviour:
   paused: 0
   isLasering: 0
   isSpawning: 0
-  health: 200
+  maxHealth: 100
   bullet: {fileID: 3409152830036012499, guid: c63105ee93d4ce84aa8ba44c1a565140, type: 3}
   laser: {fileID: 6716068264935899223, guid: 157a672d127a6df41804849cd012375d, type: 3}
   enemy: {fileID: 7254288913525998916, guid: 00e4c5afd5a0d7b4994f82144c631a1e, type: 3}
+  healthBar: {fileID: 241383493856273144}
 --- !u!1 &4342788487105540129
 GameObject:
   m_ObjectHideFlags: 0
@@ -250,19 +251,68 @@ PrefabInstance:
       propertyPath: m_Name
       value: BossHealthBar
       objectReference: {fileID: 0}
+    - target: {fileID: 4953064064654349993, guid: d61f572d3b8664d41bc9adde3fc822c1, type: 3}
+      propertyPath: m_Type
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4953064064654349993, guid: d61f572d3b8664d41bc9adde3fc822c1, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 4953064064654349993, guid: d61f572d3b8664d41bc9adde3fc822c1, type: 3}
+      propertyPath: m_Maskable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4953064064654349993, guid: d61f572d3b8664d41bc9adde3fc822c1, type: 3}
+      propertyPath: m_FillAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4953064064654349993, guid: d61f572d3b8664d41bc9adde3fc822c1, type: 3}
+      propertyPath: m_FillMethod
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5316536935887358505, guid: d61f572d3b8664d41bc9adde3fc822c1, type: 3}
+      propertyPath: m_Value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5316536935887358505, guid: d61f572d3b8664d41bc9adde3fc822c1, type: 3}
       propertyPath: m_TargetGraphic
       value: 
       objectReference: {fileID: 9212594800096268165}
     - target: {fileID: 6700183656563248605, guid: d61f572d3b8664d41bc9adde3fc822c1, type: 3}
-      propertyPath: m_AnchorMax.x
+      propertyPath: m_Pivot.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6700183656563248605, guid: d61f572d3b8664d41bc9adde3fc822c1, type: 3}
-      propertyPath: m_AnchorMax.y
+      propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 6700183656563248605, guid: d61f572d3b8664d41bc9adde3fc822c1, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6700183656563248605, guid: d61f572d3b8664d41bc9adde3fc822c1, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6700183656563248605, guid: d61f572d3b8664d41bc9adde3fc822c1, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6700183656563248605, guid: d61f572d3b8664d41bc9adde3fc822c1, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6700183656563248605, guid: d61f572d3b8664d41bc9adde3fc822c1, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6700183656563248605, guid: d61f572d3b8664d41bc9adde3fc822c1, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 5316536935887358505, guid: d61f572d3b8664d41bc9adde3fc822c1, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: d61f572d3b8664d41bc9adde3fc822c1, type: 3}
 --- !u!224 &7398061332841284067 stripped
 RectTransform:
@@ -272,6 +322,17 @@ RectTransform:
 --- !u!114 &9212594800096268165 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4052384987646983124, guid: d61f572d3b8664d41bc9adde3fc822c1, type: 3}
+  m_PrefabInstance: {fileID: 5180617882149303377}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &241383493856273144 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4953064064654349993, guid: d61f572d3b8664d41bc9adde3fc822c1, type: 3}
   m_PrefabInstance: {fileID: 5180617882149303377}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
