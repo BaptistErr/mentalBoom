@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BossController : MonoBehaviour, IEnemy
 {
@@ -25,6 +26,8 @@ public class BossController : MonoBehaviour, IEnemy
     public bool isSpawning;
 
     [SerializeField]
+    private int maxHealth;
+
     private int health;
 
     private GameManager manager;
@@ -37,6 +40,9 @@ public class BossController : MonoBehaviour, IEnemy
 
     [SerializeField]
     private GameObject enemy;
+
+    [SerializeField]
+    private Slider healthBar;
 
     private Coroutine shoot;
 
@@ -61,6 +67,7 @@ public class BossController : MonoBehaviour, IEnemy
         pausesCounter = 0;
         isLasering = false;
         isSpawning = false;
+        health = maxHealth;
 
         shoot = StartCoroutine(Shoot());
     }
@@ -161,6 +168,7 @@ public class BossController : MonoBehaviour, IEnemy
     public void GetDamage(int damage)
     {
         health -= damage;
+        healthBar.value = health / maxHealth;
         if (health <= 0)
         {
             transform.rotation = Quaternion.Euler(90, 0, 0);
