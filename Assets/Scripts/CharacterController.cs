@@ -12,11 +12,13 @@ public class CharacterController : MonoBehaviour
     [SerializeField] private GameManager manager;
 
     private bool hit;
+    public static CharacterController Instance;
 
     [SerializeField] private float _health = -1.0F;
 
     /// <summary> Base health of player </summary>
     public float Health => _health;
+    public float MaxHealth;
 
 #region Movements
 [Header("Movements")]
@@ -176,7 +178,9 @@ public class CharacterController : MonoBehaviour
     {
         //_attackRecorder = gameObject.GetComponentInChildren<PlayerAttack>();
         //ResizeAttackZone(_attackRange);
-        
+
+        Instance = this;
+
         _rb = GetComponent<Rigidbody>();
         _collider = GetComponent<Collider>();
         
@@ -231,11 +235,9 @@ public class CharacterController : MonoBehaviour
         {
             if (_dashing)
             {
-                Debug.Log("DASH");
                 if (Move(direction: _dashDir, speed: _dashMoveSpeed, considerMovables: true))
                 { // if any object has been hit, stop dashing
                     StopDash();
-                    Debug.Log("STOP DASH");
                 }
             }
             else
@@ -289,7 +291,6 @@ public class CharacterController : MonoBehaviour
             enemy.gameObject.GetComponent<IEnemy>().GetDamage(damage);
         }
     }
-    
     private bool Move(Vector3 direction, float speed, bool considerMovables)
     {
         Rotate(direction);
@@ -322,6 +323,7 @@ public class CharacterController : MonoBehaviour
             _dashDir = dir;
             _dashing = true;
             _dashTime = 0.0F;
+            GetDamage(0);
         }
     }
     private void StopDash()
@@ -339,12 +341,23 @@ public class CharacterController : MonoBehaviour
         }
     }
 
+    public enum ControlMode
+    {
+        Camera,
+        World
+    }
+
+    public ControlMode _controlMode = ControlMode.Camera;
     private Vector3 GetMoveDirection()
     {
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
-        return (ForwardDirection*vertical + RightDirection*horizontal).normalized;
+        return _controlMode switch
+        {
+            ControlMode.Camera => (ForwardDirection*vertical + RightDirection*horizontal).normalized,
+            ControlMode.World => (Vector3.forward*vertical+Vector3.right*horizontal).normalized
+        };
     }
     
     private bool IsObstacleOnFrame(Vector3 direction, float speed)
@@ -355,6 +368,11 @@ public class CharacterController : MonoBehaviour
             maxDistance: Time.fixedDeltaTime * speed + _maxColliderExtent,
             layerMask: ~(_collider.gameObject.layer | (1<<2))
         );
+    }
+
+    public void Heal(float heal)
+    {
+
     }
 
     public void GetDamage(float damage)

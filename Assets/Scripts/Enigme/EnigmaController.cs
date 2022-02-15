@@ -5,7 +5,7 @@ using UnityEngine;
 class EnigmaController : MonoBehaviour
 {
     public ColorButton[] buttons;
-    public int activatedButtons = 0;
+    public int activatedButtons;
     private bool messageWin = false;
     [SerializeField]
     private GameObject Scissors;
@@ -13,11 +13,14 @@ class EnigmaController : MonoBehaviour
     void Update()
     {
         activatedButtons = 0;
-        foreach (ColorButton button in buttons)
+        if (!messageWin)
         {
-            if (button.IsOverlapped)
+            foreach (ColorButton button in buttons)
             {
-                activatedButtons++;
+                if (button.IsOverlapped)
+                {
+                    activatedButtons++;
+                }
             }
         }
 
@@ -25,9 +28,9 @@ class EnigmaController : MonoBehaviour
         {
             if (activatedButtons == buttons.Length)
             {
+                Debug.Log("Ciseaux, me voila !");
                 Scissors.GetComponent<MeshRenderer>().enabled = true;
                 Scissors.GetComponent<Rigidbody>().isKinematic = false;
-                Scissors.GetComponent<MeshCollider>().enabled = true;
 
                 messageWin = true;
             }

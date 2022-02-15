@@ -10,6 +10,7 @@ public class ColorButton : MonoBehaviour
     // Box enter
     private void OnTriggerEnter(Collider other)
     {
+        // Box placed?
         if (other.gameObject == Box)
         {
             IsOverlapped = true;
