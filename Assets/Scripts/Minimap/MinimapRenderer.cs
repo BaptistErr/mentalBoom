@@ -1,17 +1,16 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Reflection;
+﻿using System;
 using UnityEngine;
 
-public class Minimap : MonoBehaviour
+public class MinimapRenderer : MonoBehaviour
 {
-    public Vector2Int RenderResolution;
+    public static MinimapRenderer Active;
 
-    public RenderTexture Texture;
-
-    [ContextMenu("Render Minimap")]
-    public void RenderMinimap()
+    private void Awake()
+    {
+        Active = this;
+    }
+    
+    public RenderTexture Render(Vector2Int resolution)
     {
         GameObject go = new GameObject("Minimap Renderer");
         
@@ -23,22 +22,22 @@ public class Minimap : MonoBehaviour
         Vector3 pos = trans.position;
         Vector3 sca = trans.localScale;
 
-        camera.orthographicSize = Math.Max(sca.x, sca.z);
+        camera.orthographicSize = Math.Max(sca.x, sca.z) / 2.0F;
         camera.transform.position = new Vector3(pos.x, 0.0F, pos.z);
 
-        camera.nearClipPlane = pos.y - (sca.y / 2.0F);
-        camera.farClipPlane  = pos.y + (sca.y / 2.0F);
+        camera.nearClipPlane = pos.y - (sca.y / 2.0F) / 2.0F;
+        camera.farClipPlane  = pos.y + (sca.y / 2.0F) / 2.0F;
         
         go.transform.forward = Vector3.down;
 
-        RenderTexture texture = Texture = new RenderTexture(RenderResolution.x, RenderResolution.y, 0);
+        RenderTexture texture = new RenderTexture(resolution.x, resolution.y, 0);
 
         RenderTexture temp = RenderTexture.active;
         try
         {
-            //RenderTexture.active = texture;
-            //camera.
-            //camera.Render();
+            RenderTexture.active = texture;
+            
+            camera.Render();
         }
         catch (Exception e)
         {
@@ -48,8 +47,8 @@ public class Minimap : MonoBehaviour
         {
             RenderTexture.active = temp;
         }
-
-        DestroyImmediate(go);
+        
+        return texture;
     }
     
     private void OnDrawGizmos()
@@ -57,6 +56,6 @@ public class Minimap : MonoBehaviour
         Gizmos.color = Color.yellow;
 
         Transform trans = transform;
-        Gizmos.DrawWireCube(trans.position, trans.localScale*2.0F);
+        Gizmos.DrawWireCube(trans.position, trans.localScale);
     }
 }
