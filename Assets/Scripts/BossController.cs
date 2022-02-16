@@ -130,8 +130,13 @@ public class BossController : MonoBehaviour, IEnemy
             isSpawning = true;
         }
         var step = speed * Time.deltaTime;
-
+        
         transform.position = Vector3.MoveTowards(transform.position, target, step);
+    }
+    
+    private void LateUpdate()
+    {
+        Minimap.Instance.BossPosition = transform.position;
     }
 
     public void ChoosePattern()
