@@ -46,6 +46,8 @@ public class BossController : MonoBehaviour, IEnemy
 
     private Coroutine shoot;
 
+    private Coroutine grindHealth;
+
     private int pattern;
     private int lastPattern;
 
@@ -67,10 +69,22 @@ public class BossController : MonoBehaviour, IEnemy
         pausesCounter = 0;
         isLasering = false;
         isSpawning = false;
-        health = maxHealth;
-        Debug.Log("health : " + health);
+        health = 0;
+
+        grindHealth = StartCoroutine(GrindHealth());
 
         shoot = StartCoroutine(Shoot());
+    }
+
+    IEnumerator GrindHealth()
+    {
+        while (health != maxHealth)
+        {
+            health+=0.5f;
+            healthBar.fillAmount = health / maxHealth;
+            yield return new WaitForSeconds(.01f);
+        }
+        StopCoroutine(grindHealth);
     }
 
     IEnumerator Shoot()
@@ -169,10 +183,6 @@ public class BossController : MonoBehaviour, IEnemy
     public void GetDamage(int damage)
     {
         health -= damage;
-        Debug.Log("healthBar : " + healthBar);
-        Debug.Log("healthBar.value : " + healthBar.fillAmount);
-        Debug.Log("health : " + health);
-        Debug.Log("maxHealth : " + maxHealth);
         healthBar.fillAmount = health / maxHealth;
         if (health <= 0)
         {

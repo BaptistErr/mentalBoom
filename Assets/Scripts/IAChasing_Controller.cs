@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class IAChasing_Controller : MonoBehaviour, IEnemy
 {
@@ -11,8 +12,18 @@ public class IAChasing_Controller : MonoBehaviour, IEnemy
     private Vector3 aim;
     private GameObject IAChasing;
     private float stoppingDistance;
+
     [SerializeField]
-    private int IA_health;
+    private float IAMaxHealth;
+
+    private float IAHealth;
+
+    [SerializeField]
+    private Canvas healthBarCanvas;
+
+    [SerializeField]
+    private Image healthBar;
+
     private Coroutine coroutine;
     [SerializeField] private float _damage = 10.0F;
     /// <summary> Amount of damages dealt by each projectile </summary>
@@ -30,12 +41,15 @@ public class IAChasing_Controller : MonoBehaviour, IEnemy
         target = FindObjectOfType<CharacterController>();
         IAChasing = GameObject.Find("AIChasing(Clone)");
         stoppingDistance = IAChasing.GetComponent<NavMeshAgent>().stoppingDistance;
+
+        IAHealth = IAMaxHealth;
     }
 
     // Update
     private void Update()
     {
         MoveToTarget();
+        healthBarCanvas.transform.LookAt(transform.position + Camera.main.transform.rotation * Vector3.forward, Camera.main.transform.rotation * Vector3.up);
     }
 
     // Move to player
@@ -100,9 +114,9 @@ public class IAChasing_Controller : MonoBehaviour, IEnemy
 
     public void GetDamage(int damage)
     {
-        IA_health -= damage;
-
-        if (IA_health <= 0)
+        IAHealth -= damage;
+        healthBar.fillAmount = IAHealth / IAMaxHealth;
+        if (IAHealth <= 0)
         {
             Die();
         }

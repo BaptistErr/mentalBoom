@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(
     typeof(CapsuleCollider), // this or any collider type, but since there are physics one must exist.
@@ -10,6 +11,9 @@ using UnityEngine;
 public class CharacterController : MonoBehaviour
 {
     [SerializeField] private GameManager manager;
+
+    [SerializeField]
+    private Image healthBar;
 
     private bool hit;
     public static CharacterController Instance;
@@ -380,6 +384,7 @@ public class CharacterController : MonoBehaviour
         if (!hit)
         {
             _health -= damage;
+            healthBar.fillAmount = Health / MaxHealth;
             hit = true;
             StartCoroutine(WaitDamage());
         }
