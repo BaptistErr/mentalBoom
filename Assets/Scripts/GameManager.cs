@@ -30,7 +30,8 @@ public class GameManager : MonoBehaviour
         gameEnded = true;
         if (victory)
         {
-            endGameMenu.GetComponentInChildren<Text>().text = "VICTORY !";
+            endGameMenu.GetComponentInChildren<Text>().text = "VICTORY";
+            endGameMenu.GetComponentInChildren<Text>().color = Color.green;
         }
         endGameMenu.gameObject.SetActive(true);
     }
