@@ -5,7 +5,7 @@ using UnityEngine;
 public class BulletBehaviour : MonoBehaviour
 {
     [SerializeField]
-    private float force;
+    private float speed;
 
     private CharacterController target;
 
@@ -24,21 +24,20 @@ public class BulletBehaviour : MonoBehaviour
         target = FindObjectOfType<CharacterController>();
         transform.LookAt(target.transform.position);
         transform.rotation *= Quaternion.Euler(90, 0, 0);
-        GetComponent<Rigidbody>().AddForce(transform.up * force, ForceMode.Impulse);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        GetComponent<Rigidbody>().AddForce(transform.up * speed, ForceMode.Impulse);
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("other.name : " + other.name);
         if (other.GetComponent<CharacterController>())
         {
             target.GetDamage(Damage);
-            Destroy(gameObject);
+            Destroy(gameObject, 0);
+        }
+        if (other.gameObject.CompareTag("BulletProof"))
+        {
+            Destroy(gameObject, 0);
         }
     }
 }
