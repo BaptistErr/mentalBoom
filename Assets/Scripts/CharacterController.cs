@@ -201,7 +201,7 @@ public class CharacterController : MonoBehaviour
         {
             _timeSinceDashEnd += Time.deltaTime;
             
-            if (Input.GetKeyDown(KeyCode.LeftShift) && _timeSinceDashEnd >= _dashCooldown)
+            if ((Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.Space)) && _timeSinceDashEnd >= _dashCooldown)
             {
                 StartDash();
             }
