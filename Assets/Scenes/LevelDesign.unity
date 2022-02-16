@@ -13359,6 +13359,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: QuitGame
       objectReference: {fileID: 0}
+    - target: {fileID: 6488553399359169998, guid: fc997f46640226b4ab4be64f9e59e195, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6488553399923217905, guid: fc997f46640226b4ab4be64f9e59e195, type: 3}
       propertyPath: m_Name
       value: PauseScreen

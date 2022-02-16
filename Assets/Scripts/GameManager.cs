@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     public bool gameEnded;
     public bool enigmaFinished;
 
+    float timeLeftBeforeRestart = 300.0f;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -21,7 +23,21 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (!Input.anyKey)
+        {
+            timeLeftBeforeRestart -= Time.deltaTime;
+            Debug.Log(timeLeftBeforeRestart);
+
+            if (timeLeftBeforeRestart <= 0)
+            {
+                Debug.Log("RESTART");
+                Replay();
+            }
+        }
+        if (Input.anyKey)
+        {
+            timeLeftBeforeRestart = 300.0f;
+        }
     }
 
     public void GameEnded(bool victory)
