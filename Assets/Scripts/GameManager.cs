@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
         if (!Input.anyKey)
         {
             timeLeftBeforeRestart -= Time.deltaTime;
+            //Debug.Log(timeLeftBeforeRestart);
 
             if (timeLeftBeforeRestart <= 0)
             {
