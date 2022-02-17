@@ -16164,11 +16164,7 @@ PrefabInstance:
     - target: {fileID: 1456213304, guid: c48a5d9f37400994b9280b754cb37ed5, type: 3}
       propertyPath: cam
       value: 
-<<<<<<< Updated upstream
-      objectReference: {fileID: 692262488}
-=======
       objectReference: {fileID: 1043856797}
->>>>>>> Stashed changes
     - target: {fileID: 1456213304, guid: c48a5d9f37400994b9280b754cb37ed5, type: 3}
       propertyPath: _health
       value: 100
