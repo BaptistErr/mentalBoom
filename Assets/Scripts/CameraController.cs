@@ -32,6 +32,10 @@ public class CameraController : MonoBehaviour
     
 
     [SerializeField] private CameraMode _cameraMode = CameraMode.FollowPlayer;
+
+    [SerializeField]
+    private BossController boss;
+
     public CameraMode CameraMode
     {
         get => _cameraMode;
@@ -122,4 +126,15 @@ public class CameraController : MonoBehaviour
         CameraMode = _cameraMode;
     }
 
+    public void BossZoom()
+    {
+        StartCoroutine(Transition());
+        transform.LookAt(boss.transform.position);
+    }
+
+    IEnumerator Transition()
+    {
+        transform.LookAt(boss.transform.position);
+        yield return new WaitForSeconds(2f);
+    }
 }
