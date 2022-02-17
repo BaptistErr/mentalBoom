@@ -17,8 +17,8 @@ public class Sakura : MonoBehaviour
 
     private void Start()
     {
-        BasicColor = new Color(176f/255f, 94f/255f, 141f/255f);     // Pink
-        ActivateColor = new Color(133f/255f, 95f/255f, 176f/255f);  // Purple
+        BasicColor = new Color(123f/255f, 99f/255f, 83f/255f);      // Pink
+        ActivateColor = new Color(224f/255f, 193f/255f, 172f/255f);  // Purple
 
         isInTrigger = false;
     }
