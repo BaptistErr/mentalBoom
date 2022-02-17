@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     public bool gameEnded;
     public bool enigmaFinished;
 
-    float timeLeftBeforeRestart = 300.0f;
+    float timeLeftBeforeRestart = 60.0f;
 
     // Start is called before the first frame update
     void Awake()

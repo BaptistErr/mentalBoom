@@ -17,9 +17,6 @@ public class Sakura : MonoBehaviour
 
     private void Start()
     {
-        BasicColor = new Color(123f/255f, 99f/255f, 83f/255f);      // Pink
-        ActivateColor = new Color(224f/255f, 193f/255f, 172f/255f);  // Purple
-
         isInTrigger = false;
     }
 
@@ -30,7 +27,6 @@ public class Sakura : MonoBehaviour
             Debug.Log("HEAL");
             NbHeal--;
             CharacterController.Instance.Heal(CharacterController.Instance.MaxHealth);
-            SetColor(ActivateColor);
         }
     }
 
@@ -47,13 +43,7 @@ public class Sakura : MonoBehaviour
     {
         if (other.GetComponent<CharacterController>())
         {
-            SetColor(BasicColor);
             isInTrigger = false;
         }
-    }
-
-    public void SetColor(Color value)
-    {
-        myMaterial.color = value;
     }
 }
