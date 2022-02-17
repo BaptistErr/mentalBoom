@@ -54,10 +54,14 @@ public class BossController : MonoBehaviour, IEnemy
     private bool phaseChanged;
 
     private int enemiesCounter;
+    
+    public static BossController Instance { get; private set; }
 
     //Initialize variables
     void Start()
     {
+        Instance = this;
+        
         manager = FindObjectOfType<GameManager>();
         toC = true;
         lastLocation = 0;
@@ -74,6 +78,7 @@ public class BossController : MonoBehaviour, IEnemy
         grindHealth = StartCoroutine(GrindHealth());
 
         shoot = StartCoroutine(Shoot());
+        
     }
 
     IEnumerator GrindHealth()

@@ -35,6 +35,8 @@ public class CameraController : MonoBehaviour
 
     [SerializeField]
     private BossController boss;
+    
+    public static CameraController Instance { get; private set; }
 
     public CameraMode CameraMode
     {
@@ -42,7 +44,8 @@ public class CameraController : MonoBehaviour
         set => _translationMethod = (_cameraMode = value) switch
         {
             CameraMode.FollowPlayer => FollowPlayerPosition,
-            CameraMode.Weighed => WeightedPosition
+            CameraMode.Weighed => WeightedPosition,
+            _ => throw new Exception("QUI AS FOUTU UNE VALEUR INVALIDE???")
         };
     }
 
@@ -67,7 +70,9 @@ public class CameraController : MonoBehaviour
     {
         CameraMode = _cameraMode;
         _camera = Camera.main;
-        _camera.targetTexture = RenderTexture.active;
+        _camera!.targetTexture = RenderTexture.active;
+
+        Instance = this;
     }
     
     private void LateUpdate()
