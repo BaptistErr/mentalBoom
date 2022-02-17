@@ -5,56 +5,44 @@ using UnityEngine.UI;
 
 public class BossController : MonoBehaviour, IEnemy
 {
+    private int lastLocation;
+    private bool toC;
+    private Vector3 target;
+    private int pausesCounter;
+    private float health;
+    private GameManager manager;
+    private Coroutine shoot;
+    private Coroutine grindHealth;
+    private int pattern;
+    private int lastPattern;
+    private bool phaseChanged;
+    private int enemiesCounter;
+
+    [SerializeField]
+    private float speed;
+    [SerializeField]
+    private float maxHealth;
+    [SerializeField]
+    private GameObject bullet;
+    [SerializeField]
+    private GameObject laser;
+    [SerializeField]
+    private GameObject enemy;
+    [SerializeField]
+    private Image healthBar;
+    [SerializeField]
+    private int maxEnemies;
 
     //Positions where the boss will go
     public Transform posPause;
     public Transform posLaser;
     public Transform posSpawn;
-
     public Transform[] positions = new Transform[0];
-
-    private int lastLocation;
-    [SerializeField]
-    private float speed;
-    private bool toC;
-    private Vector3 target;
     public bool paused;
-    private int pausesCounter;
-
     public bool isLasering;
-
     public bool isSpawning;
+    public int totalEnemiesAlive;
 
-    [SerializeField]
-    private float maxHealth;
-
-    private float health;
-
-    private GameManager manager;
-
-    [SerializeField]
-    private GameObject bullet;
-
-    [SerializeField]
-    private GameObject laser;
-
-    [SerializeField]
-    private GameObject enemy;
-
-    [SerializeField]
-    private Image healthBar;
-
-    private Coroutine shoot;
-
-    private Coroutine grindHealth;
-
-    private int pattern;
-    private int lastPattern;
-
-    private bool phaseChanged;
-
-    private int enemiesCounter;
-    
     public static BossController Instance { get; private set; }
 
     //Initialize variables
@@ -74,6 +62,7 @@ public class BossController : MonoBehaviour, IEnemy
         isLasering = false;
         isSpawning = false;
         health = 0;
+        totalEnemiesAlive = 0;
 
         grindHealth = StartCoroutine(GrindHealth());
 
@@ -115,9 +104,11 @@ public class BossController : MonoBehaviour, IEnemy
 
     IEnumerator SpawnEnemies()
     {
-        for (int i = 0; i < enemiesCounter; i++)
+        for (int i = 0; i < enemiesCounter && totalEnemiesAlive <= maxEnemies; i++)
         {
-            Instantiate(enemy, posSpawn);
+            IAChasing_Controller enemySpawned = (IAChasing_Controller)Instantiate(enemy, posSpawn);
+            enemySpawned.boss = this;
+            totalEnemiesAlive++;
             yield return new WaitForSeconds(1);
         }
         isSpawning = false;

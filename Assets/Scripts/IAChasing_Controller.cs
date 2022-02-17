@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,26 +13,25 @@ public class IAChasing_Controller : MonoBehaviour, IEnemy
     private Vector3 aim;
     private GameObject IAChasing;
     private float stoppingDistance;
+    private float IAHealth;
+    private Coroutine coroutine;
 
     [SerializeField]
     private float IAMaxHealth;
-
-    private float IAHealth;
-
     [SerializeField]
     private Canvas healthBarCanvas;
-
     [SerializeField]
     private Image healthBar;
+    [SerializeField]
+    private float _damage = 10.0F;
 
-    private Coroutine coroutine;
-    [SerializeField] private float _damage = 10.0F;
     /// <summary> Amount of damages dealt by each projectile </summary>
     public float Damage
     {
         get => _damage;
         set => _damage = value;
     }
+    public BossController boss;
 
 
     // Start is called before the first frame update
@@ -122,8 +122,14 @@ public class IAChasing_Controller : MonoBehaviour, IEnemy
         }
     }
 
+    public static explicit operator IAChasing_Controller(GameObject v)
+    {
+        throw new NotImplementedException();
+    }
+
     public void Die()
     {
+        boss.totalEnemiesAlive--;
         // Debug.Log("I'm dead");
         Destroy(gameObject);
     }

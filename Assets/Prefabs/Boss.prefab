@@ -61,21 +61,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 134f64ec528cc494f8df20be4875ca3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 30
+  maxHealth: 100
+  bullet: {fileID: 3409152830036012499, guid: c63105ee93d4ce84aa8ba44c1a565140, type: 3}
+  laser: {fileID: 6716068264935899223, guid: 157a672d127a6df41804849cd012375d, type: 3}
+  enemy: {fileID: 7254288913525998916, guid: 00e4c5afd5a0d7b4994f82144c631a1e, type: 3}
+  healthBar: {fileID: 241383493856273144}
+  maxEnemies: 5
   posPause: {fileID: 0}
   posLaser: {fileID: 0}
   posSpawn: {fileID: 0}
   positions:
   - {fileID: 0}
   - {fileID: 0}
-  speed: 30
   paused: 0
   isLasering: 0
   isSpawning: 0
-  maxHealth: 100
-  bullet: {fileID: 3409152830036012499, guid: c63105ee93d4ce84aa8ba44c1a565140, type: 3}
-  laser: {fileID: 6716068264935899223, guid: 157a672d127a6df41804849cd012375d, type: 3}
-  enemy: {fileID: 7254288913525998916, guid: 00e4c5afd5a0d7b4994f82144c631a1e, type: 3}
-  healthBar: {fileID: 241383493856273144}
+  totalEnemiesAlive: 0
 --- !u!1 &2858639070366276792
 GameObject:
   m_ObjectHideFlags: 0
