@@ -22,20 +22,8 @@ public class EntranceCollider : MonoBehaviour
     private BossController boss;
 
     [SerializeField]
-    private BoxCollider blockEntrance;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    private GameObject blockEntrance;
+    
     private void OnTriggerEnter(Collider other)
     {
         if (!other.isTrigger)
@@ -45,7 +33,7 @@ public class EntranceCollider : MonoBehaviour
             bossSpawned.posLaser = posLaser;
             bossSpawned.posSpawn = posSpawnEnemies;
             bossSpawned.positions = positions;
-            blockEntrance.isTrigger = false;
+            blockEntrance.SetActive(true);
             Destroy(gameObject);
         }
     }

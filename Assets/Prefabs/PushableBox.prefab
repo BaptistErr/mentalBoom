@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 8995896830530249820}
   m_Layer: 0
   m_Name: PushableBox
-  m_TagString: Jumpable
+  m_TagString: BulletProof
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

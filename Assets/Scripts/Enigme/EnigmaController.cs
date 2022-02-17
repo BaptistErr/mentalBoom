@@ -10,6 +10,13 @@ class EnigmaController : MonoBehaviour
     [SerializeField]
     private GameObject Scissors;
 
+    private GameManager manager;
+
+    private void Start()
+    {
+        manager = FindObjectOfType<GameManager>();
+    }
+
     void Update()
     {
         activatedButtons = 0;
@@ -33,6 +40,7 @@ class EnigmaController : MonoBehaviour
                 Scissors.GetComponent<Rigidbody>().isKinematic = false;
 
                 messageWin = true;
+                manager.enigmaFinished = messageWin;
             }
         }
     }

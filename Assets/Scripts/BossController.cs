@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BossController : MonoBehaviour, IEnemy
 {
@@ -25,7 +26,9 @@ public class BossController : MonoBehaviour, IEnemy
     public bool isSpawning;
 
     [SerializeField]
-    private int health;
+    private float maxHealth;
+
+    private float health;
 
     private GameManager manager;
 
@@ -38,7 +41,12 @@ public class BossController : MonoBehaviour, IEnemy
     [SerializeField]
     private GameObject enemy;
 
+    [SerializeField]
+    private Image healthBar;
+
     private Coroutine shoot;
+
+    private Coroutine grindHealth;
 
     private int pattern;
     private int lastPattern;
@@ -61,8 +69,22 @@ public class BossController : MonoBehaviour, IEnemy
         pausesCounter = 0;
         isLasering = false;
         isSpawning = false;
+        health = 0;
+
+        grindHealth = StartCoroutine(GrindHealth());
 
         shoot = StartCoroutine(Shoot());
+    }
+
+    IEnumerator GrindHealth()
+    {
+        while (health != maxHealth)
+        {
+            health+=0.5f;
+            healthBar.fillAmount = health / maxHealth;
+            yield return new WaitForSeconds(.01f);
+        }
+        StopCoroutine(grindHealth);
     }
 
     IEnumerator Shoot()
@@ -103,14 +125,14 @@ public class BossController : MonoBehaviour, IEnemy
         if (pattern == 0 && !paused)
         {
             Movement();
-            if (health <= 100 && !phaseChanged)
+            if (health <= 100 && !phaseChanged && manager.enigmaFinished)
             {
                 StopCoroutine(shoot);
                 ChoosePattern();
                 phaseChanged = true;
                 paused = false;
             }
-            if (pausesCounter == 2 && phaseChanged)
+            if (pausesCounter == 2 && phaseChanged && manager.enigmaFinished)
             {
                 pausesCounter = 0;
                 paused = false;
@@ -166,6 +188,7 @@ public class BossController : MonoBehaviour, IEnemy
     public void GetDamage(int damage)
     {
         health -= damage;
+        healthBar.fillAmount = health / maxHealth;
         if (health <= 0)
         {
             transform.rotation = Quaternion.Euler(90, 0, 0);

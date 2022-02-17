@@ -23,6 +23,7 @@ public class Pickup : MonoBehaviour
                     Debug.Log("Clique");
                     GetComponent<BoxCollider>().enabled = false;
                     GetComponent<Rigidbody>().useGravity = false;
+                    GetComponent<Light>().enabled = false;
                     GetComponent<Rigidbody>().isKinematic = true;
                     transform.position = TheHand.position;
                     transform.parent = GameObject.Find("Hand").transform;
@@ -36,6 +37,7 @@ public class Pickup : MonoBehaviour
                 transform.parent = null;
                 GetComponent<BoxCollider>().enabled = true;
                 GetComponent<Rigidbody>().useGravity = true;
+                GetComponent<Light>().enabled = true;
                 GetComponent<Rigidbody>().isKinematic = false;
                 picking = false;
                 Debug.Log("throw");
