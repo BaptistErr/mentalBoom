@@ -4392,6 +4392,17 @@ Canvas:
   m_CorrespondingSourceObject: {fileID: 4674018102078299169, guid: f9daab4363b67214596c1076be856ce0, type: 3}
   m_PrefabInstance: {fileID: 679388734}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &692262488 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4245711921713300839, guid: ca6dfc96796000449ace837442f9eba6, type: 3}
+  m_PrefabInstance: {fileID: 1263917676}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c83f455b403fd354f9aed4883eb9e4de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &702421908
 GameObject:
   m_ObjectHideFlags: 0
@@ -15815,6 +15826,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1456213304, guid: c48a5d9f37400994b9280b754cb37ed5, type: 3}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 692262488}
     - target: {fileID: 1456213304, guid: c48a5d9f37400994b9280b754cb37ed5, type: 3}
       propertyPath: _health
       value: 100

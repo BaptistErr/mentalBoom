@@ -415,12 +415,12 @@ public class CharacterController : MonoBehaviour
 
     IEnumerator WaitDamage()
     {
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(0.5F);
         hit = false;
     }
 
     public void ScreenShake()
     {
-        StartCoroutine(cam.Shake(.15f, .4f));
+        StartCoroutine(cam.Shake(0.15F, 0.4F));
     }
 }

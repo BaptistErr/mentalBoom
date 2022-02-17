@@ -35,6 +35,8 @@ public class CameraController : MonoBehaviour
 
     [SerializeField]
     private BossController boss;
+
+    private Vector3 ShakeOffset = Vector3.zero;
     
     public static CameraController Instance { get; private set; }
 
@@ -82,7 +84,7 @@ public class CameraController : MonoBehaviour
 
     private void FollowPlayerPosition()
     {
-        transform.position = Character.transform.position + Offset;
+        transform.position = Character.transform.position + Offset + ShakeOffset;
         _camera.orthographicSize = FollowPlayerSize;
     }
 
@@ -112,7 +114,7 @@ public class CameraController : MonoBehaviour
 
             if (totWeight == 0) return;
 
-            transform.position = new Vector3(average.x, 0.0F, average.z);
+            transform.position = new Vector3(average.x, 0.0F, average.z) + ShakeOffset;
 
             Vector3 d = max - min;
 
@@ -140,27 +142,27 @@ public class CameraController : MonoBehaviour
     IEnumerator Transition()
     {
         transform.LookAt(boss.transform.position);
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(2.0F);
     }
 
     public IEnumerator Shake(float duration, float magnitude)
     {
-        Vector3 originalPos = transform.position;
+        ShakeOffset = Vector3.zero;
 
-        float elapsed = 0.0f;
+        float elapsed = 0.0F;
 
         while (elapsed < duration)
         {
-            float x = UnityEngine.Random.Range(-1f, 1f) * magnitude;
-            float y = UnityEngine.Random.Range(-1f, 1f) * magnitude;
-            
-            transform.localPosition = new Vector3(x, y, originalPos.z);
+            float x = UnityEngine.Random.Range(-1.0F, 1.0F) * magnitude;
+            float y = UnityEngine.Random.Range(-1.0F, 1.0F) * magnitude;
 
+            ShakeOffset = transform.right * x + transform.up  * y;
+            
             elapsed += Time.deltaTime;
 
             yield return null;
         }
 
-        transform.localPosition = originalPos;
+        ShakeOffset = Vector3.zero;
     }
 }
