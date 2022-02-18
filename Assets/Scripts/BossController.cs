@@ -83,7 +83,7 @@ public class BossController : MonoBehaviour, IEnemy
 
     IEnumerator Shoot()
     {
-        while (!manager.gameEnded && health > 0)
+        while (!GameManager.HasGameEnded && health > 0)
         {
             if (!paused)
             {

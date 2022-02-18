@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private Canvas endGameMenu;
 
-    public bool gameEnded;
+    public static bool HasGameEnded;
     public bool enigmaFinished;
 
     float timeLeftBeforeRestart = 60.0f;
@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        gameEnded = false;
+        HasGameEnded = false;
         enigmaFinished = false;
     }
 
@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
     public void GameEnded(bool victory)
     {
         Time.timeScale = 0f;
-        gameEnded = true;
+        HasGameEnded = true;
         if (victory)
         {
             endGameMenu.GetComponentInChildren<Text>().text = "VICTORY";
@@ -58,6 +58,6 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         Cursor.visible = false;
         SceneManager.LoadScene("LevelDesign");
-        gameEnded = false;
+        HasGameEnded = false;
     }
 }

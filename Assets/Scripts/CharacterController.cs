@@ -261,7 +261,7 @@ public class CharacterController : MonoBehaviour
     
     private void FixedUpdate()
     {
-        if (!manager.gameEnded)
+        if (!GameManager.HasGameEnded)
         {
             if (_dashing)
             {
