@@ -49,11 +49,14 @@ public class GameManager : MonoBehaviour
             endGameMenu.GetComponentInChildren<Text>().color = Color.green;
         }
         endGameMenu.gameObject.SetActive(true);
+        
+        Cursor.visible = true;
     }
 
     public void Replay()
     {
         Time.timeScale = 1f;
+        Cursor.visible = false;
         SceneManager.LoadScene("LevelDesign");
         gameEnded = false;
     }
