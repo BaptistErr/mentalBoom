@@ -31,8 +31,7 @@ public class UseScissors : MonoBehaviour
     {
         // yield on a new YieldInstruction that waits for 5 seconds.
         yield return new WaitForSeconds(2);
-        // stuck the bridge 
-        Debug.Log("Block");
+        // stuck the bridge
         Plateform.GetComponent<Rigidbody>().isKinematic = true;
     }
 
