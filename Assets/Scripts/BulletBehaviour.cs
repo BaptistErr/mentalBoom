@@ -29,7 +29,6 @@ public class BulletBehaviour : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("other.name : " + other.name);
         if (other.GetComponent<CharacterController>())
         {
             target.GetDamage(Damage);

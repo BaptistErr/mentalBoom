@@ -24,7 +24,6 @@ public class Sakura : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.A) && isInTrigger == true && NbHeal > 0 && CharacterController.Instance.Health != CharacterController.Instance.MaxHealth)
         {
-            Debug.Log("HEAL");
             NbHeal--;
             CharacterController.Instance.Heal(CharacterController.Instance.MaxHealth);
         }

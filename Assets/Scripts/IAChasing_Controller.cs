@@ -99,7 +99,6 @@ public class IAChasing_Controller : MonoBehaviour, IEnemy
     private void Attack()
     {
         target.GetDamage(Damage);
-        Debug.Log(target.Health);
     }
 
     // Cooldown before each hit
@@ -120,11 +119,6 @@ public class IAChasing_Controller : MonoBehaviour, IEnemy
         {
             Die();
         }
-    }
-
-    public static explicit operator IAChasing_Controller(GameObject v)
-    {
-        throw new NotImplementedException();
     }
 
     public void Die()

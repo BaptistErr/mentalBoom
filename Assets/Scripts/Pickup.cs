@@ -20,7 +20,6 @@ public class Pickup : MonoBehaviour
                 float distance = Vector3.Distance(transform.position, Character.transform.position);
                 if (distance < maxDistance)
                 {
-                    Debug.Log("Clique");
                     GetComponent<BoxCollider>().enabled = false;
                     GetComponent<Rigidbody>().useGravity = false;
                     GetComponent<Light>().enabled = false;
@@ -28,7 +27,6 @@ public class Pickup : MonoBehaviour
                     transform.position = TheHand.position;
                     transform.parent = GameObject.Find("Hand").transform;
                     picking = true;
-                    Debug.Log("get");
                 }
             }
             // Throw
@@ -40,7 +38,6 @@ public class Pickup : MonoBehaviour
                 GetComponent<Light>().enabled = true;
                 GetComponent<Rigidbody>().isKinematic = false;
                 picking = false;
-                Debug.Log("throw");
             }
         }
     }

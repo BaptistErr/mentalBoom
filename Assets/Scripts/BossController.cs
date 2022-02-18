@@ -27,7 +27,7 @@ public class BossController : MonoBehaviour, IEnemy
     [SerializeField]
     private GameObject laser;
     [SerializeField]
-    private GameObject enemy;
+    private IAChasing_Controller enemy;
     [SerializeField]
     private Image healthBar;
     [SerializeField]
@@ -104,11 +104,14 @@ public class BossController : MonoBehaviour, IEnemy
 
     IEnumerator SpawnEnemies()
     {
-        for (int i = 0; i < enemiesCounter && totalEnemiesAlive <= maxEnemies; i++)
+        for (int i = 0; i < enemiesCounter; i++)
         {
-            IAChasing_Controller enemySpawned = (IAChasing_Controller)Instantiate(enemy, posSpawn);
-            enemySpawned.boss = this;
-            totalEnemiesAlive++;
+            if (totalEnemiesAlive < maxEnemies)
+            {
+                IAChasing_Controller enemySpawned = Instantiate(enemy, posSpawn);
+                enemySpawned.boss = this;
+                totalEnemiesAlive++;
+            }
             yield return new WaitForSeconds(1);
         }
         isSpawning = false;
@@ -159,12 +162,11 @@ public class BossController : MonoBehaviour, IEnemy
 
     public void ChoosePattern()
     {
-        while (lastPattern == pattern)
-        {
-            pattern = Random.Range(0, 3);
-        }
+        /*while (lastPattern == pattern)
+        {*/
+            pattern = Random.Range(2, 3);
+        //}
         lastPattern = pattern;
-        Debug.Log("pattern : " + pattern);
 
         if (pattern == 0)
         {

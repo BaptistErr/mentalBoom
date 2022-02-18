@@ -199,9 +199,6 @@ public class CharacterController : MonoBehaviour
         _maxColliderExtent = Math.Max(extents.x, extents.z);
 
         hit = false;
-
-
-        Debug.Log("Press I to be invincible");
     }
     
     private void Update()

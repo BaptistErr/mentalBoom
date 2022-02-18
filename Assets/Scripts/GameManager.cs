@@ -30,7 +30,6 @@ public class GameManager : MonoBehaviour
 
             if (timeLeftBeforeRestart <= 0)
             {
-                Debug.Log("RESTART");
                 Replay();
             }
         }
