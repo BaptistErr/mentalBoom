@@ -23,6 +23,10 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.F9))
+        {
+            Replay();
+        }
         if (!Input.anyKey)
         {
             timeLeftBeforeRestart -= Time.deltaTime;
