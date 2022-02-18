@@ -12,6 +12,7 @@ public class CharacterController : MonoBehaviour
 {
     [SerializeField] private GameManager manager;
 
+[Header("Health")]
     [SerializeField]
     private Image healthBar;
 
@@ -24,8 +25,13 @@ public class CharacterController : MonoBehaviour
     public float Health => _health;
     public float MaxHealth;
 
-#region Movements
-[Header("Movements")]
+
+
+[Header("Screen Shake")]
+    [SerializeField]
+    public CameraController cam;
+    #region Movements
+    [Header("Movements")]
 
     [SerializeField] private float _moveSpeed = 5.0F;
     /// <summary> The normal walk speed, without any other effect. </summary>
@@ -176,7 +182,7 @@ public class CharacterController : MonoBehaviour
     private float _timeSinceAttack = float.PositiveInfinity;
     private float _attackLoadTime = 0.0F;
 
-#region Unity callbacks
+    #region Unity callbacks
 
     private void Awake()
     {
@@ -193,6 +199,9 @@ public class CharacterController : MonoBehaviour
         _maxColliderExtent = Math.Max(extents.x, extents.z);
 
         hit = false;
+
+
+        Debug.Log("Press I to be invincible");
     }
     
     private void Update()
@@ -222,10 +231,19 @@ public class CharacterController : MonoBehaviour
             _attackLoadTime += Time.deltaTime;
         }
 
+        // DEBUG Invincibility
+        if (Input.GetKeyUp(KeyCode.I))
+        {
+            MaxHealth = 100000;
+            _health = 100000;
+        }
+
         if (Input.GetKeyUp(KeyCode.Mouse0) && _timeSinceAttack > _attackCooldown)
         {
             float weaponLoadPct = Math.Min(1.0F, _attackLoadTime / _attackLoadDuration);
-            
+
+            ScreenShake();
+
             _timeSinceAttack = 0.0F;
             _attackLoadTime = 0.0F;
             
@@ -397,7 +415,12 @@ public class CharacterController : MonoBehaviour
 
     IEnumerator WaitDamage()
     {
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(0.5F);
         hit = false;
+    }
+
+    public void ScreenShake()
+    {
+        StartCoroutine(cam.Shake(0.15F, 0.4F));
     }
 }
