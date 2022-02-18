@@ -238,19 +238,30 @@ public class CharacterController : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.Mouse0) && _timeSinceAttack > _attackCooldown)
         {
             float weaponLoadPct = Math.Min(1.0F, _attackLoadTime / _attackLoadDuration);
-
-            ScreenShake();
-
+            
             _timeSinceAttack = 0.0F;
             _attackLoadTime = 0.0F;
             
-            Attack((int)_attackDamageByLoad.Evaluate(weaponLoadPct));
+            if (Attack((int)_attackDamageByLoad.Evaluate(weaponLoadPct)) != 0)
+            {
+                const float minDuration = 0.05F;
+                const float maxDuration = 0.15F;
+                
+                const float minMagnitude = 0.1F;
+                const float maxMagnitude = 0.4F;
+
+
+                float duration = AMath.Map(weaponLoadPct, 0.0F, 1.0F, minDuration, maxDuration);
+                float magnitude = AMath.Map(weaponLoadPct, 0.0F, 1.0F, minMagnitude, maxMagnitude);
+                
+                ScreenShake(duration, magnitude);
+            }
         }
     }
     
     private void FixedUpdate()
     {
-        if (!manager.gameEnded)
+        if (!GameManager.HasGameEnded)
         {
             if (_dashing)
             {
@@ -302,13 +313,16 @@ public class CharacterController : MonoBehaviour
         transform.LookAt(transform.position + new Vector3(forward.x, 0.0F, forward.z));
     }
 
-    private void Attack(int damage)
+    private int Attack(int damage)
     {
         Collider[] colliders = Physics.OverlapBox(AttackZone.transform.position, AttackZone.transform.lossyScale / 2.0F, AttackZone.transform.rotation, 1<<11);
+        
         foreach (Collider enemy in colliders)
         {
             enemy.gameObject.GetComponent<IEnemy>().GetDamage(damage);
         }
+
+        return colliders.Length;
     }
     private bool Move(Vector3 direction, float speed, bool considerMovables)
     {
@@ -416,8 +430,8 @@ public class CharacterController : MonoBehaviour
         hit = false;
     }
 
-    public void ScreenShake()
+    public void ScreenShake(float duration, float magnitude)
     {
-        StartCoroutine(cam.Shake(0.15F, 0.4F));
+        StartCoroutine(cam.Shake(duration, magnitude));
     }
 }

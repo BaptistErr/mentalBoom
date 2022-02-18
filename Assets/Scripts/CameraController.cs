@@ -151,7 +151,7 @@ public class CameraController : MonoBehaviour
 
         float elapsed = 0.0F;
 
-        while (elapsed < duration)
+        while (!GameManager.HasGameEnded && elapsed < duration)
         {
             float x = UnityEngine.Random.Range(-1.0F, 1.0F) * magnitude;
             float y = UnityEngine.Random.Range(-1.0F, 1.0F) * magnitude;

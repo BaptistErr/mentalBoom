@@ -15,6 +15,8 @@ public class MainMenu : MonoBehaviour
             PlayerPrefs.SetFloat("musicVolume", 1);
         }
         volumeSlider.value = PlayerPrefs.GetFloat("musicVolume");
+        
+        Cursor.visible = true;
     }
 
     public void QuitGame()
