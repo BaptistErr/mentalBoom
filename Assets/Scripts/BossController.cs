@@ -162,10 +162,10 @@ public class BossController : MonoBehaviour, IEnemy
 
     public void ChoosePattern()
     {
-        /*while (lastPattern == pattern)
-        {*/
-            pattern = Random.Range(2, 3);
-        //}
+        while (lastPattern == pattern)
+        {
+            pattern = Random.Range(0, 3);
+        }
         lastPattern = pattern;
 
         if (pattern == 0)
