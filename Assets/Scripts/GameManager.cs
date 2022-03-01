@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
     {
         HasGameEnded = false;
         enigmaFinished = false;
+        
+        Cursor.visible = false;
     }
 
     // Update is called once per frame
