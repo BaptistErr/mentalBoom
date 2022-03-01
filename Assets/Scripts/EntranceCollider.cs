@@ -4,20 +4,6 @@ using UnityEngine;
 
 public class EntranceCollider : MonoBehaviour
 {
-
-    //Positions where the boss will go
-    [SerializeField]
-    private Transform posPause;
-    [SerializeField]
-    private Transform posLaser;
-    [SerializeField]
-    private Transform posSpawnEnemies;
-
-    [SerializeField]
-    private Transform[] positions = new Transform[0];
-
-    [SerializeField]
-    private Transform posSpawnBoss;
     [SerializeField]
     private BossController boss;
 
@@ -28,11 +14,7 @@ public class EntranceCollider : MonoBehaviour
     {
         if (!other.isTrigger)
         {
-            BossController bossSpawned = Instantiate(boss, posSpawnBoss.position, posSpawnBoss.rotation);
-            bossSpawned.posPause = posPause;
-            bossSpawned.posLaser = posLaser;
-            bossSpawned.posSpawn = posSpawnEnemies;
-            bossSpawned.positions = positions;
+            boss.Begin();
             blockEntrance.SetActive(true);
             Destroy(gameObject);
         }
