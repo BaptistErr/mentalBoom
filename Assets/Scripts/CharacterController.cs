@@ -68,24 +68,6 @@ public class CharacterController : MonoBehaviour
         set => _dashCooldown = value;
     }
     
-[Header("Jump")]
-    [SerializeField] private bool _isJumpEnabled = true;
-    /// <summary> Is the jump globally enabled or not. </summary>
-    public bool IsJumpEnabled
-    {
-        get => _isJumpEnabled;
-        set => _isJumpEnabled = value;
-    }
-    
-    
-    [SerializeField] private float _jumpForce = 50.0F;
-    /// <summary> The force applied when jumping (in newton). </summary>
-    public float JumpForce
-    {
-        get => _jumpForce;
-        set => _jumpForce = value;
-    }
-    
 #endregion
 
 #region Directions
@@ -173,10 +155,12 @@ public class CharacterController : MonoBehaviour
 
     // dash state
     private bool _dashing;
-    private Vector3 _dashDir;
     private float _dashTime;
     private float _timeSinceDashEnd = float.PositiveInfinity;
-    
+
+    // move
+    private Vector3 _moveDirection;
+
     // attack
     //[SerializeField] private PlayerAttack _attackRecorder;
     private float _timeSinceAttack = float.PositiveInfinity;
@@ -203,6 +187,14 @@ public class CharacterController : MonoBehaviour
     
     private void Update()
     {
+        if (GameManager.Instance.IsGamePaused)
+        {
+            _moveDirection = Vector3.zero;
+            return;
+        }
+
+        _moveDirection = GetMoveDirection();
+
         if (!_dashing)
         {
             _timeSinceDashEnd += Time.deltaTime;
@@ -265,28 +257,15 @@ public class CharacterController : MonoBehaviour
         {
             if (_dashing)
             {
-                if (Move(direction: _dashDir, speed: _dashMoveSpeed, considerMovables: true))
+                if (Move(direction: _moveDirection, speed: _dashMoveSpeed, considerMovables: true))
                 { // if any object has been hit, stop dashing
                     StopDash();
                 }
             }
             else
             {
-                if (_isJumpEnabled && Input.GetButtonDown("Jump"))
-                {
-                    Jump(_jumpForce);
-                }
-
-                Move(direction: GetMoveDirection(), speed: _moveSpeed, considerMovables: false);
+                Move(direction: _moveDirection, speed: _moveSpeed, considerMovables: false);
             }
-        }
-    }
-    
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Jumpable"))
-        {
-            _characterOnFloor = true;
         }
     }
 
@@ -350,10 +329,8 @@ public class CharacterController : MonoBehaviour
     
     private void StartDash()
     {
-        Vector3 dir = GetMoveDirection();
-        if (dir != Vector3.zero)
+        if (_moveDirection != Vector3.zero)
         {
-            _dashDir = dir;
             _dashing = true;
             _dashTime = 0.0F;
             GetDamage(0);
@@ -363,15 +340,6 @@ public class CharacterController : MonoBehaviour
     {
         _dashing = false;
         _timeSinceDashEnd = 0.0F;
-    }
-
-    private void Jump(float force)
-    {
-        if (_characterOnFloor)
-        {
-            _rb.AddForce(new Vector3(0, force, 0), ForceMode.Impulse);
-            _characterOnFloor = false;
-        }
     }
 
     public enum ControlMode

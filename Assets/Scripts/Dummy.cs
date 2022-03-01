@@ -18,12 +18,11 @@ public class Dummy : MonoBehaviour, IEnemy
     [SerializeField]
     private float _damage = 10.0F;
 
-    public bool isDestroy;
+    public GameObject DoorRef;
 
     private void Start()
     {
         dummyHealth = dummyMaxHealth;
-        isDestroy = false;
     }
 
     /// <summary> Amount of damages dealt by each projectile </summary>
@@ -47,6 +46,13 @@ public class Dummy : MonoBehaviour, IEnemy
     public void Die()
     {
         Destroy(gameObject);
-        isDestroy = false;
+        if (DoorRef)
+        {
+            Destroy(DoorRef);
+        }
+        else
+        {
+            Debug.Log("Missing Ref to DoorRef (inside Dummy)");
+        }
     }
 }

@@ -1216,6 +1216,11 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &614975089 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6749732643279786612, guid: 5bf3f39682b29b54ab07950e49195516, type: 3}
+  m_PrefabInstance: {fileID: 1060894872}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &641194647
 GameObject:
   m_ObjectHideFlags: 0
@@ -1805,8 +1810,6 @@ MonoBehaviour:
   _dashMoveSpeed: 20
   _dashDuration: 0.2
   _dashCooldown: 0.5
-  _isJumpEnabled: 1
-  _jumpForce: 50
   _forwardDirection: {x: -0.70710677, y: 0, z: 0.70710677}
   AttackZone: {fileID: 1905657961}
   _attackRange: 3
@@ -1858,7 +1861,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
@@ -1901,6 +1904,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2323528325841347612, guid: 07dffdc737a157142ae9fc03d01e0d65, type: 3}
+      propertyPath: DoorRef
+      value: 
+      objectReference: {fileID: 614975089}
     - target: {fileID: 3373549238249746673, guid: 07dffdc737a157142ae9fc03d01e0d65, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -2640,6 +2647,10 @@ PrefabInstance:
     - target: {fileID: 6749732643279786618, guid: 5bf3f39682b29b54ab07950e49195516, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6749732643279786619, guid: 5bf3f39682b29b54ab07950e49195516, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5bf3f39682b29b54ab07950e49195516, type: 3}

@@ -6,16 +6,22 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance;
+
     [SerializeField] private Canvas endGameMenu;
 
     public static bool HasGameEnded;
     public bool enigmaFinished;
-
+    public bool IsGamePaused;
+    
     float timeLeftBeforeRestart = 60.0f;
 
     // Start is called before the first frame update
     void Awake()
     {
+        Instance = this;
+        
+        IsGamePaused = false;
         HasGameEnded = false;
         enigmaFinished = false;
     }
@@ -47,6 +53,8 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0f;
         HasGameEnded = true;
+        IsGamePaused = true;
+
         if (victory)
         {
             endGameMenu.GetComponentInChildren<Text>().text = "VICTORY";
@@ -60,6 +68,7 @@ public class GameManager : MonoBehaviour
     public void Replay()
     {
         Time.timeScale = 1f;
+        IsGamePaused = false;
         Cursor.visible = false;
         SceneManager.LoadScene("LevelDesign");
         HasGameEnded = false;

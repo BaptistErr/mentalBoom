@@ -22,6 +22,9 @@ public class DialogueManager : MonoBehaviour
     public void StartDialogue(Dialogues dialogue)
     {
         animator.SetBool("IsOpen", true);
+        Cursor.visible = true;
+        GameManager.Instance.IsGamePaused = true;
+
 
         nameText.text = dialogue.name;
 
@@ -62,6 +65,9 @@ public class DialogueManager : MonoBehaviour
     {
         Debug.Log("End of the conversation.");
 
+        GameManager.Instance.IsGamePaused = false;
+
         animator.SetBool("IsOpen", false);
+        Cursor.visible = false;
     }
 }

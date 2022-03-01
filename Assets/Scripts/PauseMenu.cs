@@ -5,16 +5,21 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    public static bool GameIsPaused = false;
+    public static bool GameIsPause = false;
     public GameObject pauseMenuUI;
     public GameObject TutoUI;
+
+    private void Start()
+    {
+        GameIsPause = GameManager.Instance.IsGamePaused;
+    }
 
     // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (GameIsPaused)
+            if (GameIsPause)
                 Resume();
             else
                 Pause();
@@ -24,10 +29,14 @@ public class PauseMenu : MonoBehaviour
     public void Resume()
     {
         pauseMenuUI.SetActive(false);
-        TutoUI.SetActive(false);
-        
-        Time.timeScale = 1f;
-        GameIsPaused = false;
+        if (TutoUI)
+        {
+            TutoUI.SetActive(false);
+        }
+
+        // Resume the game
+        GameIsPause = false;
+        SetGameInPause();
 
         Cursor.visible = false;
     }
@@ -35,12 +44,21 @@ public class PauseMenu : MonoBehaviour
     void Pause()
     {
         pauseMenuUI.SetActive(true);
-        TutoUI.SetActive(true);
-        
-        Time.timeScale = 0f;
-        GameIsPaused = true;
-        
+        if (TutoUI)
+        {
+            TutoUI.SetActive(true);
+        }
+
+        // Pause the game
+        GameIsPause = true;
+        SetGameInPause();
+
         Cursor.visible = true;
+    }
+
+    void SetGameInPause()
+    {
+        GameManager.Instance.IsGamePaused = GameIsPause;
     }
 
     public void LoadMenu()
