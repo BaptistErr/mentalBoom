@@ -124,7 +124,7 @@ public class BossController : MonoBehaviour, IEnemy
         if (pattern == 0 && !paused)
         {
             Movement();
-            if (health <= 100 && !phaseChanged && manager.enigmaFinished)
+            if (health < 100 && !phaseChanged && manager.enigmaFinished)
             {
                 StopCoroutine(shoot);
                 ChoosePattern();

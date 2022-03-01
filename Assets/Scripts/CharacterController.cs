@@ -405,7 +405,7 @@ public class CharacterController : MonoBehaviour
 
     public void Heal(float heal)
     {
-
+        _health = heal;
     }
 
     public void GetDamage(float damage)
