@@ -9,11 +9,12 @@ public class CallTutoDialogue : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        dialogueTrigger = GameObject.Find("TutoTrigger").GetComponent<DialogueTrigger>();
+        dialogueTrigger = GameObject.Find("TutoChat_Dummy").GetComponent<DialogueTrigger>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
         dialogueTrigger.TriggerDialogue();
+        Destroy(this);
     }
 }

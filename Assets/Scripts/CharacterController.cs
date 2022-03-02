@@ -154,7 +154,7 @@ public class CharacterController : MonoBehaviour
     private bool _characterOnFloor;
 
     // dash state
-    private bool _dashing;
+    public bool _dashing;
     private float _dashTime;
     private float _timeSinceDashEnd = float.PositiveInfinity;
 
