@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 4449983968947807613}
   - component: {fileID: -9024415820069786429}
   - component: {fileID: -860571567746163549}
-  - component: {fileID: 8995896830530249820}
+  - component: {fileID: 7220109483631425467}
   m_Layer: 0
   m_Name: PushableBox
   m_TagString: BulletProof
@@ -171,10 +171,10 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 116
   m_CollisionDetection: 0
---- !u!65 &8995896830530249820
-BoxCollider:
+--- !u!135 &7220109483631425467
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -184,5 +184,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2, y: 2, z: 2}
+  m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}

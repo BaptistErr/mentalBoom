@@ -103,7 +103,13 @@ public class CharacterController : MonoBehaviour
     }
     /// <summary> The backward direction relative to the character's controls. </summary>
     public Vector3 BackwardDirection => -ForwardDirection; // -Z
-    
+
+
+    [Space]
+    [SerializeField] private LayerMask _obstacleLayer;
+
+
+
 #endregion
 
 #region Attack
@@ -322,7 +328,8 @@ public class CharacterController : MonoBehaviour
             }
             if (doHit) translation = direction * hit.distance;
         }
-        _rb.MovePosition(_rb.position + translation);
+        _rb.velocity = direction * speed;
+        // _rb.MovePosition(_rb.position + translation);
 
         return doHit;
     }
@@ -367,7 +374,7 @@ public class CharacterController : MonoBehaviour
         return Physics.Raycast(
             ray: new Ray(origin: _rb.position, direction),
             maxDistance: Time.fixedDeltaTime * speed + _maxColliderExtent,
-            layerMask: ~(_collider.gameObject.layer | (1<<2))
+            _obstacleLayer
         );
     }
 
