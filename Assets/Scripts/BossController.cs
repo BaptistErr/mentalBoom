@@ -5,19 +5,22 @@ using UnityEngine.UI;
 
 public class BossController : MonoBehaviour, IEnemy
 {
-    private int lastLocation;
+    private bool hasBegun;
     private bool toC;
-    private Vector3 target;
+    private bool phaseChanged;
+    private int lastLocation;
     private int pausesCounter;
-    private float health;
-    private GameManager manager;
-    private Coroutine shoot;
-    private Coroutine grindHealth;
     private int pattern;
     private int lastPattern;
-    private bool phaseChanged;
     private int enemiesCounter;
+    private float health;
+    private Coroutine shoot;
+    private Coroutine grindHealth;
+    private GameManager manager;
+    private Vector3 target;
 
+    [SerializeField]
+    private int maxEnemies;
     [SerializeField]
     private float speed;
     [SerializeField]
@@ -31,17 +34,16 @@ public class BossController : MonoBehaviour, IEnemy
     [SerializeField]
     private Image healthBar;
     [SerializeField]
-    private int maxEnemies;
+    private GameObject bossUI;
 
-    //Positions where the boss will go
-    public Transform posPause;
-    public Transform posLaser;
-    public Transform posSpawn;
-    public Transform[] positions = new Transform[0];
     public bool paused;
     public bool isLasering;
     public bool isSpawning;
     public int totalEnemiesAlive;
+    public Transform posPause;
+    public Transform posLaser;
+    public Transform posSpawn;
+    public Transform[] positions = new Transform[0];
 
     public static BossController Instance { get; private set; }
 
@@ -49,7 +51,7 @@ public class BossController : MonoBehaviour, IEnemy
     void Start()
     {
         Instance = this;
-        
+
         manager = FindObjectOfType<GameManager>();
         toC = true;
         lastLocation = 0;
@@ -61,13 +63,20 @@ public class BossController : MonoBehaviour, IEnemy
         pausesCounter = 0;
         isLasering = false;
         isSpawning = false;
+        hasBegun = false;
         health = 0;
         totalEnemiesAlive = 0;
+    }
+
+    public void Begin()
+    {
+        bossUI.SetActive(true);
 
         grindHealth = StartCoroutine(GrindHealth());
 
         shoot = StartCoroutine(Shoot());
-        
+
+        hasBegun = true;
     }
 
     IEnumerator GrindHealth()
@@ -121,38 +130,41 @@ public class BossController : MonoBehaviour, IEnemy
     // Update is called once per frame
     void Update()
     {
-        if (pattern == 0 && !paused)
+        if (hasBegun)
         {
-            Movement();
-            if (health < 100 && !phaseChanged && manager.enigmaFinished)
+            if (pattern == 0 && !paused)
             {
-                StopCoroutine(shoot);
-                ChoosePattern();
-                phaseChanged = true;
-                paused = false;
+                Movement();
+                if (health < 100 && !phaseChanged && manager.enigmaFinished)
+                {
+                    StopCoroutine(shoot);
+                    ChoosePattern();
+                    phaseChanged = true;
+                    paused = false;
+                }
+                if (pausesCounter == 2 && phaseChanged && manager.enigmaFinished)
+                {
+                    pausesCounter = 0;
+                    paused = false;
+                    StopCoroutine(shoot);
+                    ChoosePattern();
+                }
             }
-            if (pausesCounter == 2 && phaseChanged && manager.enigmaFinished)
+            else if (Vector3.Distance(target, transform.position) < 1 && !isLasering && pattern == 1)
             {
                 pausesCounter = 0;
-                paused = false;
-                StopCoroutine(shoot);
-                ChoosePattern();
+                Instantiate(laser, transform.position, transform.rotation, transform);
+                isLasering = true;
             }
+            else if (Vector3.Distance(target, transform.position) < 1 && !isSpawning && pattern == 2)
+            {
+                StartCoroutine(SpawnEnemies());
+                isSpawning = true;
+            }
+            var step = speed * Time.deltaTime;
+
+            transform.position = Vector3.MoveTowards(transform.position, target, step);
         }
-        else if (Vector3.Distance(target, transform.position) < 1 && !isLasering && pattern == 1)
-        {
-            pausesCounter = 0;
-            Instantiate(laser, transform.position, transform.rotation, transform);
-            isLasering = true;
-        }
-        else if (Vector3.Distance(target, transform.position) < 1 && !isSpawning && pattern == 2)
-        {
-            StartCoroutine(SpawnEnemies());
-            isSpawning = true;
-        }
-        var step = speed * Time.deltaTime;
-        
-        transform.position = Vector3.MoveTowards(transform.position, target, step);
     }
     
     private void LateUpdate()
